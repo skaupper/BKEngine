@@ -35,11 +35,9 @@ namespace bkengine
 
             Core();
             Core(Core &&);
-            Core(const Core &);
-            Core &operator=(const Core &);
-            Core &operator=(Core &&core);
+            Core &operator=(Core &&);
+            void move(Core &);
             Core(int width, int height, const std::string &windowTitle);
-
 
         public:
             static int init();

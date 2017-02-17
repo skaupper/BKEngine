@@ -10,39 +10,35 @@ Core::Core()
 {
 }
 
-#define move(core) \
-    { \
-        windowTitle = core.windowTitle; \
-        windowHeight = core.windowHeight; \
-        windowWidth = core.windowWidth; \
-        renderer = core.renderer; \
-        window = core.window; \
-        largeFont = core.largeFont; \
-        mediumFont = core.mediumFont; \
-        smallFont = core.smallFont; \
-        isValid = core.isValid; \
-        core.renderer = NULL; \
-        core.window = NULL; \
-        core.largeFont = NULL; \
-        core.mediumFont = NULL; \
-        core.smallFont = NULL; \
-        core.isValid = false; \
-    }
-
 Core &Core::operator=(Core &&core)
 {
     move(core);
-    core.isValid = false;
     return *this;
 }
 
 Core::Core(Core &&core)
 {
     move(core);
-    core.isValid = false;
 }
 
-#undef move
+void Core::move(Core &core)
+{
+    windowTitle = core.windowTitle;
+    windowHeight = core.windowHeight;
+    windowWidth = core.windowWidth;
+    renderer = core.renderer;
+    window = core.window;
+    largeFont = core.largeFont;
+    mediumFont = core.mediumFont;
+    smallFont = core.smallFont;
+    isValid = core.isValid;
+    core.renderer = NULL;
+    core.window = NULL;
+    core.largeFont = NULL;
+    core.mediumFont = NULL;
+    core.smallFont = NULL;
+    core.isValid = false;
+}
 
 Core::Core(int width, int height, const std::string &windowTitle) :
     inited(false),
@@ -97,7 +93,6 @@ void Core::quit()
 
 int Core::init()
 {
-    //initialisiert sdl, sdl_image, sdl_ttf, sdl_mixer
     if (MANGLE_SDL(SDL_Init)(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
         return -1;
     }
@@ -142,7 +137,6 @@ int Core::setup()
     }
 
     if (!inited) {
-        //erstellt ein sdl fenster mit titel weite und h�he
         window = MANGLE_SDL(SDL_CreateWindow)(windowTitle.c_str(),
                                               SDL_WINDOWPOS_UNDEFINED,
                                               SDL_WINDOWPOS_UNDEFINED, windowWidth,
@@ -161,11 +155,10 @@ int Core::setup()
             return -7;
         }
 
-        //setzt den standard hintergrund
         MANGLE_SDL(SDL_SetRenderDrawColor)(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-        int size = 50;
 
         // TODO: make font size relative
+        int size = 50;
         if (windowHeight == 480) {
             size = 40;
         } else if (windowHeight == 600) {
@@ -209,7 +202,6 @@ Core *Core::getInstance()
 
 Core *Core::getInstance(int width, int height, const std::string &windowTitle)
 {
-    //singleton
     if (!instance) {
         return (instance = new Core(width, height, windowTitle));
     }
