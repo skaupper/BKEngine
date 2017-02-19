@@ -47,7 +47,7 @@ void Timer::unpause()
     }
 }
 
-int Timer::getTicks()
+int Timer::getTicks() const
 {
     int time = 0;
 
@@ -62,12 +62,12 @@ int Timer::getTicks()
     return time;
 }
 
-bool Timer::isStarted()
+bool Timer::isStarted() const
 {
     return started;
 }
 
-bool Timer::isPaused()
+bool Timer::isPaused() const
 {
     return paused && started;
 }

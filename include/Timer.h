@@ -19,9 +19,9 @@ namespace bkengine
             void stop();
             void pause();
             void unpause();
-            int getTicks();
-            bool isStarted();
-            bool isPaused();
+            int getTicks() const;
+            bool isStarted() const;
+            bool isPaused() const;
     };
 }
 

@@ -9,7 +9,9 @@
 #include <SDL_ttf.h>
 
 #include "Core.h"
+#include "Fonts.h"
 #include "Misc.h"
+#include "Logger.h"
 
 
 namespace bkengine
@@ -17,28 +19,27 @@ namespace bkengine
     class Texture
     {
         public:
+            static std::shared_ptr<TextureWrapper> getCached(const std::string &s);
+            static std::shared_ptr<TextureWrapper> getCached(const std::string &s, const Rect &size, const Color &c);
+
+            static bool hasTextureCached(const std::string &s);
+            static bool hasTextureCached(const std::string &s, const Rect &size, const Color &c);
+
             Texture();
             virtual ~Texture();
 
-            std::shared_ptr<TextureWrapper> getCached(const std::string &s);
-            std::shared_ptr<TextureWrapper> getCached(const std::string &s, const Color &c,
-                    short size);
-
-            bool hasTextureCached(const std::string &s);
-            bool hasTextureCached(const std::string &s, const Color &c, short size);
-
-            int loadText(const std::string &text, const Color &color, short size = 0);
+            int loadText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size = {0, 0, 0, 0});
 
             int loadImage(const std::string &path);
             int loadImage(const std::string &path, const Rect &clip);
             int loadImage(const std::string &path, const Rect &clip,
                           const Rect &size);
 
-            Rect getSize();
+            Rect getSize() const;
             void setSize(int w, int h);
             void setSize(const Rect &rect);
 
-            int onRender(const Location &loc, bool flip = false);
+            virtual int onRender(const Location &loc, bool flip = false);
 
         protected:
             bool flip;
@@ -47,7 +48,7 @@ namespace bkengine
             Rect size;
 
             static std::map<std::string, std::shared_ptr<TextureWrapper>> imageCache;
-            static std::map<std::string, std::map<Color, std::map<short, std::shared_ptr<TextureWrapper>>>>
+            static std::map<std::string, std::map<Rect, std::map<Color, std::shared_ptr<TextureWrapper>>>>
             textCache;
     };
 }

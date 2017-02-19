@@ -1,0 +1,4 @@
+- add non-template implementations for add- get- and other methods
+- calculate font size dynamically!!
+- add more methods for font/text loading to be more flexible
+- write doxygen documentation

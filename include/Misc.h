@@ -13,16 +13,19 @@ namespace bkengine
         float x;
         float y;
 
-        SDL_Point toSDLPoint();
+        SDL_Point toSDLPoint() const;
     };
 
+    // TODO: add an (float, float) constructor for w and h
     struct Rect {
         float x;
         float y;
         float w;
         float h;
 
-        SDL_Rect toSDLRect();
+        SDL_Rect toSDLRect() const;
+        bool operator==(const Rect &c) const;
+        bool operator<(const Rect &c) const;
     };
 
     struct Color {
@@ -41,7 +44,7 @@ namespace bkengine
             explicit TextureWrapper(SDL_Texture *tex);
             virtual ~TextureWrapper();
 
-            SDL_Texture *get();
+            SDL_Texture *get() const;
             void set(SDL_Texture *tex);
             void free();
 

@@ -27,8 +27,6 @@ TEST_F(CoreTest, initSetupQuitAndGetter)
     ON_CALL(*mock, SDL_DestroyRenderer(_)).WillByDefault(Return());
     ON_CALL(*mock, SDL_SetRenderDrawColor(_, _, _, _, _)).WillByDefault(Return(0));
     ON_CALL(*mock, IMG_Load(_)).WillByDefault(Return(surface));
-    ON_CALL(*mock, TTF_OpenFont(_, _)).WillByDefault(Return(font));
-    ON_CALL(*mock, TTF_CloseFont(_)).WillByDefault(Return());
     EXPECT_CALL(*mock, SDL_Init(_));
     EXPECT_CALL(*mock, IMG_Init(_));
     EXPECT_CALL(*mock, TTF_Init());
@@ -46,8 +44,6 @@ TEST_F(CoreTest, initSetupQuitAndGetter)
     EXPECT_CALL(*mock, SDL_DestroyRenderer(renderer));
     EXPECT_CALL(*mock, SDL_SetRenderDrawColor(_, _, _, _, _));
     EXPECT_CALL(*mock, IMG_Load(_));
-    EXPECT_CALL(*mock, TTF_OpenFont(_, _)).Times(3);
-    EXPECT_CALL(*mock, TTF_CloseFont(font)).Times(3);
     ASSERT_EQ(Core::init(), 0);
     Core *core = Core::getInstance(width, height, title);
     ASSERT_NE(core, (Core *) 0x0);
@@ -55,8 +51,5 @@ TEST_F(CoreTest, initSetupQuitAndGetter)
     ASSERT_EQ(core->getRenderer(), renderer);
     ASSERT_EQ(core->getWindowWidth(), width);
     ASSERT_EQ(core->getWindowHeight(), height);
-    ASSERT_EQ(core->getFont(FontSize::SMALL), font);
-    ASSERT_EQ(core->getFont(FontSize::MEDIUM), font);
-    ASSERT_EQ(core->getFont(FontSize::LARGE), font);
     Core::quit();
 }

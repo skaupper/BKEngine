@@ -11,12 +11,12 @@ namespace bkengine
     class Entity : public Element
     {
         public:
-            Entity(const std::string &descr = "", const Location &loc = {0, 0}, bool isCollidable = false);
+            explicit Entity(const std::string &descr = "", const Location &loc = {0, 0}, bool isCollidable = false);
             virtual ~Entity();
 
             void move(float x, float y);
             void moveTo(float x, float y);
-            virtual bool collidesWith(const Element &other);
+            virtual bool collidesWith(const Element &other) const;
     };
 }
 

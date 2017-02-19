@@ -25,7 +25,7 @@ void Entity::moveTo(float x, float y)
     Entity::location->y = y;
 }
 
-bool Entity::collidesWith(const Element &other)
+bool Entity::collidesWith(const Element &other) const
 {
     float x = location->x;
     float y = location->y;

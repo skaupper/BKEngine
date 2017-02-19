@@ -4,14 +4,12 @@ using namespace bkengine;
 
 
 //FPS = 60
-const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
+static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 
-Game::Game(int width, int height, const std::string &title)
+Game::Game(int width, int height, const std::string &title) : activeScene(-1), running(false)
 {
     Core::getInstance(width, height, title);
-    running = false;
-    activeScene = -1;
 }
 
 Game::~Game()
@@ -48,7 +46,7 @@ void Game::setActiveScene(unsigned int index)
     }
 }
 
-bool Game::hasScene(const std::string &name)
+bool Game::hasScene(const std::string &name) const
 {
     for (auto &scene : scenes) {
         if (scene->getName() == name) {
@@ -59,7 +57,7 @@ bool Game::hasScene(const std::string &name)
     return false;
 }
 
-bool Game::hasScene(unsigned int index)
+bool Game::hasScene(unsigned int index) const
 {
     return index < scenes.size();
 }
@@ -135,6 +133,11 @@ int Game::run()
     return 0;
 }
 
+void Game::stop()
+{
+    running = false;
+}
+
 
 void Game::onLoop()
 {
@@ -163,9 +166,4 @@ void Game::onRender()
         getCurrentScene<Scene>().onRender();
         MANGLE_SDL(SDL_RenderPresent)(Core::getInstance()->getRenderer());
     }
-}
-
-void Game::stop()
-{
-    running = false;
 }

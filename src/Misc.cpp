@@ -3,14 +3,24 @@
 using namespace bkengine;
 
 
-SDL_Point Location::toSDLPoint()
+SDL_Point Location::toSDLPoint() const
 {
     return SDL_Point { (int) x, (int) y };
 }
 
-SDL_Rect Rect::toSDLRect()
+SDL_Rect Rect::toSDLRect() const
 {
     return SDL_Rect { (int) x, (int) y, (int) w, (int) h };
+}
+
+bool Rect::operator==(const Rect &r) const
+{
+    return x == r.x && y == r.y && w == r.w && h == r.h;
+}
+
+bool Rect::operator<(const Rect &r) const
+{
+    return (x + y + w + h) < (r.x + r.y + r.w + r.h);
 }
 
 bool Color::operator==(const Color &c) const
@@ -33,7 +43,7 @@ TextureWrapper::~TextureWrapper()
     free();
 }
 
-SDL_Texture *TextureWrapper::get()
+SDL_Texture *TextureWrapper::get() const
 {
     return texture;
 }

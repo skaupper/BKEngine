@@ -13,20 +13,19 @@ namespace bkengine
     class Animation
     {
         public:
-            Animation(const std::string &descr = "", unsigned int frameDelta = 1);
+            explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
             virtual ~Animation();
 
             void addImage(const std::string &path);
-            void addImage(const std::string &path, Rect rect);
-            void addText(const std::string &text, const Color &color, short size);
+            void addImage(const std::string &path, const Rect &rect);
+            void addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size);
 
             template <typename T> void addImage(const std::string &path);
-            template <typename T> void addImage(const std::string &path, Rect rect);
-            template <typename T> void addText(const std::string &text, const Color &color,
-                                               short size);
+            template <typename T> void addImage(const std::string &path, const Rect &rect);
+            template <typename T> void addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size);
             template <typename T> void addTexture(const T &texture);
 
-            bool hasTexture(unsigned int index);
+            bool hasTexture(unsigned int index) const;
 
             Texture &getNextTexture();
             Texture &getCurrentTexture();
@@ -36,7 +35,7 @@ namespace bkengine
 
             void reset();
 
-            std::string getDescription();
+            std::string getDescription() const;
 
         protected:
             unsigned int frameCounter;

@@ -23,9 +23,6 @@ namespace bkengine
             bool inited;
 
             SDL_Window *window;
-            TTF_Font *largeFont = NULL;
-            TTF_Font *mediumFont = NULL;
-            TTF_Font *smallFont = NULL;
 
             bool isValid;
             int windowHeight;
@@ -49,13 +46,11 @@ namespace bkengine
 
             int setup();
 
-            SDL_Renderer *getRenderer();
+            SDL_Renderer *getRenderer() const;
 
-            int getWindowHeight();
-            int getWindowWidth();
-            std::string getWindowTitle();
-
-            TTF_Font *getFont(FontSize size);
+            int getWindowHeight() const;
+            int getWindowWidth() const;
+            std::string getWindowTitle() const;
     };
 }
 

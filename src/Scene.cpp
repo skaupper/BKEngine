@@ -26,12 +26,12 @@ Scene::~Scene()
     elements.clear();
 }
 
-bool Scene::hasElement(unsigned int index)
+bool Scene::hasElement(unsigned int index) const
 {
     return index < elements.size();
 }
 
-bool Scene::hasElement(const std::string &name)
+bool Scene::hasElement(const std::string &name) const
 {
     for (auto &element : elements) {
         if (element->getDescription() == name) {

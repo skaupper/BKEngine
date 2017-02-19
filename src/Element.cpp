@@ -14,9 +14,9 @@ Element::Element(const std::string &description, const Location &loc,
 {
 }
 
-Location Element::getLocation()
+Element::~Element()
 {
-    return Element::location;
+    animations.clear();
 }
 
 void Element::setAnimation(unsigned int index)
@@ -28,33 +28,22 @@ void Element::setAnimation(unsigned int index)
     }
 }
 
-void Element::onRender()
+void Element::addAnimation(const Animation &animation)
 {
-    if (hasAnimation(currentAnimation)) {
-        frame++;
-        Animation &animation = getCurrentAnimation<Animation>();
-
-        if (animation.hasTexture(0)) {
-            animation.getNextTexture().onRender(location, flipped);
-        }
-    }
+    addAnimation<Animation>(animation);
 }
 
-void Element::onLoop()
+Animation &Element::getCurrentAnimation()
 {
+    return getCurrentAnimation<Animation>();
 }
 
-int Element::onEvent(SDL_Event *e)
-{
-    return 0;
-}
-
-bool Element::hasAnimation(unsigned int index)
+bool Element::hasAnimation(unsigned int index) const
 {
     return index < animations.size();
 }
 
-bool Element::hasAnimation(const std::string &name)
+bool Element::hasAnimation(const std::string &name) const
 {
     for (auto &animation : animations) {
         if (animation->getDescription() == name) {
@@ -95,12 +84,33 @@ void Element::removeAnimation(unsigned int index)
     }
 }
 
-Element::~Element()
+void Element::onRender()
 {
-    animations.clear();
+    if (hasAnimation(currentAnimation)) {
+        frame++;
+        Animation &animation = getCurrentAnimation<Animation>();
+
+        if (animation.hasTexture(0)) {
+            animation.getNextTexture().onRender(location, flipped);
+        }
+    }
 }
 
-std::string Element::getDescription()
+void Element::onLoop()
+{
+}
+
+int Element::onEvent(SDL_Event *e)
+{
+    return 0;
+}
+
+Location Element::getLocation() const
+{
+    return Element::location;
+}
+
+std::string Element::getDescription() const
 {
     return description;
 }

@@ -16,17 +16,16 @@ template <typename T> void Animation::addImage(const std::string &path)
 }
 
 template <typename T> void Animation::addImage(const std::string &path,
-        Rect size)
+        const Rect &size)
 {
     addImage<T>(path);
     textures.back().setSize(size);
 }
 
-template <typename T> void Animation::addText(const std::string &text,
-        const Color &color, short size)
+template <typename T> void Animation::addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size)
 {
     T t;
-    int status = t.loadText(text, color, size);
+    int status = t.loadText(fontName, text, color, size);
 
     if (status != 0) {
         Logger::LogError("Animation::addText(const std::string &, SDL_Color, short): Failed to load text ("

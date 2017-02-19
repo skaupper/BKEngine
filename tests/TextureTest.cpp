@@ -36,8 +36,6 @@ TEST_F(TextureTest, countConstructorAndDestructorCalls)
     ON_CALL(*mock, SDL_DestroyTexture(texture)).WillByDefault(Return());
     ON_CALL(*mock, SDL_SetRenderDrawColor(_, _, _, _, _)).WillByDefault(Return(0));
     ON_CALL(*mock, IMG_Load(_)).WillByDefault(Return(surface));
-    ON_CALL(*mock, TTF_OpenFont(_, _)).WillByDefault(Return(font));
-    ON_CALL(*mock, TTF_CloseFont(_)).WillByDefault(Return());
     ON_CALL(*mock, SDL_CreateTextureFromSurface(_,
             _)).WillByDefault(Return(texture));
     ON_CALL(*mock, TTF_RenderText_Solid(_, _, _)).WillByDefault(Return(surface));
@@ -46,7 +44,7 @@ TEST_F(TextureTest, countConstructorAndDestructorCalls)
     Scene &scene = g.addScene<Scene>("scene1");
     Element &element = scene.addElement<Element>("element1", Location{0, 0});
     Animation &animation = element.addAnimation<Animation>("animation1");
-    animation.addText<TextureMock>("animation test text", {0xff, 0, 0, 0xff}, 10);
+    animation.addText<TextureMock>("testFont.ttf", "animation test text", {0xff, 0, 0, 0xff}, {0, 0, 0, 0});
     std::cout << TextureMock::initCount << std::endl;
     //animation.textures[0].texture->free();
     ASSERT_EQ(TextureMock::initCount, TextureMock::destructCount);

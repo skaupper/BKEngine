@@ -21,8 +21,8 @@ namespace bkengine
             Scene &operator=(Scene &&scene);
             virtual ~Scene();
 
-            bool hasElement(const std::string &name);
-            bool hasElement(unsigned int index);
+            bool hasElement(const std::string &name) const;
+            bool hasElement(unsigned int index) const;
 
             void removeElement(const std::string &name);
             void removeElement(unsigned int index);

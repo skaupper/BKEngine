@@ -16,17 +16,17 @@ namespace bkengine
     class Element
     {
         public:
-            Element(const std::string &description = "", const Location &loc = {0, 0},
-                    bool isCollidable = false);
+            explicit Element(const std::string &description = "", const Location &loc = {0, 0},
+                             bool isCollidable = false);
             virtual ~Element();
 
             void setAnimation(unsigned int index);
-            void addAnimation(Animation &animation);
+            void addAnimation(const Animation &animation);
             Animation &getCurrentAnimation();
 
 
-            bool hasAnimation(const std::string &name);
-            bool hasAnimation(unsigned int index);
+            bool hasAnimation(const std::string &name) const;
+            bool hasAnimation(unsigned int index) const;
 
             void removeAnimation(const std::string &name);
             void removeAnimation(unsigned int index);
@@ -45,8 +45,8 @@ namespace bkengine
             virtual void onLoop();
             virtual int onEvent(SDL_Event *e);
 
-            Location getLocation();
-            std::string getDescription();
+            Location getLocation() const;
+            std::string getDescription() const;
 
         protected:
             std::string description;

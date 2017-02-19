@@ -28,24 +28,15 @@ void Core::move(Core &core)
     windowWidth = core.windowWidth;
     renderer = core.renderer;
     window = core.window;
-    largeFont = core.largeFont;
-    mediumFont = core.mediumFont;
-    smallFont = core.smallFont;
     isValid = core.isValid;
     core.renderer = NULL;
     core.window = NULL;
-    core.largeFont = NULL;
-    core.mediumFont = NULL;
-    core.smallFont = NULL;
     core.isValid = false;
 }
 
 Core::Core(int width, int height, const std::string &windowTitle) :
     inited(false),
     window(NULL),
-    largeFont(NULL),
-    mediumFont(NULL),
-    smallFont(NULL),
     windowHeight(height),
     windowWidth(width),
     windowTitle(windowTitle),
@@ -63,21 +54,6 @@ Core::~Core()
     if (window != NULL) {
         MANGLE_SDL(SDL_DestroyWindow)(window);
         window = NULL;
-    }
-
-    if (largeFont != NULL) {
-        MANGLE_SDL(TTF_CloseFont)(largeFont);
-        largeFont = NULL;
-    }
-
-    if (mediumFont != NULL) {
-        MANGLE_SDL(TTF_CloseFont)(mediumFont);
-        mediumFont = NULL;
-    }
-
-    if (smallFont != NULL) {
-        MANGLE_SDL(TTF_CloseFont)(smallFont);
-        smallFont = NULL;
     }
 }
 
@@ -157,26 +133,6 @@ int Core::setup()
 
         MANGLE_SDL(SDL_SetRenderDrawColor)(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
-        // TODO: make font size relative
-        int size = 50;
-        if (windowHeight == 480) {
-            size = 40;
-        } else if (windowHeight == 600) {
-            size = 48;
-        } else if (windowHeight == 768) {
-            size = 58;
-        }
-
-        largeFont = MANGLE_SDL(TTF_OpenFont)("FUTURAB.ttf", size);
-        mediumFont = MANGLE_SDL(TTF_OpenFont)("FUTURAB.ttf", size / 2);
-        smallFont = MANGLE_SDL(TTF_OpenFont)("FUTURAB.ttf", size / 4);
-
-        if (largeFont == NULL || mediumFont == NULL || smallFont == NULL) {
-            Logger::LogError("Core::setup: Failed to load font (" + std::string(MANGLE_SDL(
-                                 SDL_GetError)()) + ")");
-            return -8;
-        }
-
         inited = true;
     }
 
@@ -212,38 +168,22 @@ Core *Core::getInstance(int width, int height, const std::string &windowTitle)
 
 
 
-SDL_Renderer *Core::getRenderer()
+SDL_Renderer *Core::getRenderer() const
 {
     return renderer;
 }
 
-int Core::getWindowHeight()
+int Core::getWindowHeight() const
 {
     return windowHeight;
 }
 
-int Core::getWindowWidth()
+int Core::getWindowWidth() const
 {
     return windowWidth;
 }
 
-std::string Core::getWindowTitle()
+std::string Core::getWindowTitle() const
 {
     return windowTitle;
-}
-
-TTF_Font *Core::getFont(FontSize size)
-{
-    switch (size) {
-        case FontSize::SMALL:
-            return smallFont;
-
-        case FontSize::MEDIUM:
-            return mediumFont;
-
-        case FontSize::LARGE:
-            return largeFont;
-    }
-
-    return NULL;
 }
