@@ -8,7 +8,7 @@
 int TextureMock::initCount = 0;
 int TextureMock::destructCount = 0;
 
-TEST_F(TextureTest, countConstructorAndDestructorCalls)
+TEST_F(TextureTest, DISABLED_countConstructorAndDestructorCalls)
 {
     int width = 1920, height = 1080;
     const char *title = "TextureTestWindow";
