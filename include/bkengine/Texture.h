@@ -28,12 +28,9 @@ namespace bkengine
             Texture();
             virtual ~Texture();
 
-            int loadText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size = {0, 0, 0, 0});
-
-            int loadImage(const std::string &path);
-            int loadImage(const std::string &path, const Rect &clip);
-            int loadImage(const std::string &path, const Rect &clip,
-                          const Rect &size);
+            int loadText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size = {0, 0, 0, 0}, TextQuality quality = TextQuality::SOLID);
+            int loadImage(const std::string &path, const Rect &clip = Rect(),
+                          const Rect &size = Rect());
 
             Rect getSize() const;
             void setSize(int w, int h);
@@ -47,6 +44,8 @@ namespace bkengine
             Rect clip;
             Rect size;
 
+            static bool cleanupRegistered;
+            static void cleanup();
             static std::map<std::string, std::shared_ptr<TextureWrapper>> imageCache;
             static std::map<std::string, std::map<Rect, std::map<Color, std::shared_ptr<TextureWrapper>>>>
             textCache;

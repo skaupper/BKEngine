@@ -31,7 +31,7 @@ template <typename T> T &Scene::getElement(const std::string &name)
     throw "Element not found";
 }
 
-template <typename T, typename... Params> T &Scene::getElement(
+template <typename T> T &Scene::getElement(
     unsigned int index)
 {
     if (index < elements.size()) {

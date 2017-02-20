@@ -22,10 +22,10 @@ template <typename T> void Animation::addImage(const std::string &path,
     textures.back().setSize(size);
 }
 
-template <typename T> void Animation::addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size)
+template <typename T> void Animation::addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size, TextQuality quality)
 {
     T t;
-    int status = t.loadText(fontName, text, color, size);
+    int status = t.loadText(fontName, text, color, size, quality);
 
     if (status != 0) {
         Logger::LogError("Animation::addText(const std::string &, SDL_Color, short): Failed to load text ("

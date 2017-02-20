@@ -38,7 +38,7 @@ template <typename T> T &Element::getAnimation(const std::string &name)
     throw "Animation not found";
 }
 
-template <typename T, typename... Params> T &Element::getAnimation(
+template <typename T> T &Element::getAnimation(
     unsigned int index)
 {
     if (index < animations.size()) {

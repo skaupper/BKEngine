@@ -5,6 +5,7 @@ using namespace bkengine;
 
 Core *Core::instance = NULL;
 bool Core::depsInited = false;
+std::vector<std::function<void()>> Core::cleanupFunctions;
 
 Core::Core()
 {
@@ -42,6 +43,7 @@ Core::Core(int width, int height, const std::string &windowTitle) :
     windowTitle(windowTitle),
     renderer(NULL)
 {
+    std::atexit(Core::quit);
 }
 
 Core::~Core()
@@ -57,8 +59,22 @@ Core::~Core()
     }
 }
 
+void Core::registerCleanup(std::function<void()> cleanupFunction)
+{
+    cleanupFunctions.push_back(cleanupFunction);
+}
+
 void Core::quit()
 {
+    if (!instance) {
+        return;
+    }
+
+    for (auto &cleanup : cleanupFunctions) {
+        cleanup();
+    }
+
+    Logger::LogDebug("Core::quit()");
     delete instance;
     instance = NULL;
     MANGLE_SDL(IMG_Quit)();
@@ -132,7 +148,6 @@ int Core::setup()
         }
 
         MANGLE_SDL(SDL_SetRenderDrawColor)(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-
         inited = true;
     }
 

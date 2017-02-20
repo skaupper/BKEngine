@@ -21,9 +21,6 @@ namespace bkengine
             virtual ~Element();
 
             void setAnimation(unsigned int index);
-            void addAnimation(const Animation &animation);
-            Animation &getCurrentAnimation();
-
 
             bool hasAnimation(const std::string &name) const;
             bool hasAnimation(unsigned int index) const;
@@ -31,14 +28,17 @@ namespace bkengine
             void removeAnimation(const std::string &name);
             void removeAnimation(unsigned int index);
 
+            Animation &addAnimation(const std::string &descr = "",
+                                    unsigned int frameDelta = 1);
+            Animation &getAnimation(const std::string &name);
+            Animation &getAnimation(unsigned int index);
+            Animation &getCurrentAnimation();
 
             template <typename T> T &addAnimation(const T &);
             template <typename T> T &addAnimation(const std::shared_ptr<T> &);
             template <typename T, typename... Params> T &addAnimation(Params...);
-
             template <typename T> T &getAnimation(const std::string &name);
-            template <typename T, typename... Params> T &getAnimation(unsigned int index);
-
+            template <typename T> T &getAnimation(unsigned int index);
             template <typename T> T &getCurrentAnimation();
 
             virtual void onRender();

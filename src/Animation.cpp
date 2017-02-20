@@ -64,9 +64,10 @@ void Animation::addImage(const std::string &path, const Rect &size)
     addImage<Texture>(path, size);
 }
 
-void Animation::addText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size)
+void Animation::addText(const std::string &fontName, const std::string &text,
+                        const Color &color, const Rect &size, TextQuality quality)
 {
-    addText<Texture>(fontName, text, color, size);
+    addText<Texture>(fontName, text, color, size, quality);
 }
 
 void Animation::setFramesPerTexture(unsigned int frames)

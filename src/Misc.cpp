@@ -3,9 +3,22 @@
 using namespace bkengine;
 
 
+
+std::string Location::toString() const
+{
+    return "< Location {x: " + std::to_string(x) + ", y: " + std::to_string(x)
+           + "} >";
+}
+
 SDL_Point Location::toSDLPoint() const
 {
     return SDL_Point { (int) x, (int) y };
+}
+
+std::string Rect::toString() const
+{
+    return "< Rect {x: " + std::to_string(x) + ", y: " + std::to_string(x)
+           + ", w: " + std::to_string(w) + ", h: " + std::to_string(h) + "} >";
 }
 
 SDL_Rect Rect::toSDLRect() const
@@ -21,6 +34,12 @@ bool Rect::operator==(const Rect &r) const
 bool Rect::operator<(const Rect &r) const
 {
     return (x + y + w + h) < (r.x + r.y + r.w + r.h);
+}
+
+std::string Color::toString() const
+{
+    return "< Color {r: " + std::to_string(r) + ", g: " + std::to_string(g)
+           + ", b: " + std::to_string(b) + ", a: " + std::to_string(a) + "} >";
 }
 
 bool Color::operator==(const Color &c) const
@@ -50,8 +69,8 @@ SDL_Texture *TextureWrapper::get() const
 
 void TextureWrapper::set(SDL_Texture *tex)
 {
-    Logger::LogDebug("TextureWrapper::set(SDL_Texture *=0x" + std::to_string((
-                         unsigned long long int) tex) + ")");
+    Logger::LogDebug("TextureWrapper::set(SDL_Texture *=" + std::to_string(
+                         (unsigned long long int) tex) + ")");
     free();
     texture = tex;
 }
@@ -59,8 +78,8 @@ void TextureWrapper::set(SDL_Texture *tex)
 void TextureWrapper::free()
 {
     if (texture) {
-        Logger::LogDebug("TextureWrapper::free(): texture=0x" + std::to_string((
-                             unsigned long long int) texture));
+        Logger::LogDebug("TextureWrapper::free(): texture=" + std::to_string(
+                             (unsigned long long int) texture));
         MANGLE_SDL(SDL_DestroyTexture)(texture);
         texture = NULL;
     }

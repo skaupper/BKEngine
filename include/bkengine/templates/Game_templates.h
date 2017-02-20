@@ -36,7 +36,7 @@ template <typename T> T &Game::getScene(const std::string &name)
     throw "Scene not found";
 }
 
-template <typename T, typename... Params> T &Game::getScene(unsigned int index)
+template <typename T> T &Game::getScene(unsigned int index)
 {
     if (index < scenes.size()) {
         return *((T *) scenes[index].get());

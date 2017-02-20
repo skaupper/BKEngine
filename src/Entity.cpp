@@ -3,7 +3,8 @@
 using namespace bkengine;
 
 
-Entity::Entity(const Location &loc, const std::string &descr, bool isCollidable) :
+Entity::Entity(const Location &loc, const std::string &descr,
+               bool isCollidable) :
     Element(loc, descr, isCollidable)
 {
 }
@@ -37,9 +38,9 @@ bool Entity::collidesWith(const Element &other) const
     float otherw = other->collisionRect->w;
 
     if (x < otherx + otherw &&
-        x + w > otherx &&
-        y < othery + otherh &&
-        h + y > othery) {
+            x + w > otherx &&
+            y < othery + otherh &&
+            h + y > othery) {
         return true;
     }
 

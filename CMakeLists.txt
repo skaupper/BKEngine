@@ -42,7 +42,7 @@ ENDIF()
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})
-TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/ ${SDL2_INCLUDE_DIR}
+TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine ${SDL2_INCLUDE_DIR}
                      ${SDL2_IMAGE_INCLUDE_DIR}
                      ${SDL2_TTF_INCLUDE_DIR}
                      ${SDL2_MIXER_INCLUDE_DIRS})
@@ -70,3 +70,9 @@ IF(${ENABLE_TESTS})
     ENDIF ()
     ADD_TEST (NAME Tests COMMAND bkengine_tests)
 ENDIF()
+
+
+INSTALL (TARGETS bkengine
+         ARCHIVE DESTINATION lib)
+INSTALL (DIRECTORY include/
+         DESTINATION include)

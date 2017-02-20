@@ -27,13 +27,16 @@ namespace bkengine
             void removeElement(const std::string &name);
             void removeElement(unsigned int index);
 
+            Element &addElement(const std::string &description = "", const Location &loc = {0, 0},
+                                bool isCollidable = false);
+            Element &getElement(const std::string &name);
+            Element &getElement(unsigned int index);
 
             template <typename T> T &addElement(const T &);
             template <typename T> T &addElement(const std::shared_ptr<T> &);
             template <typename T, typename... Params> T &addElement(Params...);
-
             template <typename T> T &getElement(const std::string &name);
-            template <typename T, typename... Params> T &getElement(unsigned int index);
+            template <typename T> T &getElement(unsigned int index);
 
             virtual void onLoop();
             virtual void onRender();

@@ -58,7 +58,11 @@ namespace bkengine_test
 
             virtual int TTF_Init();
             virtual TTF_Font *TTF_OpenFont(const char *, int);
-            virtual SDL_Surface *TTF_RenderText_Solid(TTF_Font *, const char *, SDL_Color);
+            virtual SDL_Surface *TTF_RenderUTF8_Solid(TTF_Font *, const char *, SDL_Color);
+            virtual SDL_Surface *TTF_RenderUTF8_Shaded(TTF_Font *, const char *, SDL_Color,
+                    SDL_Color);
+            virtual SDL_Surface *TTF_RenderUTF8_Blended(TTF_Font *, const char *,
+                    SDL_Color);
             virtual void TTF_CloseFont(TTF_Font *);
             virtual void TTF_Quit();
 

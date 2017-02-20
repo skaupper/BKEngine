@@ -7,7 +7,8 @@ using namespace bkengine;
 static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 
-Game::Game(int width, int height, const std::string &title) : activeScene(-1), running(false)
+Game::Game(int width, int height, const std::string &title) : activeScene(-1),
+    running(false)
 {
     Core::getInstance(width, height, title);
 }
@@ -89,6 +90,26 @@ void Game::removeScene(unsigned int index)
                                 index) + "): Scene not found");
         throw "Scene not found";
     }
+}
+
+Scene &Game::addScene(const std::string &name)
+{
+    return addScene<Scene>(name);
+}
+
+Scene &Game::getScene(const std::string &name)
+{
+    return getScene<Scene>(name);
+}
+
+Scene &Game::getScene(unsigned int index)
+{
+    return getScene<Scene>(index);
+}
+
+Scene &Game::getCurrentScene()
+{
+    return getCurrentScene<Scene>();
 }
 
 int Game::run()

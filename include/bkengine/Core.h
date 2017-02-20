@@ -2,6 +2,8 @@
 #define CORE_H_INCLUDED
 
 #include <string>
+#include <vector>
+#include <functional>
 
 #include "Logger.h"
 #include "SDLWrapper.h"
@@ -20,6 +22,8 @@ namespace bkengine
         private:
             static Core *instance;
             static bool depsInited;
+            static std::vector<std::function<void()>> cleanupFunctions;
+
             bool inited;
 
             SDL_Window *window;
@@ -29,6 +33,7 @@ namespace bkengine
             int windowWidth;
             std::string windowTitle;
             SDL_Renderer *renderer;
+
 
             Core();
             Core(Core &&);
@@ -40,6 +45,7 @@ namespace bkengine
             static int init();
             static Core *getInstance();
             static Core *getInstance(int width, int height, const std::string &windowTitle);
+            static void registerCleanup(std::function<void()>);
             static void quit();
 
             virtual ~Core();

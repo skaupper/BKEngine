@@ -4,10 +4,22 @@
 
 using namespace bkengine;
 
-
+bool Texture::cleanupRegistered = false;
 std::map<std::string, std::shared_ptr<TextureWrapper>> Texture::imageCache;
 std::map<std::string, std::map<Rect, std::map<Color, std::shared_ptr<TextureWrapper>>>>
 Texture::textCache;
+
+static void recalculateRect(Rect &rect, int w, int h)
+{
+    if (rect.w == 0 && rect.h == 0) {
+        rect.w = w;
+        rect.h = h;
+    } else if (rect.h == 0) {
+        rect.h = (rect.w / w) * h;
+    } else if (rect.w == 0) {
+        rect.w = (rect.h / h) * w;
+    }
+}
 
 std::shared_ptr<TextureWrapper> Texture::getCached(const std::string &s)
 {
@@ -29,7 +41,8 @@ bool Texture::hasTextureCached(const std::string &s)
     return true;
 }
 
-bool Texture::hasTextureCached(const std::string &s, const Rect &size, const Color &c)
+bool Texture::hasTextureCached(const std::string &s, const Rect &size,
+                               const Color &c)
 {
     if (textCache.find(s) == textCache.end()) {
         return false;
@@ -48,31 +61,55 @@ bool Texture::hasTextureCached(const std::string &s, const Rect &size, const Col
 
 Texture::Texture() : flip(false), texture(NULL), clip(), size()
 {
+    if (!cleanupRegistered) {
+        Core::registerCleanup(cleanup);
+        cleanupRegistered = true;
+    }
 }
 
 Texture::~Texture()
 {
 }
 
-int Texture::loadText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size)
+int Texture::loadText(const std::string &fontName, const std::string &text,
+                      const Color &color, const Rect &size, TextQuality quality)
 {
+    static float fontQualityCoefficient = 1.5;
+
     if (hasTextureCached(text, size, color)) {
         texture = getCached(text, size, color);
-        Texture::clip = Texture::size = size;
+        int w, h;
+        MANGLE_SDL(SDL_QueryTexture)(texture->get(), NULL, NULL, &w, &h);
+        Texture::clip = { (float) w, (float) h};
+        Texture::size = size;
+        recalculateRect(Texture::size, w, h);
         return 0;
     }
 
-    TTF_Font *font = Fonts::getFont(fontName, size.h);
+    TTF_Font *font = Fonts::getFont(fontName, size.h * fontQualityCoefficient);
+
     if (!font) {
-        font = Fonts::registerFont(fontName, size.h);
+        font = Fonts::registerFont(fontName, size.h * fontQualityCoefficient);
+
         if (!font) {
-            // TODO: add log message
-            Logger::LogError("");
+            Logger::LogError("Texture::loadText(const std::string &=" + fontName +
+                             ", const std::string &=" + text + ", const Color &=" + color.toString() +
+                             ", const Rect &=" + size.toString() + ")");
             return -3;
         }
     }
 
-    SDL_Surface *textSurface = MANGLE_SDL(TTF_RenderText_Solid)(font, text.c_str(), { color.r, color.g, color.b, color.a });
+    SDL_Surface *textSurface = NULL;
+
+    switch (quality) {
+        case TextQuality::SOLID:
+            textSurface = MANGLE_SDL(TTF_RenderUTF8_Solid)(font, text.c_str(), { color.r, color.g, color.b, color.a });
+            break;
+
+        case TextQuality::BLENDED:
+            textSurface = MANGLE_SDL(TTF_RenderUTF8_Blended)(font, text.c_str(), { color.r, color.g, color.b, color.a });
+            break;
+    }
 
     if (textSurface == NULL) {
         return -1;
@@ -87,21 +124,29 @@ int Texture::loadText(const std::string &fontName, const std::string &text, cons
     }
 
     MANGLE_SDL(SDL_FreeSurface)(textSurface);
-    texture = textCache[text][size][color] = std::make_shared<TextureWrapper>(nTexture);
+    texture = textCache[text][size][color] = std::make_shared<TextureWrapper>
+              (nTexture);
     int w, h;
     MANGLE_SDL(SDL_QueryTexture)(texture->get(), NULL, NULL, &w, &h);
-    Texture::clip = Texture::size = { 0, 0, (float) size.w, (float) size.h };
+    Texture::clip = { (float) w, (float) h};
+    Texture::size = size;
+    recalculateRect(Texture::size, w, h);
     return 0;
 }
 
-int Texture::loadImage(const std::string &path)
+int Texture::loadImage(const std::string &path, const Rect &clip,
+                       const Rect &size)
 {
     if (hasTextureCached(path)) {
-        auto tex = getCached(path);
+        texture = getCached(path);
         int w, h;
-        texture = tex;
-        MANGLE_SDL(SDL_QueryTexture)(tex->get(), NULL, NULL, &w, &h);
-        Texture::clip = Texture::size = { 0, 0, (float) w, (float) h };
+        MANGLE_SDL(SDL_QueryTexture)(texture->get(), NULL, NULL, &w, &h);
+        Rect tmpSize = size;
+        Rect tmpClip = clip;
+        recalculateRect(tmpSize, w, h);
+        recalculateRect(tmpClip, w, h);
+        Texture::clip = tmpClip;
+        Texture::size = tmpSize;
         return 0;
     }
 
@@ -120,28 +165,15 @@ int Texture::loadImage(const std::string &path)
         return -2;
     }
 
-    clip = { 0, 0, (float) loadedSurface->w, (float) loadedSurface->h };
-    size = clip;
     MANGLE_SDL(SDL_FreeSurface)(loadedSurface);
     texture = imageCache[path] = std::make_shared<TextureWrapper>(nTexture);
+    Rect tmpSize = size;
+    Rect tmpClip = clip;
+    recalculateRect(tmpSize, loadedSurface->w, loadedSurface->h);
+    recalculateRect(tmpClip, loadedSurface->w, loadedSurface->h);
+    Texture::clip = tmpClip;
+    Texture::size = tmpSize;
     return 0;
-}
-
-int Texture::loadImage(const std::string &path, const Rect &clip)
-{
-    int status = loadImage(path);
-    Texture::clip = clip;
-    Texture::size = clip;
-    return status;
-}
-
-int Texture::loadImage(const std::string &path, const Rect &clip,
-                       const Rect &size)
-{
-    int status = loadImage(path);
-    Texture::clip = clip;
-    Texture::size = size;
-    return status;
 }
 
 Rect Texture::getSize() const
@@ -182,4 +214,11 @@ int Texture::onRender(const Location &loc, bool flip)
     }
 
     return ret;
+}
+
+void Texture::cleanup()
+{
+    Logger::LogDebug("Texture::cleanup(): clear caches");
+    imageCache.clear();
+    textCache.clear();
 }

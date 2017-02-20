@@ -28,16 +28,6 @@ void Element::setAnimation(unsigned int index)
     }
 }
 
-void Element::addAnimation(const Animation &animation)
-{
-    addAnimation<Animation>(animation);
-}
-
-Animation &Element::getCurrentAnimation()
-{
-    return getCurrentAnimation<Animation>();
-}
-
 bool Element::hasAnimation(unsigned int index) const
 {
     return index < animations.size();
@@ -82,6 +72,27 @@ void Element::removeAnimation(unsigned int index)
                                 index) + "): Animation not found");
         throw "Animation not found";
     }
+}
+
+Animation &Element::addAnimation(const std::string &descr,
+                                 unsigned int frameDelta)
+{
+    return addAnimation<Animation>(descr, frameDelta);
+}
+
+Animation &Element::getAnimation(const std::string &name)
+{
+    return getAnimation<Animation>(name);
+}
+
+Animation &Element::getAnimation(unsigned int index)
+{
+    return getAnimation<Animation>(index);
+}
+
+Animation &Element::getCurrentAnimation()
+{
+    return getCurrentAnimation<Animation>();
 }
 
 void Element::onRender()

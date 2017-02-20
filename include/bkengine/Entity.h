@@ -11,7 +11,8 @@ namespace bkengine
     class Entity : public Element
     {
         public:
-            explicit Entity(const std::string &descr = "", const Location &loc = {0, 0}, bool isCollidable = false);
+            explicit Entity(const std::string &descr = "", const Location &loc = {0, 0},
+                            bool isCollidable = false);
             virtual ~Entity();
 
             void move(float x, float y);

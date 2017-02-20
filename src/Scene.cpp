@@ -71,6 +71,22 @@ void Scene::removeElement(unsigned int index)
     }
 }
 
+Element &Scene::addElement(const std::string &description, const Location &loc,
+                           bool isCollidable)
+{
+    return addElement<Element>(description, loc, isCollidable);
+}
+
+Element &Scene::getElement(const std::string &name)
+{
+    return getElement<Element>(name);
+}
+
+Element &Scene::getElement(unsigned int index)
+{
+    return getElement<Element>(index);
+}
+
 void Scene::onRender()
 {
     for (auto &element : elements) {

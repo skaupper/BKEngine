@@ -135,10 +135,22 @@ TTF_Font *SDL::TTF_OpenFont(const char *path, int size)
     return ::TTF_OpenFont(path, size);
 }
 
-SDL_Surface *SDL::TTF_RenderText_Solid(TTF_Font *font, const char *text,
+SDL_Surface *SDL::TTF_RenderUTF8_Solid(TTF_Font *font, const char *text,
                                        SDL_Color color)
 {
-    return ::TTF_RenderText_Solid(font, text, color);
+    return ::TTF_RenderUTF8_Solid(font, text, color);
+}
+
+SDL_Surface *SDL::TTF_RenderUTF8_Shaded(TTF_Font *font, const char *text,
+                                        SDL_Color color, SDL_Color box)
+{
+    return ::TTF_RenderUTF8_Shaded(font, text, color, box);
+}
+
+SDL_Surface *SDL::TTF_RenderUTF8_Blended(TTF_Font *font, const char *text,
+        SDL_Color color)
+{
+    return ::TTF_RenderUTF8_Blended(font, text, color);
 }
 
 void SDL::TTF_CloseFont(TTF_Font *font)

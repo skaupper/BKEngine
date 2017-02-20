@@ -14,8 +14,12 @@ static std::string GetTimeString()
     int minute = now->tm_min;
     int second = now->tm_sec;
     std::stringstream ss;
-    ss << day << "/" << month << "/" << year << " " << hour << ":" << minute << ":"
-       << second;
+    ss << std::setfill('0') << std::setw(2) << day << "/"
+       << std::setfill('0') << std::setw(2) << month << "/"
+       << std::setfill('0') << std::setw(4) << year << " "
+       << std::setfill('0') << std::setw(2) << hour << ":"
+       << std::setfill('0') << std::setw(2) << minute << ":"
+       << std::setfill('0') << std::setw(2) << second;
     return ss.str();
 }
 
