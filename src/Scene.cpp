@@ -26,12 +26,12 @@ Scene::~Scene()
     elements.clear();
 }
 
-bool Scene::hasElement(unsigned int index)
+bool Scene::hasElement(unsigned int index) const
 {
     return index < elements.size();
 }
 
-bool Scene::hasElement(const std::string &name)
+bool Scene::hasElement(const std::string &name) const
 {
     for (auto &element : elements) {
         if (element->getDescription() == name) {
@@ -69,6 +69,22 @@ void Scene::removeElement(unsigned int index)
                                 index) + "): Element not found");
         throw "Element not found";
     }
+}
+
+Element &Scene::addElement(const std::string &description, const Location &loc,
+                           bool isCollidable)
+{
+    return addElement<Element>(description, loc, isCollidable);
+}
+
+Element &Scene::getElement(const std::string &name)
+{
+    return getElement<Element>(name);
+}
+
+Element &Scene::getElement(unsigned int index)
+{
+    return getElement<Element>(index);
 }
 
 void Scene::onRender()

@@ -27,14 +27,14 @@ Texture &Animation::getNextTexture()
 Texture &Animation::getCurrentTexture()
 {
     if (hasTexture(currentIndex)) {
-        return textures[currentIndex];
+        return textures.at(currentIndex);
     }
 
     Logger::LogCritical("Animation::getCurrentTexture(): Texture not found");
     throw "Texture not found";
 }
 
-bool Animation::hasTexture(unsigned int index)
+bool Animation::hasTexture(unsigned int index) const
 {
     return index < textures.size();
 }
@@ -54,19 +54,16 @@ void Animation::incFrameCount()
 }
 
 
-void Animation::addImage(const std::string &path)
+void Animation::addImage(const std::string &path, const Rect &clip,
+                         const Rect &size)
 {
-    addImage<Texture>(path);
+    addImage<Texture>(path, clip, size);
 }
 
-void Animation::addImage(const std::string &path, Rect size)
+void Animation::addText(const std::string &fontName, const std::string &text,
+                        const Rect &size, const Color &color, TextQuality quality)
 {
-    addImage<Texture>(path, size);
-}
-
-void Animation::addText(const std::string &text, const Color &color, short size)
-{
-    addText<Texture>(text, color, size);
+    addText<Texture>(fontName, text, size, color,  quality);
 }
 
 void Animation::setFramesPerTexture(unsigned int frames)
@@ -79,7 +76,7 @@ Animation::~Animation()
     textures.clear();
 }
 
-std::string Animation::getDescription()
+std::string Animation::getDescription() const
 {
     return description;
 }

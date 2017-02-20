@@ -11,7 +11,6 @@ Timer::Timer()
     started = false;
 }
 
-// Startet den Timer
 void Timer::start()
 {
     if (!started) {
@@ -22,7 +21,6 @@ void Timer::start()
     }
 }
 
-// Stoppt den Timer
 void Timer::stop()
 {
     started = false;
@@ -31,7 +29,6 @@ void Timer::stop()
     pausedTicks = 0;
 }
 
-// Pausiert den Timer
 void Timer::pause()
 {
     if (started && !paused) {
@@ -41,7 +38,6 @@ void Timer::pause()
     }
 }
 
-// Entpausiert den Timer
 void Timer::unpause()
 {
     if (started && paused) {
@@ -51,8 +47,7 @@ void Timer::unpause()
     }
 }
 
-// Gibt die Ticks des Timers zur�ck
-int Timer::getTicks()
+int Timer::getTicks() const
 {
     int time = 0;
 
@@ -67,14 +62,12 @@ int Timer::getTicks()
     return time;
 }
 
-bool Timer::isStarted()
+bool Timer::isStarted() const
 {
-    //Timer is running and paused or unpaused
     return started;
 }
 
-bool Timer::isPaused()
+bool Timer::isPaused() const
 {
-    //Timer is running and paused
     return paused && started;
 }

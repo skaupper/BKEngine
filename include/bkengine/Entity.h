@@ -8,21 +8,17 @@
 
 namespace bkengine
 {
-    class Scene;
-
     class Entity : public Element
     {
         public:
-            Entity(const Location &loc, std::shared_ptr<Scene> parentScene,
-                   const std::string &descr = "", bool isCollidable = false);
+            explicit Entity(const std::string &descr = "", const Location &loc = {0, 0},
+                            bool isCollidable = false);
             virtual ~Entity();
 
             void move(float x, float y);
             void moveTo(float x, float y);
-            bool collidesWith(const Element &other);
-
-            std::shared_ptr<Scene> parentScene;
+            virtual bool collidesWith(const Element &other) const;
     };
 }
 
-#endif // ENTITY_H
+#endif

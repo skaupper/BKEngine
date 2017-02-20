@@ -6,6 +6,7 @@
 #include <mutex>
 #include <time.h>
 #include <sstream>
+#include <iomanip>
 
 namespace bkengine
 {

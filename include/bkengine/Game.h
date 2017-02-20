@@ -22,21 +22,24 @@ namespace bkengine
             void setActiveScene(const std::string &name);
             void setActiveScene(unsigned int index);
 
-            bool hasScene(const std::string &name);
-            bool hasScene(unsigned int index);
+            bool hasScene(const std::string &name) const;
+            bool hasScene(unsigned int index) const;
 
             void removeScene(const std::string &name);
             void removeScene(unsigned int index);
 
+            Scene &addScene(const std::string &name = "");
+            Scene &getScene(const std::string &name);
+            Scene &getScene(unsigned int index);
+            Scene &getCurrentScene();
 
             template <typename T> T &addScene(const T &);
             template <typename T> T &addScene(const std::shared_ptr<T> &);
             template <typename T, typename... Params> T &addScene(Params...);
-
             template <typename T> T &getScene(const std::string &name);
-            template <typename T, typename... Params> T &getScene(unsigned int index);
-
+            template <typename T> T &getScene(unsigned int index);
             template <typename T> T &getCurrentScene();
+
             int run();
             void stop();
 

@@ -2,6 +2,8 @@
 #define CORE_H_INCLUDED
 
 #include <string>
+#include <vector>
+#include <functional>
 
 #include "Logger.h"
 #include "SDLWrapper.h"
@@ -20,12 +22,11 @@ namespace bkengine
         private:
             static Core *instance;
             static bool depsInited;
+            static std::vector<std::function<void()>> cleanupFunctions;
+
             bool inited;
 
             SDL_Window *window;
-            TTF_Font *largeFont = NULL;
-            TTF_Font *mediumFont = NULL;
-            TTF_Font *smallFont = NULL;
 
             bool isValid;
             int windowHeight;
@@ -33,31 +34,29 @@ namespace bkengine
             std::string windowTitle;
             SDL_Renderer *renderer;
 
+
             Core();
             Core(Core &&);
-            Core(const Core &);
-            Core &operator=(const Core &);
-            Core &operator=(Core &&core);
+            Core &operator=(Core &&);
+            void move(Core &);
             Core(int width, int height, const std::string &windowTitle);
-
 
         public:
             static int init();
             static Core *getInstance();
             static Core *getInstance(int width, int height, const std::string &windowTitle);
+            static void registerCleanup(std::function<void()>);
             static void quit();
 
             virtual ~Core();
 
             int setup();
 
-            SDL_Renderer *getRenderer();
+            SDL_Renderer *getRenderer() const;
 
-            int getWindowHeight();
-            int getWindowWidth();
-            std::string getWindowTitle();
-
-            TTF_Font *getFont(FontSize size);
+            int getWindowHeight() const;
+            int getWindowWidth() const;
+            std::string getWindowTitle() const;
     };
 }
 

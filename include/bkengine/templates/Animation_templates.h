@@ -1,10 +1,11 @@
 #ifndef ANIMATION_TEMPLATES_H
 #define ANIMATION_TEMPLATES_H
 
-template <typename T> void Animation::addImage(const std::string &path)
+template <typename T> void Animation::addImage(const std::string &path,
+        const Rect &clip, const Rect &size)
 {
     T t;
-    int status = t.loadImage(path);
+    int status = t.loadImage(path, clip, size);
 
     if (status != 0) {
         Logger::LogError("Animation::addImage(const std::string &): Failed to load Texture ("
@@ -15,18 +16,12 @@ template <typename T> void Animation::addImage(const std::string &path)
     addTexture<T>(t);
 }
 
-template <typename T> void Animation::addImage(const std::string &path,
-        Rect size)
-{
-    addImage<T>(path);
-    textures.back().setSize(size);
-}
-
-template <typename T> void Animation::addText(const std::string &text,
-        const Color &color, short size)
+template <typename T> void Animation::addText(const std::string &fontName,
+        const std::string &text, const Rect &size, const Color &color,
+        TextQuality quality)
 {
     T t;
-    int status = t.loadText(text, color, size);
+    int status = t.loadText(fontName, text, size, color, quality);
 
     if (status != 0) {
         Logger::LogError("Animation::addText(const std::string &, SDL_Color, short): Failed to load text ("
