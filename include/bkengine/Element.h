@@ -10,11 +10,11 @@
 #include "Animation.h"
 #include "Misc.h"
 
-
 namespace bkengine
 {
     class Element
     {
+            friend class Entity;
         public:
             explicit Element(const std::string &description = "", const Location &loc = {0, 0},
                              bool isCollidable = false);

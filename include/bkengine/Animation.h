@@ -16,16 +16,16 @@ namespace bkengine
             explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
             virtual ~Animation();
 
-            void addImage(const std::string &path);
-            void addImage(const std::string &path, const Rect &rect);
+            void addImage(const std::string &path, const Rect &clip = Rect(),
+                          const Rect &size = Rect());
             void addText(const std::string &fontName, const std::string &text,
-                         const Color &color, const Rect &size = Rect(),
+                         const Rect &size, const Color &color = Color(),
                          TextQuality quality = TextQuality::SOLID);
 
-            template <typename T> void addImage(const std::string &path);
-            template <typename T> void addImage(const std::string &path, const Rect &rect);
+            template <typename T> void addImage(const std::string &path,
+                                                const Rect &clip = Rect(), const Rect &size = Rect());
             template <typename T> void addText(const std::string &fontName,
-                                               const std::string &text, const Color &color, const Rect &size = Rect(),
+                                               const std::string &text, const Rect &size, const Color &color = Color(),
                                                TextQuality quality = TextQuality::SOLID);
             template <typename T> void addTexture(const T &texture);
 

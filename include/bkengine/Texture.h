@@ -20,15 +20,24 @@ namespace bkengine
     {
         public:
             static std::shared_ptr<TextureWrapper> getCached(const std::string &s);
-            static std::shared_ptr<TextureWrapper> getCached(const std::string &s, const Rect &size, const Color &c);
+            static std::shared_ptr<TextureWrapper> getCached(const std::string &s,
+                    const Rect &size, const Color &c);
 
             static bool hasTextureCached(const std::string &s);
-            static bool hasTextureCached(const std::string &s, const Rect &size, const Color &c);
+            static bool hasTextureCached(const std::string &s, const Rect &size,
+                                         const Color &c);
 
             Texture();
+            Texture(const std::string &fontName, const std::string &text,
+                    const Rect &size, const Color &color = Color(),
+                    TextQuality quality = TextQuality::SOLID);
+            Texture(const std::string &path, const Rect &clip = Rect(),
+                    const Rect &size = Rect());
             virtual ~Texture();
 
-            int loadText(const std::string &fontName, const std::string &text, const Color &color, const Rect &size = {0, 0, 0, 0}, TextQuality quality = TextQuality::SOLID);
+            int loadText(const std::string &fontName, const std::string &text,
+                         const Rect &size, const Color &color = Color(),
+                         TextQuality quality = TextQuality::SOLID);
             int loadImage(const std::string &path, const Rect &clip = Rect(),
                           const Rect &size = Rect());
 

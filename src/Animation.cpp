@@ -54,20 +54,16 @@ void Animation::incFrameCount()
 }
 
 
-void Animation::addImage(const std::string &path)
+void Animation::addImage(const std::string &path, const Rect &clip,
+                         const Rect &size)
 {
-    addImage<Texture>(path);
-}
-
-void Animation::addImage(const std::string &path, const Rect &size)
-{
-    addImage<Texture>(path, size);
+    addImage<Texture>(path, clip, size);
 }
 
 void Animation::addText(const std::string &fontName, const std::string &text,
-                        const Color &color, const Rect &size, TextQuality quality)
+                        const Rect &size, const Color &color, TextQuality quality)
 {
-    addText<Texture>(fontName, text, color, size, quality);
+    addText<Texture>(fontName, text, size, color,  quality);
 }
 
 void Animation::setFramesPerTexture(unsigned int frames)
