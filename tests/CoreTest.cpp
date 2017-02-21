@@ -3,6 +3,7 @@
 
 TEST_F(CoreTest, DISABLED_initSetupQuitAndGetter)
 {
+    /*
     int width = 1920, height = 1080;
     const char *title = "GTEST";
     SDL_Window *window = (SDL_Window *) 0x00001234;
@@ -52,4 +53,5 @@ TEST_F(CoreTest, DISABLED_initSetupQuitAndGetter)
     ASSERT_EQ(core->getWindowSize().w, width);
     ASSERT_EQ(core->getWindowSize().h, height);
     Core::quit();
+    */
 }

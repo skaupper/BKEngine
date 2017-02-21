@@ -10,6 +10,7 @@ int TextureMock::destructCount = 0;
 
 TEST_F(TextureTest, DISABLED_countConstructorAndDestructorCalls)
 {
+    /*
     int width = 1920, height = 1080;
     const char *title = "TextureTestWindow";
     SDL_Window *window = (SDL_Window *) 0x00001234;
@@ -48,4 +49,5 @@ TEST_F(TextureTest, DISABLED_countConstructorAndDestructorCalls)
     std::cout << TextureMock::initCount << std::endl;
     //animation.textures[0].texture->free();
     ASSERT_EQ(TextureMock::initCount, TextureMock::destructCount);
+    */
 }
