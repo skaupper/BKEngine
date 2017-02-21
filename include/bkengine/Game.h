@@ -43,6 +43,8 @@ namespace bkengine
             int run();
             void stop();
 
+            int setIcon(const std::string &iconPath);
+
         private:
             std::vector<std::shared_ptr<Scene>> scenes;
             int activeScene;

@@ -86,10 +86,12 @@ void Core::quit()
 int Core::init()
 {
     if (MANGLE_SDL(SDL_Init)(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        Logger::LogCritical("Core::init(): Failed to init SDL. " + std::string(MANGLE_SDL(SDL_GetError)()));
         return -1;
     }
 
     if (!MANGLE_SDL(SDL_SetHint)(SDL_HINT_RENDER_SCALE_QUALITY, "1")) {
+        Logger::LogCritical("Core::init(): Failed to set hint. " + std::string(MANGLE_SDL(SDL_GetError)()));
         MANGLE_SDL(SDL_Quit)();
         return -2;
     }
@@ -97,17 +99,20 @@ int Core::init()
     int imgFlags = IMG_INIT_PNG;
 
     if (!(MANGLE_SDL(IMG_Init)(imgFlags) & imgFlags)) {
+        Logger::LogCritical("Core::init(): Failed to init SDL image. " + std::string(MANGLE_SDL(SDL_GetError)()));
         MANGLE_SDL(SDL_Quit)();
         return -3;
     }
 
     if (MANGLE_SDL(TTF_Init)() == -1) {
+        Logger::LogCritical("Core::init(): Failed to init SDL ttf. " + std::string(MANGLE_SDL(SDL_GetError)()));
         MANGLE_SDL(SDL_Quit)();
         MANGLE_SDL(IMG_Quit)();
         return -4;
     }
 
     if (MANGLE_SDL(Mix_OpenAudio)(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        Logger::LogCritical("Core::init(): Failed to init SDL mixer. " + std::string(MANGLE_SDL(SDL_GetError)()));
         MANGLE_SDL(SDL_Quit)();
         MANGLE_SDL(IMG_Quit)();
         MANGLE_SDL(TTF_Quit)();
@@ -135,15 +140,14 @@ int Core::setup()
                                               windowHeight, SDL_WINDOW_SHOWN);
 
         if (window == NULL) {
+            Logger::LogCritical("Core::setup(): Failed to create window. " + std::string(MANGLE_SDL(SDL_GetError)()));
             return -6;
         }
 
-        SDL_Surface *iconSurface = MANGLE_SDL(IMG_Load)("icon.ico");
-        MANGLE_SDL(SDL_SetWindowIcon)(window, iconSurface);
-        MANGLE_SDL(SDL_FreeSurface)(iconSurface);
         renderer = MANGLE_SDL(SDL_CreateRenderer)(window, -1, SDL_RENDERER_ACCELERATED);
 
         if (renderer == NULL) {
+            Logger::LogCritical("Core::setup(): Failed to create renderer. " + std::string(MANGLE_SDL(SDL_GetError)()));
             return -7;
         }
 
@@ -151,6 +155,18 @@ int Core::setup()
         inited = true;
     }
 
+    return 0;
+}
+
+int Core::setIcon(const std::string &iconPath)
+{
+    SDL_Surface *iconSurface = MANGLE_SDL(IMG_Load)(iconPath.c_str());
+    if (!iconSurface) {
+        Logger::LogError("Core::setIcon(const std::string &=" + iconPath + "): " + std::string(MANGLE_SDL(SDL_GetError)()));
+        return -1;
+    }
+    MANGLE_SDL(SDL_SetWindowIcon)(window, iconSurface);
+    MANGLE_SDL(SDL_FreeSurface)(iconSurface);
     return 0;
 }
 
@@ -179,8 +195,6 @@ Core *Core::getInstance(int width, int height, const std::string &windowTitle)
 
     return instance;
 }
-
-
 
 
 SDL_Renderer *Core::getRenderer() const

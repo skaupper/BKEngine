@@ -159,6 +159,10 @@ void Game::stop()
     running = false;
 }
 
+int Game::setIcon(const std::string &iconPath)
+{
+    return Core::getInstance()->setIcon(iconPath);
+}
 
 void Game::onLoop()
 {
