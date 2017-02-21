@@ -51,6 +51,7 @@ namespace bkengine
             virtual ~Core();
 
             int setup();
+            int setIcon(const std::string &iconPath);
 
             SDL_Renderer *getRenderer() const;
 
