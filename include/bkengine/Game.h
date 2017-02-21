@@ -40,10 +40,10 @@ namespace bkengine
             template <typename T> T &getScene(unsigned int index);
             template <typename T> T &getCurrentScene();
 
-            int run();
+            void run();
             void stop();
 
-            int setIcon(const std::string &iconPath);
+            bool setIcon(const std::string &iconPath);
 
         private:
             std::vector<std::shared_ptr<Scene>> scenes;
@@ -52,7 +52,7 @@ namespace bkengine
             Timer timer;
 
             void onLoop();
-            int onEvent(SDL_Event *);
+            bool onEvent(SDL_Event *);
             void onRender();
     };
 

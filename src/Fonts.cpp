@@ -10,6 +10,8 @@ std::map<std::string, std::string> Fonts::fontFileCache;
 TTF_Font *Fonts::registerFont(const std::string &fontFile, int size,
                               const std::string &fontName)
 {
+    Core::initDeps();
+
     if (!cleanupRegistered) {
         registerCleanup();
     }
@@ -17,7 +19,7 @@ TTF_Font *Fonts::registerFont(const std::string &fontFile, int size,
     if (fontCache.find(fontName) != fontCache.end()
             && fontCache[fontName].find(size) != fontCache[fontName].end()) {
         Logger::LogInfo("Fonts::registerFont(const std::string &=" + fontFile +
-                        ", short=" + std::to_string(size) + ", const std::string &=" + fontName +
+                        ", int=" + std::to_string(size) + ", const std::string &=" + fontName +
                         "): No need to register font!");
         return fontCache[fontName][size];
     }
@@ -30,9 +32,18 @@ TTF_Font *Fonts::registerFont(const std::string &fontFile, int size,
         fontFileCache[name] = fontFile;
     }
 
-    fontCache[fontName][size] = MANGLE_SDL(TTF_OpenFont)(fontFile.c_str(), size);
+    TTF_Font *font = MANGLE_SDL(TTF_OpenFont)(fontFile.c_str(), size);
+
+    if (!font) {
+        Logger::LogDebug("Fonts::registerFont(const std::string &=" + fontFile +
+                         ", int=" + std::to_string(size) + ", const std::string &=" + fontName +
+                         "): Failed to open font. " + std::string(MANGLE_SDL(SDL_GetError)()));
+        return nullptr;
+    }
+
+    fontCache[fontName][size] = font;
     Logger::LogDebug("Fonts::registerFont(const std::string &=" + fontFile +
-                     ", short=" + std::to_string(size) + ", const std::string &=" + fontName +
+                     ", int=" + std::to_string(size) + ", const std::string &=" + fontName +
                      "): created font " +  std::to_string((unsigned long long int)
                              fontCache[fontName][size]));
     return fontCache[fontName][size];
@@ -47,14 +58,6 @@ TTF_Font *Fonts::getFont(const std::string &fontName, int size)
     if (fontCache.find(fontName) == fontCache.end()) {
         Logger::LogWarning("Fonts::getFont(const std::string &=" + fontName + ", short="
                            + std::to_string(size) + "): No font found with given name!");
-
-        if (fontFileCache.find(fontName) != fontFileCache.end()) {
-            Logger::LogInfo("Fonts::getFont(const std::string &=" + fontName + ", short=" +
-                            std::to_string(size) + "): Register font with cached filename '" +
-                            fontFileCache[fontName] + "'");
-            return registerFont(fontFileCache[fontName], size, fontName);
-        }
-
         return nullptr;
     }
 

@@ -5,9 +5,8 @@ template <typename T> void Animation::addImage(const std::string &path,
         const Rect &size, const Rect &clip)
 {
     T t;
-    int status = t.loadImage(path, size, clip);
 
-    if (status != 0) {
+    if (!t.loadImage(path, size, clip)) {
         Logger::LogError("Animation::addImage(const std::string &): Failed to load Texture ("
                          + std::string(MANGLE_SDL(SDL_GetError)()) + ")");
         return;
@@ -21,9 +20,8 @@ template <typename T> void Animation::addText(const std::string &fontName,
         TextQuality quality)
 {
     T t;
-    int status = t.loadText(fontName, text, size, color, quality);
 
-    if (status != 0) {
+    if (!t.loadText(fontName, text, size, color, quality)) {
         Logger::LogError("Animation::addText(const std::string &, SDL_Color, short): Failed to load text ("
                          + std::string(MANGLE_SDL(SDL_GetError)()) + ")");
         return;

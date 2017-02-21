@@ -45,7 +45,7 @@ namespace bkengine
 
             virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
-            virtual int onEvent(SDL_Event *e);
+            virtual bool onEvent(SDL_Event *e);
 
             void applyCollisionBox(const Rect &);
             Rect getCollisionBox() const;

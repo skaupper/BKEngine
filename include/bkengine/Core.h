@@ -25,7 +25,7 @@ namespace bkengine
             static bool depsInited;
             static std::vector<std::function<void()>> cleanupFunctions;
 
-            bool inited;
+            bool environmentInited;
             int windowWidth;
             int windowHeight;
             std::string windowTitle;
@@ -40,7 +40,7 @@ namespace bkengine
             Core(int width, int height, const std::string &windowTitle);
 
         public:
-            static int init();
+            static bool initDeps();
             static Core *getInstance();
             static Core *getInstance(int width, int height, const std::string &windowTitle);
             static void registerCleanup(std::function<void()>);
@@ -48,8 +48,8 @@ namespace bkengine
 
             virtual ~Core();
 
-            int setup();
-            int setIcon(const std::string &iconPath);
+            bool initEnvironment();
+            bool setIcon(const std::string &iconPath);
 
             Rect getWindowSize();
             std::string getWindowTitle() const;

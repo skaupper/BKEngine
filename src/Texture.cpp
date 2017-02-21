@@ -71,13 +71,24 @@ Texture::Texture() : flip(false), texture(nullptr)
 Texture::Texture(const std::string &fontName, const std::string &text,
                  const Rect &size, const Color &color, TextQuality quality) : Texture()
 {
-    loadText(fontName, text, size, color, quality);
+    if (!loadText(fontName, text, size, color, quality)) {
+        Logger::LogCritical("Texture::Texture(const std::string &=" + fontName +
+                            ", const std::string &=" + text + ", const Color &=" + color.toString() +
+                            ", const Rect &=" + size.toString() + ", TextQuality=" + std::to_string(
+                                (int) quality) + "): Failed to load text. Texture is invalidated.");
+        // TODO: add "invalid" texture
+    }
 }
 
 Texture::Texture(const std::string &path, const Rect &size,
                  const Rect &clip) : Texture()
 {
-    loadImage(path, size, clip);
+    if (!loadImage(path, size, clip)) {
+        Logger::LogCritical("Texture::Texture(const std::string &=" + path +
+                            ", const Rect &=" + size.toString() + ", const Rect &=" + clip.toString() +
+                            "): Failed to load image. Texture is invalidated.");
+        // TODO: add "invalid" texture
+    }
 }
 
 
@@ -85,8 +96,8 @@ Texture::~Texture()
 {
 }
 
-int Texture::loadText(const std::string &fontName, const std::string &text,
-                      const Rect &size, const Color &color, TextQuality quality)
+bool Texture::loadText(const std::string &fontName, const std::string &text,
+                       const Rect &size, const Color &color, TextQuality quality)
 {
     if (hasTextureCached(text, size, color)) {
         texture = getCached(text, size, color);
@@ -97,17 +108,21 @@ int Texture::loadText(const std::string &fontName, const std::string &text,
         Texture::clip = Rect();
         return 0;
     }
+
     Rect windowSize = Core::getInstance()->getWindowSize();
-    TTF_Font *font = Fonts::getFont(fontName, RelativeCoordinates::apply(size, windowSize).h);
+    TTF_Font *font = Fonts::getFont(fontName, RelativeCoordinates::apply(size,
+                                    windowSize).h);
 
     if (!font) {
-        font = Fonts::registerFont(fontName, RelativeCoordinates::apply(size, windowSize).h);
+        font = Fonts::registerFont(fontName, RelativeCoordinates::apply(size,
+                                   windowSize).h);
 
         if (!font) {
             Logger::LogError("Texture::loadText(const std::string &=" + fontName +
                              ", const std::string &=" + text + ", const Color &=" + color.toString() +
-                             ", const Rect &=" + size.toString() + ")");
-            return -3;
+                             ", const Rect &=" + size.toString() + ", TextQuality=" + std::to_string(
+                                 (int) quality) + "): Failed to register font.");
+            return false;
         }
     }
 
@@ -124,7 +139,12 @@ int Texture::loadText(const std::string &fontName, const std::string &text,
     }
 
     if (textSurface == NULL) {
-        return -1;
+        Logger::LogError("Texture::loadText(const std::string &=" + fontName +
+                         ", const std::string &=" + text + ", const Color &=" + color.toString() +
+                         ", const Rect &=" + size.toString() + ", TextQuality=" + std::to_string(
+                             (int) quality) + "): Failed to load surface. " +
+                         std::string(MANGLE_SDL(SDL_GetError)()));
+        return false;
     }
 
     SDL_Texture *nTexture = MANGLE_SDL(SDL_CreateTextureFromSurface)
@@ -132,7 +152,12 @@ int Texture::loadText(const std::string &fontName, const std::string &text,
                              textSurface);
 
     if (nTexture == NULL) {
-        return -2;
+        Logger::LogError("Texture::loadText(const std::string &=" + fontName +
+                         ", const std::string &=" + text + ", const Color &=" + color.toString() +
+                         ", const Rect &=" + size.toString() + ", TextQuality=" + std::to_string(
+                             (int) quality) + "): Failed to create texture. " +
+                         std::string(MANGLE_SDL(SDL_GetError)()));
+        return false;
     }
 
     int w = textSurface->w, h = textSurface->h;
@@ -142,11 +167,11 @@ int Texture::loadText(const std::string &fontName, const std::string &text,
     Texture::size = size;
     recalculateRect(Texture::size, w, h);
     Texture::clip = Rect();
-    return 0;
+    return true;
 }
 
-int Texture::loadImage(const std::string &path, const Rect &size,
-                       const Rect &clip)
+bool Texture::loadImage(const std::string &path, const Rect &size,
+                        const Rect &clip)
 {
     if (hasTextureCached(path)) {
         texture = getCached(path);
@@ -156,14 +181,17 @@ int Texture::loadImage(const std::string &path, const Rect &size,
         recalculateRect(tmpSize, w, h);
         Texture::clip = clip;
         Texture::size = tmpSize;
-        return 0;
+        return true;
     }
 
     SDL_Texture *nTexture = NULL;
     SDL_Surface *loadedSurface = IMG_Load(path.c_str());
 
     if (loadedSurface == NULL) {
-        return -1;
+        Logger::LogError("Texture::loadImage(const std::string &=" + path +
+                         ", const Rect &=" + size.toString() + ", const Rect &=" + clip.toString() +
+                         "): Failed to load surface. " + std::string(MANGLE_SDL(SDL_GetError)()));
+        return false;
     }
 
     nTexture = MANGLE_SDL(SDL_CreateTextureFromSurface)
@@ -171,7 +199,10 @@ int Texture::loadImage(const std::string &path, const Rect &size,
                 loadedSurface);
 
     if (nTexture == NULL) {
-        return -2;
+        Logger::LogError("Texture::loadImage(const std::string &=" + path +
+                         ", const Rect &=" + size.toString() + ", const Rect &=" + clip.toString() +
+                         "): Failed to create texture. " + std::string(MANGLE_SDL(SDL_GetError)()));
+        return false;
     }
 
     MANGLE_SDL(SDL_FreeSurface)(loadedSurface);
@@ -180,7 +211,7 @@ int Texture::loadImage(const std::string &path, const Rect &size,
     recalculateRect(tmpSize, loadedSurface->w, loadedSurface->h);
     Texture::clip = clip;
     Texture::size = tmpSize;
-    return 0;
+    return true;
 }
 
 Rect Texture::getSize() const
@@ -209,14 +240,17 @@ int Texture::onRender(const Rect &parentRect, bool flip)
     SDL_Renderer *renderer = Core::getInstance()->getRenderer();
     Rect rect = { 0, 0, size.w, size.h };
     Rect windowSize = Core::getInstance()->getWindowSize();
-    Rect absoluteSize = RelativeCoordinates::apply(RelativeCoordinates::apply(rect, parentRect), windowSize);
+    Rect absoluteSize = RelativeCoordinates::apply(RelativeCoordinates::apply(rect,
+                        parentRect), windowSize);
     SDL_Rect sdlRect = absoluteSize.toSDLRect();
-    SDL_Rect sdlClip = RelativeCoordinates::apply(clip, texture->getSize()).toSDLRect();
+    SDL_Rect sdlClip = RelativeCoordinates::apply(clip,
+                       texture->getSize()).toSDLRect();
     // SDL_Point point { (int) getSize().x / 2, 0 };
-
     int ret;
+
     if (flip) {
-        ret = MANGLE_SDL(SDL_RenderCopyEx)(renderer, texture->get(), &sdlClip, &sdlRect, 0,
+        ret = MANGLE_SDL(SDL_RenderCopyEx)(renderer, texture->get(), &sdlClip, &sdlRect,
+                                           0,
                                            nullptr,
                                            SDL_FLIP_HORIZONTAL);
     } else {

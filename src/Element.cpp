@@ -114,9 +114,9 @@ void Element::onLoop()
 {
 }
 
-int Element::onEvent(SDL_Event *e)
+bool Element::onEvent(SDL_Event *e)
 {
-    return 0;
+    return true;
 }
 
 void Element::applyCollisionBox(const Rect &rect)

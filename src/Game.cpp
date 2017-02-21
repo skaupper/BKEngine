@@ -112,12 +112,10 @@ Scene &Game::getCurrentScene()
     return getCurrentScene<Scene>();
 }
 
-int Game::run()
+void Game::run()
 {
-    int status = Core::getInstance()->setup();
-
-    if (status != 0) {
-        return status;
+    if (!Core::getInstance()->initEnvironment()) {
+        return;
     }
 
     SDL_Event event;
@@ -130,11 +128,11 @@ int Game::run()
         while (MANGLE_SDL(SDL_PollEvent)(&event) != 0) {
             if (event.type == SDL_QUIT) {
                 running = false;
+                Logger::LogDebug("Game::run(): event is SDL_QUIT");
             }
 
-            status = onEvent(&event);
-
-            if (status != 0) {
+            if (!onEvent(&event)) {
+                Logger::LogDebug("Game::run(): onEvent returned false");
                 running = false;
                 break;
             }
@@ -151,7 +149,7 @@ int Game::run()
         timer.stop();
     }
 
-    return 0;
+    return;
 }
 
 void Game::stop()
@@ -159,7 +157,7 @@ void Game::stop()
     running = false;
 }
 
-int Game::setIcon(const std::string &iconPath)
+bool Game::setIcon(const std::string &iconPath)
 {
     return Core::getInstance()->setIcon(iconPath);
 }
@@ -171,17 +169,13 @@ void Game::onLoop()
     }
 }
 
-int Game::onEvent(SDL_Event *event)
+bool Game::onEvent(SDL_Event *event)
 {
-    if (activeScene > -1) {
-        int status = getCurrentScene<Scene>().onEvent(event);
-
-        if (status != 0) {
-            return status;
-        }
+    if (activeScene > -1 && !getCurrentScene<Scene>().onEvent(event)) {
+        return false;
     }
 
-    return 0;
+    return true;
 }
 
 void Game::onRender()

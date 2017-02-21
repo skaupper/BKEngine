@@ -37,7 +37,7 @@ namespace bkengine
 
             virtual void onLoop();
             virtual void onRender();
-            virtual int onEvent(SDL_Event *);
+            virtual bool onEvent(SDL_Event *);
 
             std::string getName() const;
 

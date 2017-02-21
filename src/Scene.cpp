@@ -104,17 +104,15 @@ void Scene::onLoop()
     }
 }
 
-int Scene::onEvent(SDL_Event *event)
+bool Scene::onEvent(SDL_Event *event)
 {
     for (auto &element : elements) {
-        int status = element->onEvent(event);
-
-        if (status != 0) {
-            return status;
+        if (!element->onEvent(event)) {
+            return false;
         }
     }
 
-    return 0;
+    return true;
 }
 
 std::string Scene::getName() const
