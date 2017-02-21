@@ -31,8 +31,8 @@ namespace bkengine
             Texture(const std::string &fontName, const std::string &text,
                     const Rect &size, const Color &color = Color(),
                     TextQuality quality = TextQuality::SOLID);
-            Texture(const std::string &path, const Rect &clip = Rect(),
-                    const Rect &size = Rect());
+            Texture(const std::string &path, const Rect &size = Rect(),
+                    const Rect &clip = Rect());
             virtual ~Texture();
 
             int loadText(const std::string &fontName, const std::string &text,
@@ -45,7 +45,7 @@ namespace bkengine
             void setSize(int w, int h);
             void setSize(const Rect &rect);
 
-            virtual int onRender(const Location &loc, bool flip = false);
+            virtual int onRender(const Rect &parentRect = Rect(), bool flip = false);
 
         protected:
             bool flip;

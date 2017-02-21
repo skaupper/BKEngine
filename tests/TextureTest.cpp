@@ -42,9 +42,9 @@ TEST_F(TextureTest, DISABLED_countConstructorAndDestructorCalls)
     EXPECT_CALL(*mock, SDL_DestroyTexture(_));
     Game g(width, height, title);
     Scene &scene = g.addScene<Scene>("scene1");
-    Element &element = scene.addElement<Element>("element1", Location{0, 0});
+    Element &element = scene.addElement<Element>("element1");
     Animation &animation = element.addAnimation<Animation>("animation1");
-    animation.addText<TextureMock>("testFont.ttf", "animation test text", {0xff, 0, 0, 0xff}, {0, 0, 0, 0});
+    animation.addText<TextureMock>("testFont.ttf", "animation test text", {0, 100});
     std::cout << TextureMock::initCount << std::endl;
     //animation.textures[0].texture->free();
     ASSERT_EQ(TextureMock::initCount, TextureMock::destructCount);

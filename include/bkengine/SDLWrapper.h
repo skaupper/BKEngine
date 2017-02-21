@@ -49,6 +49,8 @@ namespace bkengine_test
             virtual SDL_Texture *SDL_CreateTextureFromSurface(SDL_Renderer *,
                     SDL_Surface *);
             virtual int SDL_QueryTexture(SDL_Texture *, uint32_t *, int *, int *, int *);
+            virtual void SDL_GetWindowSize(SDL_Window *, int *, int *);
+            virtual const char *SDL_GetWindowTitle(SDL_Window *);
             virtual int SDL_RenderCopyEx(SDL_Renderer *, SDL_Texture *, const SDL_Rect *,
                                          const SDL_Rect *, const double, const SDL_Point *, const SDL_RendererFlip);
             virtual int SDL_RenderCopy(SDL_Renderer *, SDL_Texture *, const SDL_Rect *,

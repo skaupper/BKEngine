@@ -37,6 +37,8 @@ class SDLMock : public SDL
                      SDL_Surface *));
         MOCK_METHOD5(SDL_QueryTexture, int (SDL_Texture *, uint32_t *, int *, int *,
                                             int *));
+        MOCK_METHOD3(SDL_GetWindowSize, void (SDL_Window *, int *, int *));
+        MOCK_METHOD1(SDL_GetWindowTitle, const char *(SDL_Window *));
         MOCK_METHOD7(SDL_RenderCopyEx, int (SDL_Renderer *, SDL_Texture *,
                                             const SDL_Rect *, const SDL_Rect *, const double, const SDL_Point *,
                                             const SDL_RendererFlip));

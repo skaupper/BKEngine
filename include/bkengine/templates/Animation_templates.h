@@ -2,10 +2,10 @@
 #define ANIMATION_TEMPLATES_H
 
 template <typename T> void Animation::addImage(const std::string &path,
-        const Rect &clip, const Rect &size)
+        const Rect &size, const Rect &clip)
 {
     T t;
-    int status = t.loadImage(path, clip, size);
+    int status = t.loadImage(path, size, clip);
 
     if (status != 0) {
         Logger::LogError("Animation::addImage(const std::string &): Failed to load Texture ("

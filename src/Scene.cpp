@@ -71,10 +71,10 @@ void Scene::removeElement(unsigned int index)
     }
 }
 
-Element &Scene::addElement(const std::string &description, const Location &loc,
+Element &Scene::addElement(const std::string &description, const Rect &renderBox,
                            bool isCollidable)
 {
-    return addElement<Element>(description, loc, isCollidable);
+    return addElement<Element>(description, renderBox, isCollidable);
 }
 
 Element &Scene::getElement(const std::string &name)

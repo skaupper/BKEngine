@@ -7,6 +7,7 @@
 
 #include "Logger.h"
 #include "SDLWrapper.h"
+#include "Misc.h"
 
 
 namespace bkengine
@@ -25,13 +26,10 @@ namespace bkengine
             static std::vector<std::function<void()>> cleanupFunctions;
 
             bool inited;
-
-            SDL_Window *window;
-
-            bool isValid;
-            int windowHeight;
             int windowWidth;
+            int windowHeight;
             std::string windowTitle;
+            SDL_Window *window;
             SDL_Renderer *renderer;
 
 
@@ -53,11 +51,9 @@ namespace bkengine
             int setup();
             int setIcon(const std::string &iconPath);
 
-            SDL_Renderer *getRenderer() const;
-
-            int getWindowHeight() const;
-            int getWindowWidth() const;
+            Rect getWindowSize();
             std::string getWindowTitle() const;
+            SDL_Renderer *getRenderer() const;
     };
 }
 

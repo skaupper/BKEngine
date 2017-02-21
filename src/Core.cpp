@@ -29,18 +29,14 @@ void Core::move(Core &core)
     windowWidth = core.windowWidth;
     renderer = core.renderer;
     window = core.window;
-    isValid = core.isValid;
     core.renderer = NULL;
     core.window = NULL;
-    core.isValid = false;
 }
 
 Core::Core(int width, int height, const std::string &windowTitle) :
     inited(false),
-    window(NULL),
-    windowHeight(height),
     windowWidth(width),
-    windowTitle(windowTitle),
+    window(NULL),
     renderer(NULL)
 {
     std::atexit(Core::quit);
@@ -123,6 +119,34 @@ int Core::init()
     return 0;
 }
 
+Core *Core::getInstance()
+{
+    if (!instance) {
+        instance = new Core(800, 600, "TestWindow");
+    }
+
+    if (!instance->inited) {
+        if (instance->setup() != 0) {
+            Logger::LogCritical("Core::getInstance(): Core setup failed (" + std::string(
+                                    MANGLE_SDL(SDL_GetError)()) + ")");
+            throw "Core setup failed";
+        }
+    }
+
+    return instance;
+}
+
+Core *Core::getInstance(int width, int height, const std::string &windowTitle)
+{
+    if (!instance) {
+        return (instance = new Core(width, height, windowTitle));
+    }
+
+    return instance;
+}
+
+
+
 int Core::setup()
 {
     if (!depsInited) {
@@ -170,49 +194,19 @@ int Core::setIcon(const std::string &iconPath)
     return 0;
 }
 
-Core *Core::getInstance()
+Rect Core::getWindowSize()
 {
-    if (!instance) {
-        instance = new Core(800, 600, "TestWindow");
-    }
-
-    if (!instance->inited) {
-        if (instance->setup() != 0) {
-            Logger::LogCritical("Core::getInstance(): Core setup failed (" + std::string(
-                                    MANGLE_SDL(SDL_GetError)()) + ")");
-            throw "Core setup failed";
-        }
-    }
-
-    return instance;
-}
-
-Core *Core::getInstance(int width, int height, const std::string &windowTitle)
-{
-    if (!instance) {
-        return (instance = new Core(width, height, windowTitle));
-    }
-
-    return instance;
-}
-
-
-SDL_Renderer *Core::getRenderer() const
-{
-    return renderer;
-}
-
-int Core::getWindowHeight() const
-{
-    return windowHeight;
-}
-
-int Core::getWindowWidth() const
-{
-    return windowWidth;
+    int w, h;
+    MANGLE_SDL(SDL_GetWindowSize)(window, &w, &h);
+    return { (float) w, (float) h };
 }
 
 std::string Core::getWindowTitle() const
 {
-    return windowTitle;
+    return MANGLE_SDL(SDL_GetWindowTitle)(window);
+}
+
+SDL_Renderer *Core::getRenderer() const
+{
+    return renderer;
 }

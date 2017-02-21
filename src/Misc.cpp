@@ -6,24 +6,24 @@ using namespace bkengine;
 
 std::string Location::toString() const
 {
-    return "< Location {x: " + std::to_string(x) + ", y: " + std::to_string(x)
+    return "< Location {x: " + std::to_string(x) + ", y: " + std::to_string(y)
            + "} >";
 }
 
 SDL_Point Location::toSDLPoint() const
 {
-    return SDL_Point { (int) x, (int) y };
+    return SDL_Point { (int) round(x), (int) round(y) };
 }
 
 std::string Rect::toString() const
 {
-    return "< Rect {x: " + std::to_string(x) + ", y: " + std::to_string(x)
+    return "< Rect {x: " + std::to_string(x) + ", y: " + std::to_string(y)
            + ", w: " + std::to_string(w) + ", h: " + std::to_string(h) + "} >";
 }
 
 SDL_Rect Rect::toSDLRect() const
 {
-    return SDL_Rect { (int) x, (int) y, (int) w, (int) h };
+    return SDL_Rect { (int) floor(x), (int) floor(y), (int) ceil(w), (int) ceil(h) };
 }
 
 bool Rect::operator==(const Rect &r) const
@@ -52,6 +52,29 @@ bool Color::operator<(const Color &c) const
     return (r + g + b + a) < (c.r + c.g + c.b + c.a);
 }
 
+namespace bkengine
+{
+    namespace Colors
+    {
+        Color BLACK(0, 0, 0);
+        Color WHITE(0xff, 0xff, 0xff);
+        Color RED(0xff, 0, 0);
+        Color LIME(0, 0xff, 0);
+        Color BLUE(0, 0, 0xff);
+        Color YELLOW(0xff, 0xff, 0);
+        Color CYAN(0, 0xff, 0xff);
+        Color MAGENTA(0xff, 0, 0xff);
+        Color SILVER(0xc0, 0xc0, 0xc0);
+        Color GRAY(0x80, 0x80, 0x80);
+        Color MAROON(0x80, 0, 0);
+        Color OLIVE(0x80, 0x80, 0);
+        Color GREEN(0, 0x80, 0);
+        Color PURPLE(0x80, 0, 0x80);
+        Color TEAL(0, 0x80, 0x80);
+        Color NAVY(0, 0, 0x80);
+    }
+}
+
 TextureWrapper::TextureWrapper(SDL_Texture *tex)
 {
     set(tex);
@@ -73,6 +96,9 @@ void TextureWrapper::set(SDL_Texture *tex)
                          (unsigned long long int) tex) + ")");
     free();
     texture = tex;
+    int w, h;
+    MANGLE_SDL(SDL_QueryTexture)(tex, NULL, NULL, &w, &h);
+    originalSize = { (float) w, (float) h };
 }
 
 void TextureWrapper::free()
@@ -83,4 +109,18 @@ void TextureWrapper::free()
         MANGLE_SDL(SDL_DestroyTexture)(texture);
         texture = NULL;
     }
+}
+
+Rect TextureWrapper::getSize() const
+{
+    return originalSize;
+}
+
+
+Rect RelativeCoordinates::apply(const Rect &rect, const Rect &srcRect)
+{
+    return { srcRect.x + srcRect.w * rect.x / 100,
+             srcRect.y + srcRect.h * rect.y / 100,
+             srcRect.w * rect.w / 100,
+             srcRect.h * rect.h / 100 };
 }

@@ -3,10 +3,10 @@
 using namespace bkengine;
 
 
-Element::Element(const std::string &description, const Location &loc,
+Element::Element(const std::string &description, const Rect &renderBox,
                  bool isCollidable) :
     description(description),
-    location(loc),
+    renderBox(renderBox),
     flipped(false),
     frame(0),
     isCollidable(isCollidable),
@@ -95,14 +95,14 @@ Animation &Element::getCurrentAnimation()
     return getCurrentAnimation<Animation>();
 }
 
-void Element::onRender()
+void Element::onRender(const Rect &parentRect)
 {
     if (hasAnimation(currentAnimation)) {
         frame++;
         Animation &animation = getCurrentAnimation<Animation>();
 
         if (animation.hasTexture(0)) {
-            animation.getNextTexture().onRender(location, flipped);
+            animation.getNextTexture().onRender(RelativeCoordinates::apply(renderBox, parentRect), flipped);
         }
     }
 }
@@ -116,9 +116,9 @@ int Element::onEvent(SDL_Event *e)
     return 0;
 }
 
-Location Element::getLocation() const
+Rect Element::getRenderBox() const
 {
-    return Element::location;
+    return renderBox;
 }
 
 std::string Element::getDescription() const

@@ -26,7 +26,7 @@ namespace bkengine
         float w;
         float h;
 
-        Rect() : Rect(0, 0) {}
+        Rect() : Rect(100, 100) {}
         Rect(float w, float h) : Rect(0, 0, w, h) {}
         Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
 
@@ -51,6 +51,26 @@ namespace bkengine
         bool operator<(const Color &c) const;
     };
 
+    namespace Colors
+    {
+        extern Color BLACK;
+        extern Color WHITE;
+        extern Color RED;
+        extern Color LIME;
+        extern Color BLUE;
+        extern Color YELLOW;
+        extern Color CYAN;
+        extern Color MAGENTA;
+        extern Color SILVER;
+        extern Color GRAY;
+        extern Color MAROON;
+        extern Color OLIVE;
+        extern Color GREEN;
+        extern Color PURPLE;
+        extern Color TEAL;
+        extern Color NAVY;
+    }
+
     enum class TextQuality {
         SOLID = 1,
         BLENDED = 2
@@ -65,9 +85,17 @@ namespace bkengine
             SDL_Texture *get() const;
             void set(SDL_Texture *tex);
             void free();
+            Rect getSize() const;
 
         private:
             SDL_Texture *texture = NULL;
+            Rect originalSize;
+    };
+
+    class RelativeCoordinates
+    {
+    public:
+        static Rect apply(const Rect &rect, const Rect &srcRect);
     };
 }
 

@@ -11,7 +11,7 @@ namespace bkengine
     class Entity : public Element
     {
         public:
-            explicit Entity(const std::string &descr = "", const Location &loc = {0, 0},
+            explicit Entity(const std::string &descr = "", const Rect &renderBox = Rect(),
                             bool isCollidable = false);
             virtual ~Entity();
 

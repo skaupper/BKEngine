@@ -27,7 +27,7 @@ namespace bkengine
             void removeElement(const std::string &name);
             void removeElement(unsigned int index);
 
-            Element &addElement(const std::string &description = "", const Location &loc = {0, 0},
+            Element &addElement(const std::string &description = "", const Rect &renderBox = Rect(),
                                 bool isCollidable = false);
             Element &getElement(const std::string &name);
             Element &getElement(unsigned int index);

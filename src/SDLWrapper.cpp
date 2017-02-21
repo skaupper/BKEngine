@@ -103,6 +103,16 @@ int SDL::SDL_QueryTexture(SDL_Texture *texture,
     return ::SDL_QueryTexture(texture, format, access, w, h);
 }
 
+void SDL::SDL_GetWindowSize(SDL_Window *window, int *w, int *h)
+{
+    ::SDL_GetWindowSize(window, w, h);
+}
+
+const char *SDL::SDL_GetWindowTitle(SDL_Window *window)
+{
+    return ::SDL_GetWindowTitle(window);
+}
+
 int SDL::SDL_RenderCopyEx(SDL_Renderer *renderer,
                           SDL_Texture *texture, const SDL_Rect *srcrect,
                           const SDL_Rect *dstrect, const double angle, const SDL_Point *center,

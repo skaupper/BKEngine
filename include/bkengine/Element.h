@@ -14,9 +14,8 @@ namespace bkengine
 {
     class Element
     {
-            friend class Entity;
         public:
-            explicit Element(const std::string &description = "", const Location &loc = {0, 0},
+            explicit Element(const std::string &description = "", const Rect &renderbox = Rect(),
                              bool isCollidable = false);
             virtual ~Element();
 
@@ -41,17 +40,17 @@ namespace bkengine
             template <typename T> T &getAnimation(unsigned int index);
             template <typename T> T &getCurrentAnimation();
 
-            virtual void onRender();
+            virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
             virtual int onEvent(SDL_Event *e);
 
-            Location getLocation() const;
+            Rect getRenderBox() const;
             std::string getDescription() const;
 
         protected:
             std::string description;
+            Rect renderBox;
             Rect collisionRect;
-            Location location;
             bool flipped;
             int frame;
             bool isCollidable = false;
