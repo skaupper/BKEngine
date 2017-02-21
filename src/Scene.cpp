@@ -72,9 +72,9 @@ void Scene::removeElement(unsigned int index)
 }
 
 Element &Scene::addElement(const std::string &description, const Rect &renderBox,
-                           bool isCollidable)
+                           int collisionLayer)
 {
-    return addElement<Element>(description, renderBox, isCollidable);
+    return addElement<Element>(description, renderBox, collisionLayer);
 }
 
 Element &Scene::getElement(const std::string &name)
@@ -117,4 +117,20 @@ int Scene::onEvent(SDL_Event *event)
 std::string Scene::getName() const
 {
     return name;
+}
+
+void Scene::addToCollisionLayer(Element *element, int layer)
+{
+    if (layer < 0) {
+        return;
+    }
+    collisionLayers[layer].push_back(element);
+}
+
+std::vector<Element *> Scene::getCollisionLayer(int layer)
+{
+    if(layer < 0) {
+        return std::vector<Element *>();
+    }
+    return collisionLayers[layer];
 }

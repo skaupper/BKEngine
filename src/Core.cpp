@@ -36,6 +36,7 @@ void Core::move(Core &core)
 Core::Core(int width, int height, const std::string &windowTitle) :
     inited(false),
     windowWidth(width),
+    windowHeight(height),
     window(NULL),
     renderer(NULL)
 {
@@ -165,6 +166,7 @@ int Core::setup()
 
         if (window == NULL) {
             Logger::LogCritical("Core::setup(): Failed to create window. " + std::string(MANGLE_SDL(SDL_GetError)()));
+            Logger::LogDebug("Core::setup(): " + std::to_string(windowWidth) + " " + std::to_string(windowHeight));
             return -6;
         }
 

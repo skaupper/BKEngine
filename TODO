@@ -1,2 +1,2 @@
-- add more methods for font/text loading to be more flexible
 - write doxygen documentation
+- take care of removing elements concerning collision layers

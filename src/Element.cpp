@@ -1,17 +1,20 @@
 #include "Element.h"
+#include "Scene.h"
 
 using namespace bkengine;
 
 
-Element::Element(const std::string &description, const Rect &renderBox,
-                 bool isCollidable) :
+Element::Element(Scene *parentScene, const std::string &description, const Rect &renderBox,
+                 int collisionLayer) :
     description(description),
     renderBox(renderBox),
     flipped(false),
     frame(0),
-    isCollidable(isCollidable),
-    currentAnimation(-1)
+    collisionLayer(collisionLayer),
+    currentAnimation(-1),
+    parentScene(parentScene)
 {
+    parentScene->addToCollisionLayer(this, collisionLayer);
 }
 
 Element::~Element()
@@ -124,4 +127,9 @@ Rect Element::getRenderBox() const
 std::string Element::getDescription() const
 {
     return description;
+}
+
+std::vector<Element *> Element::getCollisionLayer()
+{
+    return parentScene->getCollisionLayer(collisionLayer);
 }

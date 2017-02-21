@@ -12,11 +12,12 @@
 
 namespace bkengine
 {
+    class Scene;
     class Element
     {
         public:
-            explicit Element(const std::string &description = "", const Rect &renderbox = Rect(),
-                             bool isCollidable = false);
+            explicit Element(Scene *parentScene, const std::string &description = "", const Rect &renderbox = Rect(),
+                             int collisionLayer = -1);
             virtual ~Element();
 
             void setAnimation(unsigned int index);
@@ -53,9 +54,12 @@ namespace bkengine
             Rect collisionRect;
             bool flipped;
             int frame;
-            bool isCollidable = false;
+            int collisionLayer;
             int currentAnimation;
             std::vector<std::shared_ptr<Animation>> animations;
+            Scene *parentScene;
+
+            std::vector<Element *> getCollisionLayer();
     };
 
 #include "templates/Element_templates.h"

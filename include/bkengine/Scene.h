@@ -6,13 +6,9 @@
 #include <memory>
 
 #include "Element.h"
-#include "Entity.h"
 
 namespace bkengine
 {
-    class Element;
-    class Game;
-
     class Scene
     {
         public:
@@ -28,7 +24,7 @@ namespace bkengine
             void removeElement(unsigned int index);
 
             Element &addElement(const std::string &description = "", const Rect &renderBox = Rect(),
-                                bool isCollidable = false);
+                                int collisionLayer = -1);
             Element &getElement(const std::string &name);
             Element &getElement(unsigned int index);
 
@@ -46,8 +42,14 @@ namespace bkengine
 
         private:
             std::string name;
-
             std::vector<std::shared_ptr<Element>> elements;
+            std::map<int, std::vector<Element *>> collisionLayers;
+
+        friend class Element;
+            void addToCollisionLayer(Element *, int layer);
+            std::vector<Element *> getCollisionLayer(int layer);
+
+
     };
 
 #include "templates/Scene_templates.h"
