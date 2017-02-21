@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <algorithm>
 
 #include "Element.h"
 
@@ -47,6 +48,7 @@ namespace bkengine
 
         friend class Element;
             void addToCollisionLayer(Element *, int layer);
+            void removeFromCollisionLayer(Element *);
             std::vector<Element *> getCollisionLayer(int layer);
 
 

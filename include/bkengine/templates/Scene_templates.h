@@ -9,6 +9,7 @@ template <typename T> T &Scene::addElement(const T &element)
 template <typename T> T &Scene::addElement(const std::shared_ptr<T> &element)
 {
     elements.push_back(element);
+    addToCollisionLayer(element.get(), element->collisionLayer);
     return *((T *) elements.back().get());
 }
 

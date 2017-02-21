@@ -15,8 +15,10 @@ namespace bkengine
     class Scene;
     class Element
     {
+            friend class Scene;
         public:
-            explicit Element(Scene *parentScene, const std::string &description = "", const Rect &renderbox = Rect(),
+            explicit Element(Scene *parentScene, const std::string &description = "",
+                             const Rect &renderbox = Rect(),
                              int collisionLayer = -1);
             virtual ~Element();
 
@@ -45,13 +47,16 @@ namespace bkengine
             virtual void onLoop();
             virtual int onEvent(SDL_Event *e);
 
+            void applyCollisionBox(const Rect &);
+            Rect getCollisionBox() const;
+            void setRenderBox(const Rect &);
             Rect getRenderBox() const;
             std::string getDescription() const;
 
         protected:
             std::string description;
             Rect renderBox;
-            Rect collisionRect;
+            Rect collisionBox;
             bool flipped;
             int frame;
             int collisionLayer;

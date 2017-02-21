@@ -48,6 +48,7 @@ void Scene::removeElement(const std::string &name)
 
     for (auto &element : elements) {
         if (element->getDescription() == name) {
+            removeFromCollisionLayer(elements[index].get());
             elements.erase(elements.begin() + index);
             return;
         }
@@ -63,6 +64,7 @@ void Scene::removeElement(const std::string &name)
 void Scene::removeElement(unsigned int index)
 {
     if (index < elements.size()) {
+        removeFromCollisionLayer(elements[index].get());
         elements.erase(elements.begin() + index);
     } else {
         Logger::LogCritical("Scene::removeElement(int=" + std::to_string(
@@ -71,7 +73,8 @@ void Scene::removeElement(unsigned int index)
     }
 }
 
-Element &Scene::addElement(const std::string &description, const Rect &renderBox,
+Element &Scene::addElement(const std::string &description,
+                           const Rect &renderBox,
                            int collisionLayer)
 {
     return addElement<Element>(description, renderBox, collisionLayer);
@@ -124,13 +127,43 @@ void Scene::addToCollisionLayer(Element *element, int layer)
     if (layer < 0) {
         return;
     }
+
     collisionLayers[layer].push_back(element);
+}
+
+void Scene::removeFromCollisionLayer(Element *element)
+{
+    int layer = element->collisionLayer;
+
+    if (collisionLayers.find(layer) == collisionLayers.end()) {
+        Logger::LogError("Scene::removeFromCollisionLayer(Element *=" + std::to_string(
+                             (unsigned long) element) + ", int=" + std::to_string(layer) +
+                         "): Layer not found!");
+        return;
+    }
+
+    auto elementIterator = std::find(collisionLayers[layer].begin(),
+                                     collisionLayers[layer].end(), element);
+
+    if (elementIterator == collisionLayers[layer].end()) {
+        Logger::LogError("Scene::removeFromCollisionLayer(Element *=" + std::to_string(
+                             (unsigned long) element) + ", int=" + std::to_string(layer) +
+                         "): Element not found!");
+        return;
+    }
+
+    collisionLayers[layer].erase(elementIterator);
+
+    if (collisionLayers[layer].size() == 0) {
+        collisionLayers.erase(layer);
+    }
 }
 
 std::vector<Element *> Scene::getCollisionLayer(int layer)
 {
-    if(layer < 0) {
+    if (layer < 0) {
         return std::vector<Element *>();
     }
+
     return collisionLayers[layer];
 }

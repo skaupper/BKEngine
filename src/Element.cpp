@@ -8,13 +8,13 @@ Element::Element(Scene *parentScene, const std::string &description, const Rect 
                  int collisionLayer) :
     description(description),
     renderBox(renderBox),
+    collisionBox(Rect()),
     flipped(false),
     frame(0),
     collisionLayer(collisionLayer),
     currentAnimation(-1),
     parentScene(parentScene)
 {
-    parentScene->addToCollisionLayer(this, collisionLayer);
 }
 
 Element::~Element()
@@ -117,6 +117,21 @@ void Element::onLoop()
 int Element::onEvent(SDL_Event *e)
 {
     return 0;
+}
+
+void Element::applyCollisionBox(const Rect &rect)
+{
+    collisionBox = rect;
+}
+
+Rect Element::getCollisionBox() const
+{
+    return RelativeCoordinates::apply(collisionBox, renderBox);
+}
+
+void Element::setRenderBox(const Rect &rect)
+{
+    renderBox = rect;
 }
 
 Rect Element::getRenderBox() const
