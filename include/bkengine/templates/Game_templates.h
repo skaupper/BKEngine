@@ -57,4 +57,9 @@ template <typename T> T &Game::getCurrentScene()
     return *((T *) scenes[activeScene].get());
 }
 
+template <typename T> void Game::setEventInterface()
+{
+    eventInterface = std::make_shared<T>();
+}
+
 #endif

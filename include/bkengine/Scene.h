@@ -12,6 +12,7 @@ namespace bkengine
 {
     class Scene
     {
+            friend class Element;
         public:
             explicit Scene(const std::string &name = "");
             Scene(Scene &&scene);
@@ -24,7 +25,8 @@ namespace bkengine
             void removeElement(const std::string &name);
             void removeElement(unsigned int index);
 
-            Element &addElement(const std::string &description = "", const Rect &renderBox = Rect(),
+            Element &addElement(const std::string &description = "",
+                                const Rect &renderBox = Rect(),
                                 int collisionLayer = -1);
             Element &getElement(const std::string &name);
             Element &getElement(unsigned int index);
@@ -37,7 +39,7 @@ namespace bkengine
 
             virtual void onLoop();
             virtual void onRender();
-            virtual bool onEvent(SDL_Event *);
+            virtual bool onEvent(const Event &);
 
             std::string getName() const;
 
@@ -46,7 +48,6 @@ namespace bkengine
             std::vector<std::shared_ptr<Element>> elements;
             std::map<int, std::vector<Element *>> collisionLayers;
 
-        friend class Element;
             void addToCollisionLayer(Element *, int layer);
             void removeFromCollisionLayer(Element *);
             std::vector<Element *> getCollisionLayer(int layer);

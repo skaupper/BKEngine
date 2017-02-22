@@ -5,10 +5,9 @@
 #include <string>
 #include <memory>
 
-#include <SDL.h>
-
 #include "Animation.h"
 #include "Misc.h"
+#include "Event.h"
 
 namespace bkengine
 {
@@ -45,7 +44,7 @@ namespace bkengine
 
             virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
-            virtual bool onEvent(SDL_Event *e);
+            virtual bool onEvent(const Event &);
 
             void applyCollisionBox(const Rect &);
             Rect getCollisionBox() const;

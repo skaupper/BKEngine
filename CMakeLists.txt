@@ -35,7 +35,8 @@ SET(SOURCES src/Core.cpp
             src/Logger.cpp
             src/Misc.cpp
             src/Fonts.cpp
-            src/Entity.cpp)
+            src/Entity.cpp
+            src/SDLEventInterface.cpp)
 
 IF(ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)

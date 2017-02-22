@@ -9,10 +9,11 @@
 
 namespace bkengine
 {
-    template <typename T> int sgn(T val) {
+    template <typename T> int sgn(T val)
+    {
         return (T(0) < val) - (val < T(0));
     }
-    
+
     struct Location {
         float x;
         float y;
@@ -98,8 +99,8 @@ namespace bkengine
 
     class RelativeCoordinates
     {
-    public:
-        static Rect apply(const Rect &rect, const Rect &srcRect);
+        public:
+            static Rect apply(const Rect &rect, const Rect &srcRect);
     };
 }
 

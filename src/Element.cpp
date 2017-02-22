@@ -4,7 +4,8 @@
 using namespace bkengine;
 
 
-Element::Element(Scene *parentScene, const std::string &description, const Rect &renderBox,
+Element::Element(Scene *parentScene, const std::string &description,
+                 const Rect &renderBox,
                  int collisionLayer) :
     description(description),
     renderBox(renderBox),
@@ -105,7 +106,8 @@ void Element::onRender(const Rect &parentRect)
         Animation &animation = getCurrentAnimation<Animation>();
 
         if (animation.hasTexture(0)) {
-            animation.getNextTexture().onRender(RelativeCoordinates::apply(renderBox, parentRect), flipped);
+            animation.getNextTexture().onRender(RelativeCoordinates::apply(renderBox,
+                                                parentRect), flipped);
         }
     }
 }
@@ -114,7 +116,7 @@ void Element::onLoop()
 {
 }
 
-bool Element::onEvent(SDL_Event *e)
+bool Element::onEvent(const Event &e)
 {
     return true;
 }

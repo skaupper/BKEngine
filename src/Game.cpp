@@ -8,7 +8,7 @@ static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 
 Game::Game(int width, int height, const std::string &title) : activeScene(-1),
-    running(false)
+    running(false), eventInterface(nullptr)
 {
     Core::getInstance(width, height, title);
 }
@@ -118,20 +118,26 @@ void Game::run()
         return;
     }
 
-    SDL_Event event;
+    if (eventInterface == nullptr) {
+        Logger::LogInfo("Game::run(): No event interface set. SDLEventInterface will be used.");
+        setEventInterface<SDLEventInterface>();
+    }
+
     Timer timer;
     running = true;
 
     while (running) {
         timer.start();
 
-        while (MANGLE_SDL(SDL_PollEvent)(&event) != 0) {
-            if (event.type == SDL_QUIT) {
+        while (eventInterface->ready()) {
+            Event event = eventInterface->poll();
+
+            if (event.type == EventType::QUIT) {
                 running = false;
                 Logger::LogDebug("Game::run(): event is SDL_QUIT");
             }
 
-            if (!onEvent(&event)) {
+            if (!onEvent(event)) {
                 Logger::LogDebug("Game::run(): onEvent returned false");
                 running = false;
                 break;
@@ -169,7 +175,7 @@ void Game::onLoop()
     }
 }
 
-bool Game::onEvent(SDL_Event *event)
+bool Game::onEvent(const Event &event)
 {
     if (activeScene > -1 && !getCurrentScene<Scene>().onEvent(event)) {
         return false;

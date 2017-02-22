@@ -104,7 +104,7 @@ void Scene::onLoop()
     }
 }
 
-bool Scene::onEvent(SDL_Event *event)
+bool Scene::onEvent(const Event &event)
 {
     for (auto &element : elements) {
         if (!element->onEvent(event)) {

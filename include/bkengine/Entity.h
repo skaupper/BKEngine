@@ -11,7 +11,8 @@ namespace bkengine
     class Entity : public Element
     {
         public:
-            explicit Entity(Scene *parentScene, const std::string &descr = "", const Rect &renderBox = Rect(),
+            explicit Entity(Scene *parentScene, const std::string &descr = "",
+                            const Rect &renderBox = Rect(),
                             int collisionLayer = -1);
             virtual ~Entity();
 
