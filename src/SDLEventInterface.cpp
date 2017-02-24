@@ -161,6 +161,7 @@ Event SDLEventInterface::poll()
     switch (event.type) {
         case SDL_KEYDOWN:
         case SDL_KEYUP:
+        {
             KeyboardEvent keyboardEvent;
             e.type = EventType::KEYBOARD;
             e.windowId = event.key.windowID;
@@ -170,9 +171,11 @@ Event SDLEventInterface::poll()
             keyboardEvent.repeat = (event.key.repeat != 0);
             e.keyboard = keyboardEvent;
             break;
+        }
 
         case SDL_MOUSEBUTTONDOWN:
         case SDL_MOUSEBUTTONUP:
+        {
             MouseEvent mouseEvent;
             e.type = EventType::MOUSE;
             e.windowId = event.button.windowID;
@@ -204,19 +207,23 @@ Event SDLEventInterface::poll()
                                 ButtonState::UP);
             e.mouse = mouseEvent;
             break;
+        }
 
         case SDL_MOUSEMOTION:
+        {
             MotionEvent motionEvent;
             e.type = EventType::MOTION;
             e.windowId = event.motion.windowID;
-            mouseEvent.x = event.motion.x;
-            mouseEvent.y = event.motion.y;
+            motionEvent.x = event.motion.x;
+            motionEvent.y = event.motion.y;
             motionEvent.relativeX = event.motion.xrel;
             motionEvent.relativeY = event.motion.yrel;
             e.motion = motionEvent;
             break;
+        }
 
         case SDL_MOUSEWHEEL:
+        {
             WheelEvent wheelEvent;
             e.type = EventType::WHEEL;
             e.windowId = event.motion.windowID;
@@ -226,16 +233,21 @@ Event SDLEventInterface::poll()
                                     WheelDirection::NORMAL : WheelDirection::FLIPPED);
             e.wheel = wheelEvent;
             break;
+        }
 
         case SDL_QUIT:
+        {
             e.type = EventType::QUIT;
             break;
+        }
 
         default:
+        {
             e.type = EventType::UNKNOWN;
             /* This one would spam a lot! */
             // Logger::LogDebug("SDLEventInterface::poll(): SDL event " + std::to_string(event.type) + " occurred which is not mapped by the interface");
             break;
+        }
     }
 
     return e;

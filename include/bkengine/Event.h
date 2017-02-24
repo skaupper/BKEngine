@@ -23,7 +23,6 @@ namespace bkengine
 
     enum class EventType {
         UNKNOWN,
-        APPLICATION,
         KEYBOARD,
         MOUSE,
         MOTION,
@@ -60,10 +59,6 @@ namespace bkengine
         WheelDirection direction;
     };
 
-    struct ApplicationEvent {
-        // TODO: implement
-    };
-
     struct WindowEvent {
         // TODO: implement
     };
@@ -71,6 +66,11 @@ namespace bkengine
     class Event
     {
         public:
+            Event() {}
+            virtual ~Event() {}
+            Event(const Event &event);
+            Event &operator=(const Event &event);
+
             EventType type = EventType::UNKNOWN;
             uint32_t timeStamp = std::chrono::duration_cast<std::chrono::seconds>
                                  (std::chrono::system_clock::now().time_since_epoch()).count();
@@ -81,7 +81,6 @@ namespace bkengine
                 MouseEvent mouse;
                 MotionEvent motion;
                 WheelEvent wheel;
-                ApplicationEvent application;
                 WindowEvent window;
             };
     };

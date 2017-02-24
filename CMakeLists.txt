@@ -36,6 +36,8 @@ SET(SOURCES src/Core.cpp
             src/Misc.cpp
             src/Fonts.cpp
             src/Entity.cpp
+            src/Event.cpp
+            src/Keys.cpp
             src/SDLEventInterface.cpp)
 
 IF(ENABLE_TESTS)
