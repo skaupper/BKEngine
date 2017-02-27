@@ -151,6 +151,16 @@ bool Keys::operator!=(const Keys &key) const
     return !(key == *this);
 }
 
+Keys::operator const std::string() const
+{
+    return keyString;
+}
+
+Keys::operator const char *() const
+{
+    return keyString.c_str();
+}
+
 std::string Keys::toString() const
 {
     return keyString;
@@ -171,6 +181,16 @@ bool Buttons::operator==(const Buttons &button) const
 bool Buttons::operator!=(const Buttons &button) const
 {
     return !(button == *this);
+}
+
+Buttons::operator const std::string() const
+{
+    return buttonString;
+}
+
+Buttons::operator const char *() const
+{
+    return buttonString.c_str();
 }
 
 std::string Buttons::toString()

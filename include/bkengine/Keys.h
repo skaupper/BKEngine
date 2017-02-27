@@ -15,6 +15,9 @@ namespace bkengine
             Keys(const std::string &keyString) : keyString(keyString) {}
             bool operator==(const Keys &) const;
             bool operator!=(const Keys &) const;
+
+            operator const std::string() const;
+            operator const char *() const;
             std::string toString() const;
 
             static Keys UNKNOWN;
@@ -167,6 +170,9 @@ namespace bkengine
             Buttons(const std::string &buttonString) : buttonString(buttonString) {}
             bool operator==(const Buttons &) const;
             bool operator!=(const Buttons &) const;
+
+            operator const std::string() const;
+            operator const char *() const;
             std::string toString();
 
             static Buttons UNKNOWN;
