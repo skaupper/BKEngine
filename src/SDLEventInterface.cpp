@@ -160,8 +160,7 @@ Event SDLEventInterface::poll()
 
     switch (event.type) {
         case SDL_KEYDOWN:
-        case SDL_KEYUP:
-        {
+        case SDL_KEYUP: {
             KeyboardEvent keyboardEvent;
             e.type = EventType::KEYBOARD;
             e.windowId = event.key.windowID;
@@ -174,8 +173,7 @@ Event SDLEventInterface::poll()
         }
 
         case SDL_MOUSEBUTTONDOWN:
-        case SDL_MOUSEBUTTONUP:
-        {
+        case SDL_MOUSEBUTTONUP: {
             MouseEvent mouseEvent;
             e.type = EventType::MOUSE;
             e.windowId = event.button.windowID;
@@ -209,8 +207,7 @@ Event SDLEventInterface::poll()
             break;
         }
 
-        case SDL_MOUSEMOTION:
-        {
+        case SDL_MOUSEMOTION: {
             MotionEvent motionEvent;
             e.type = EventType::MOTION;
             e.windowId = event.motion.windowID;
@@ -222,8 +219,7 @@ Event SDLEventInterface::poll()
             break;
         }
 
-        case SDL_MOUSEWHEEL:
-        {
+        case SDL_MOUSEWHEEL: {
             WheelEvent wheelEvent;
             e.type = EventType::WHEEL;
             e.windowId = event.motion.windowID;
@@ -235,14 +231,12 @@ Event SDLEventInterface::poll()
             break;
         }
 
-        case SDL_QUIT:
-        {
+        case SDL_QUIT: {
             e.type = EventType::QUIT;
             break;
         }
 
-        default:
-        {
+        default: {
             e.type = EventType::UNKNOWN;
             /* This one would spam a lot! */
             // Logger::LogDebug("SDLEventInterface::poll(): SDL event " + std::to_string(event.type) + " occurred which is not mapped by the interface");

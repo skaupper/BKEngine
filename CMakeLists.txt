@@ -24,37 +24,38 @@ SET (SDL_LIBS ${SDL2_LIBRARY}
               ${SDL2_TTF_LIBRARIES}
               ${SDL2_MIXER_LIBRARIES})
 
-SET(SOURCES src/Core.cpp
-            src/Game.cpp
-            src/Timer.cpp
-            src/Scene.cpp
-            src/Element.cpp
-            src/Animation.cpp
-            src/Texture.cpp
-            src/Scene.cpp
-            src/Logger.cpp
-            src/Misc.cpp
-            src/Fonts.cpp
-            src/Entity.cpp
-            src/Event.cpp
-            src/Keys.cpp
-            src/SDLEventInterface.cpp)
+SET (SOURCES src/Core.cpp
+             src/Game.cpp
+             src/Timer.cpp
+             src/Scene.cpp
+             src/Element.cpp
+             src/Animation.cpp
+             src/Texture.cpp
+             src/Scene.cpp
+             src/Logger.cpp
+             src/Misc.cpp
+             src/Fonts.cpp
+             src/Entity.cpp
+             src/Event.cpp
+             src/Keys.cpp
+             src/SDLEventInterface.cpp)
 
-IF(ENABLE_TESTS)
+IF (ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)
 ENDIF()
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})
-TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine ${SDL2_INCLUDE_DIR}
-                     ${SDL2_IMAGE_INCLUDE_DIR}
-                     ${SDL2_TTF_INCLUDE_DIR}
-                     ${SDL2_MIXER_INCLUDE_DIRS})
+TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine
+                                            ${SDL2_INCLUDE_DIR}
+                                            ${SDL2_IMAGE_INCLUDE_DIR}
+                                            ${SDL2_TTF_INCLUDE_DIR}
+                                            ${SDL2_MIXER_INCLUDE_DIRS})
 TARGET_LINK_LIBRARIES (bkengine ${SDL_LIBS})
 TARGET_COMPILE_OPTIONS (bkengine PRIVATE -pedantic -Wall -Wextra -Werror -Wno-unused-parameter -Wno-missing-braces)
 
-IF(${ENABLE_TESTS})
-    TARGET_COMPILE_DEFINITIONS(bkengine PRIVATE TEST)
+IF (${ENABLE_TESTS})
+    TARGET_COMPILE_DEFINITIONS (bkengine PRIVATE TEST)
     SET (TEST_SOURCES tests/main.cpp
                       tests/CoreTest.cpp
                       tests/TextureTest.cpp)
@@ -63,7 +64,7 @@ IF(${ENABLE_TESTS})
     ENDIF ()
 
     ENABLE_TESTING()
-    FIND_PACKAGE(GTest REQUIRED)
+    FIND_PACKAGE (GTest REQUIRED)
 
     # compile test
     ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})

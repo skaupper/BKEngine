@@ -119,8 +119,8 @@ Rect TextureWrapper::getSize() const
 
 Rect RelativeCoordinates::apply(const Rect &rect, const Rect &srcRect)
 {
-    return { srcRect.x + srcRect.w * rect.x / 100,
-             srcRect.y + srcRect.h * rect.y / 100,
-             srcRect.w * rect.w / 100,
-             srcRect.h * rect.h / 100 };
+    return { srcRect.x + srcRect.w *rect.x / 100,
+             srcRect.y + srcRect.h *rect.y / 100,
+             srcRect.w *rect.w / 100,
+             srcRect.h *rect.h / 100 };
 }
