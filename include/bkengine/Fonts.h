@@ -20,7 +20,8 @@ namespace bkengine
             static TTF_Font *getFont(const std::string &fontName, int size);
             static void releaseFont(const std::string &fontName, int size);
 
-        private:
+        protected:
+            constexpr static float FONT_SIZE_FACTOR = 0.75;
             static void registerCleanup();
             static void cleanup();
 

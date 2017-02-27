@@ -16,20 +16,40 @@ Element::Element(Scene *parentScene, const std::string &description,
     currentAnimation(-1),
     parentScene(parentScene)
 {
+    setup();
 }
 
 Element::~Element()
 {
-    animations.clear();
+    clear();
 }
 
-void Element::setAnimation(unsigned int index)
+void Element::activate(unsigned int index)
 {
     if (index >= animations.size()) {
+        Logger::LogWarning("Element::activate(unsigned int=" +
+                           std::to_string(index) + "): Index out of bounds");
         currentAnimation = 0;
     } else {
         currentAnimation = index;
     }
+}
+
+void Element::activate(const std::string &name)
+{
+    int index = 0;
+
+    for (auto &animation : animations) {
+        if (animation->getDescription() == name) {
+            activate(index);
+            return;
+        }
+
+        index++;
+    }
+
+    Logger::LogWarning("Element::activate(const std::string=" + name +
+                       "): Animation not found");
 }
 
 bool Element::hasAnimation(unsigned int index) const
@@ -78,12 +98,6 @@ void Element::removeAnimation(unsigned int index)
     }
 }
 
-Animation &Element::addAnimation(const std::string &descr,
-                                 unsigned int frameDelta)
-{
-    return addAnimation<Animation>(descr, frameDelta);
-}
-
 Animation &Element::getAnimation(const std::string &name)
 {
     return getAnimation<Animation>(name);
@@ -97,6 +111,10 @@ Animation &Element::getAnimation(unsigned int index)
 Animation &Element::getCurrentAnimation()
 {
     return getCurrentAnimation<Animation>();
+}
+
+void Element::setup()
+{
 }
 
 void Element::onRender(const Rect &parentRect)
@@ -144,6 +162,11 @@ Rect Element::getRenderBox() const
 std::string Element::getDescription() const
 {
     return description;
+}
+
+void Element::clear()
+{
+    animations.clear();
 }
 
 std::vector<Element *> Element::getCollisionLayer()

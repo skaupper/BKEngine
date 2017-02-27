@@ -3,20 +3,13 @@
 using namespace bkengine;
 
 
-Entity::Entity(Scene *parentScene, const std::string &descr,
-               const Rect &renderBox,
-               int collisionLayer) :
-    Element(parentScene, descr, renderBox, collisionLayer)
-{
-}
-
 Entity::~Entity()
 {
 }
 
 void Entity::move(float x, float y)
 {
-    if (x < MINIMUM_MOVE && y < MINIMUM_MOVE) {
+    if (std::abs(x) < MINIMUM_MOVE && std::abs(y) < MINIMUM_MOVE) {
         return;
     }
 
@@ -61,6 +54,7 @@ bool Entity::collidesWith(const Element &other) const
             x + w > otherx &&
             y < othery + otherh &&
             h + y > othery) {
+        Logger::LogDebug("collision");
         return true;
     }
 

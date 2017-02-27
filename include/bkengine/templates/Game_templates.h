@@ -19,7 +19,9 @@ template <typename T> T &Game::addScene(const std::shared_ptr<T> &scene)
 
 template <typename T, typename... Params> T &Game::addScene(Params... params)
 {
-    return addScene<T>(std::make_shared<T>(params...));
+    auto scene = std::make_shared<T>(this, params...);
+    scene->setup();
+    return addScene<T>(scene);
 }
 
 

@@ -11,9 +11,7 @@ namespace bkengine
     class Entity : public Element
     {
         public:
-            explicit Entity(Scene *parentScene, const std::string &descr = "",
-                            const Rect &renderBox = Rect(),
-                            int collisionLayer = -1);
+            using Element::Element;
             virtual ~Entity();
 
             void move(float x, float y);
@@ -21,7 +19,7 @@ namespace bkengine
             bool collidesWith();
             virtual bool collidesWith(const Element &other) const;
 
-        private:
+        protected:
             constexpr static float MINIMUM_MOVE = 0.001;
             constexpr static float MAXIMUM_MOVE = 1.00;
 

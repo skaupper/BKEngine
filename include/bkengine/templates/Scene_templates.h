@@ -15,7 +15,9 @@ template <typename T> T &Scene::addElement(const std::shared_ptr<T> &element)
 
 template <typename T, typename... Params> T &Scene::addElement(Params... params)
 {
-    return addElement<T>(std::make_shared<T>(this, params...));
+    auto element = std::make_shared<T>(this, params...);
+    element->setup();
+    return addElement<T>(element);
 }
 
 

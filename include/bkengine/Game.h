@@ -21,8 +21,8 @@ namespace bkengine
             Game(int width, int height, const std::string &title);
             virtual ~Game();
 
-            void setActiveScene(const std::string &name);
-            void setActiveScene(unsigned int index);
+            void activate(const std::string &name);
+            void activate(unsigned int index);
 
             bool hasScene(const std::string &name) const;
             bool hasScene(unsigned int index) const;
@@ -30,7 +30,6 @@ namespace bkengine
             void removeScene(const std::string &name);
             void removeScene(unsigned int index);
 
-            Scene &addScene(const std::string &name = "");
             Scene &getScene(const std::string &name);
             Scene &getScene(unsigned int index);
             Scene &getCurrentScene();
@@ -49,7 +48,9 @@ namespace bkengine
 
             bool setIcon(const std::string &iconPath);
 
-        private:
+            void clear();
+
+        protected:
             std::vector<std::shared_ptr<Scene>> scenes;
             int activeScene;
             bool running;

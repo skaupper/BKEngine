@@ -21,7 +21,8 @@ namespace bkengine
                              int collisionLayer = -1);
             virtual ~Element();
 
-            void setAnimation(unsigned int index);
+            void activate(unsigned int index);
+            void activate(const std::string &name);
 
             bool hasAnimation(const std::string &name) const;
             bool hasAnimation(unsigned int index) const;
@@ -29,8 +30,6 @@ namespace bkengine
             void removeAnimation(const std::string &name);
             void removeAnimation(unsigned int index);
 
-            Animation &addAnimation(const std::string &descr = "",
-                                    unsigned int frameDelta = 1);
             Animation &getAnimation(const std::string &name);
             Animation &getAnimation(unsigned int index);
             Animation &getCurrentAnimation();
@@ -42,6 +41,7 @@ namespace bkengine
             template <typename T> T &getAnimation(unsigned int index);
             template <typename T> T &getCurrentAnimation();
 
+            virtual void setup();
             virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
             virtual bool onEvent(const Event &);
@@ -51,6 +51,8 @@ namespace bkengine
             void setRenderBox(const Rect &);
             Rect getRenderBox() const;
             std::string getDescription() const;
+
+            void clear();
 
         protected:
             std::string description;

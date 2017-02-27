@@ -35,17 +35,17 @@ namespace bkengine
                     const Rect &clip = Rect());
             virtual ~Texture();
 
-            bool loadText(const std::string &fontName, const std::string &text,
+            virtual bool loadText(const std::string &fontName, const std::string &text,
                          const Rect &size, const Color &color = Color(),
                          TextQuality quality = TextQuality::SOLID);
-            bool loadImage(const std::string &path, const Rect &clip = Rect(),
+            virtual bool loadImage(const std::string &path, const Rect &clip = Rect(),
                           const Rect &size = Rect());
 
             Rect getSize() const;
             void setSize(int w, int h);
             void setSize(const Rect &rect);
 
-            virtual int onRender(const Rect &parentRect = Rect(), bool flip = false);
+            virtual void onRender(const Rect &parentRect = Rect(), bool flip = false);
 
         protected:
             bool flip;

@@ -15,10 +15,10 @@ Game::Game(int width, int height, const std::string &title) : activeScene(-1),
 
 Game::~Game()
 {
-    scenes.clear();
+    clear();
 }
 
-void Game::setActiveScene(const std::string &name)
+void Game::activate(const std::string &name)
 {
     int index = 0;
 
@@ -31,17 +31,17 @@ void Game::setActiveScene(const std::string &name)
         index++;
     }
 
-    Logger::LogCritical("Game::setActiveScene(const std::string &=" + name +
+    Logger::LogCritical("Game::activate(const std::string &=" + name +
                         "): Scene not found");
     throw "Scene not found";
 }
 
-void Game::setActiveScene(unsigned int index)
+void Game::activate(unsigned int index)
 {
     if (index < scenes.size()) {
         activeScene = index;
     } else {
-        Logger::LogCritical("Game::setActiveScene(int=" + std::to_string(
+        Logger::LogCritical("Game::activate(int=" + std::to_string(
                                 index) + "): Scene not found");
         throw "Scene not found";
     }
@@ -90,11 +90,6 @@ void Game::removeScene(unsigned int index)
                                 index) + "): Scene not found");
         throw "Scene not found";
     }
-}
-
-Scene &Game::addScene(const std::string &name)
-{
-    return addScene<Scene>(name);
 }
 
 Scene &Game::getScene(const std::string &name)
@@ -166,6 +161,11 @@ void Game::stop()
 bool Game::setIcon(const std::string &iconPath)
 {
     return Core::getInstance()->setIcon(iconPath);
+}
+
+void Game::clear()
+{
+    scenes.clear();
 }
 
 void Game::onLoop()

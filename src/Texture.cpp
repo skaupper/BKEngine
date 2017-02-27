@@ -76,7 +76,7 @@ Texture::Texture(const std::string &fontName, const std::string &text,
                             ", const std::string &=" + text + ", const Color &=" + color.toString() +
                             ", const Rect &=" + size.toString() + ", TextQuality=" + std::to_string(
                                 (int) quality) + "): Failed to load text. Texture is invalidated.");
-        // TODO: add "invalid" texture
+        texture = nullptr;
     }
 }
 
@@ -87,7 +87,7 @@ Texture::Texture(const std::string &path, const Rect &size,
         Logger::LogCritical("Texture::Texture(const std::string &=" + path +
                             ", const Rect &=" + size.toString() + ", const Rect &=" + clip.toString() +
                             "): Failed to load image. Texture is invalidated.");
-        // TODO: add "invalid" texture
+        texture = nullptr;
     }
 }
 
@@ -235,8 +235,14 @@ void Texture::setSize(const Rect &rect)
     size = rect;
 }
 
-int Texture::onRender(const Rect &parentRect, bool flip)
+void Texture::onRender(const Rect &parentRect, bool flip)
 {
+    if (!texture) {
+        Logger::LogCritical("Texture::onRender(const Rect &=" + parentRect.toString() +
+                            ", bool=" + (flip ? "true" : "false") + "): Texture is null");
+        return;
+    }
+
     SDL_Renderer *renderer = Core::getInstance()->getRenderer();
     Rect rect = { 0, 0, size.w, size.h };
     Rect windowSize = Core::getInstance()->getWindowSize();
@@ -246,6 +252,9 @@ int Texture::onRender(const Rect &parentRect, bool flip)
     SDL_Rect sdlClip = RelativeCoordinates::apply(clip,
                        texture->getSize()).toSDLRect();
     // SDL_Point point { (int) getSize().x / 2, 0 };
+    // Logger::LogDebug("Texture::onRender(const Rect &=" + parentRect.toString() +
+    //                  ", bool=" + (flip ? "true" : "false") + "): Texture is rendered to " +
+    //                  absoluteSize.toString());
     int ret;
 
     if (flip) {
@@ -257,7 +266,11 @@ int Texture::onRender(const Rect &parentRect, bool flip)
         ret =  MANGLE_SDL(SDL_RenderCopy)(renderer, texture->get(), &sdlClip, &sdlRect);
     }
 
-    return ret;
+    if (ret != 0) {
+        Logger::LogCritical("Texture::onRender(const Rect &=" + parentRect.toString() +
+                            ", bool=" + (flip ? "true" : "false") + "): Failed to render texture. " +
+                            std::string(MANGLE_SDL(SDL_GetError)()));
+    }
 }
 
 void Texture::cleanup()

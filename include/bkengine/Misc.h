@@ -54,27 +54,24 @@ namespace bkengine
         std::string toString() const;
         bool operator==(const Color &c) const;
         bool operator<(const Color &c) const;
-    };
 
-    namespace Colors
-    {
-        extern Color BLACK;
-        extern Color WHITE;
-        extern Color RED;
-        extern Color LIME;
-        extern Color BLUE;
-        extern Color YELLOW;
-        extern Color CYAN;
-        extern Color MAGENTA;
-        extern Color SILVER;
-        extern Color GRAY;
-        extern Color MAROON;
-        extern Color OLIVE;
-        extern Color GREEN;
-        extern Color PURPLE;
-        extern Color TEAL;
-        extern Color NAVY;
-    }
+        static Color BLACK;
+        static Color WHITE;
+        static Color RED;
+        static Color LIME;
+        static Color BLUE;
+        static Color YELLOW;
+        static Color CYAN;
+        static Color MAGENTA;
+        static Color SILVER;
+        static Color GRAY;
+        static Color MAROON;
+        static Color OLIVE;
+        static Color GREEN;
+        static Color PURPLE;
+        static Color TEAL;
+        static Color NAVY;
+    };
 
     enum class TextQuality {
         SOLID = 1,

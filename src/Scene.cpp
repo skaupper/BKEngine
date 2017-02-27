@@ -3,9 +3,10 @@
 using namespace bkengine;
 
 
-Scene::Scene(const std::string &name)
+Scene::Scene(Game *parentGame, const std::string &name)
 {
-    Scene::name = name;
+    this->name = name;
+    this->parentGame = parentGame;
 }
 
 Scene &Scene::operator=(Scene &&scene)
@@ -23,7 +24,7 @@ Scene::Scene(Scene &&scene)
 
 Scene::~Scene()
 {
-    elements.clear();
+    clear();
 }
 
 bool Scene::hasElement(unsigned int index) const
@@ -73,21 +74,8 @@ void Scene::removeElement(unsigned int index)
     }
 }
 
-Element &Scene::addElement(const std::string &description,
-                           const Rect &renderBox,
-                           int collisionLayer)
+void Scene::setup()
 {
-    return addElement<Element>(description, renderBox, collisionLayer);
-}
-
-Element &Scene::getElement(const std::string &name)
-{
-    return getElement<Element>(name);
-}
-
-Element &Scene::getElement(unsigned int index)
-{
-    return getElement<Element>(index);
 }
 
 void Scene::onRender()
@@ -164,4 +152,9 @@ std::vector<Element *> Scene::getCollisionLayer(int layer)
     }
 
     return collisionLayers[layer];
+}
+
+void Scene::clear()
+{
+    elements.clear();
 }

@@ -20,7 +20,7 @@ namespace bkengine
 
     class Core
     {
-        private:
+        protected:
             static Core *instance;
             static bool depsInited;
             static std::vector<std::function<void()>> cleanupFunctions;

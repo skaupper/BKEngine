@@ -52,28 +52,22 @@ bool Color::operator<(const Color &c) const
     return (r + g + b + a) < (c.r + c.g + c.b + c.a);
 }
 
-namespace bkengine
-{
-    namespace Colors
-    {
-        Color BLACK(0, 0, 0);
-        Color WHITE(0xff, 0xff, 0xff);
-        Color RED(0xff, 0, 0);
-        Color LIME(0, 0xff, 0);
-        Color BLUE(0, 0, 0xff);
-        Color YELLOW(0xff, 0xff, 0);
-        Color CYAN(0, 0xff, 0xff);
-        Color MAGENTA(0xff, 0, 0xff);
-        Color SILVER(0xc0, 0xc0, 0xc0);
-        Color GRAY(0x80, 0x80, 0x80);
-        Color MAROON(0x80, 0, 0);
-        Color OLIVE(0x80, 0x80, 0);
-        Color GREEN(0, 0x80, 0);
-        Color PURPLE(0x80, 0, 0x80);
-        Color TEAL(0, 0x80, 0x80);
-        Color NAVY(0, 0, 0x80);
-    }
-}
+Color Color::BLACK(0, 0, 0);
+Color Color::WHITE(0xff, 0xff, 0xff);
+Color Color::RED(0xff, 0, 0);
+Color Color::LIME(0, 0xff, 0);
+Color Color::BLUE(0, 0, 0xff);
+Color Color::YELLOW(0xff, 0xff, 0);
+Color Color::CYAN(0, 0xff, 0xff);
+Color Color::MAGENTA(0xff, 0, 0xff);
+Color Color::SILVER(0xc0, 0xc0, 0xc0);
+Color Color::GRAY(0x80, 0x80, 0x80);
+Color Color::MAROON(0x80, 0, 0);
+Color Color::OLIVE(0x80, 0x80, 0);
+Color Color::GREEN(0, 0x80, 0);
+Color Color::PURPLE(0x80, 0, 0x80);
+Color Color::TEAL(0, 0x80, 0x80);
+Color Color::NAVY(0, 0, 0x80);
 
 TextureWrapper::TextureWrapper(SDL_Texture *tex)
 {
@@ -119,8 +113,19 @@ Rect TextureWrapper::getSize() const
 
 Rect RelativeCoordinates::apply(const Rect &rect, const Rect &srcRect)
 {
-    return { srcRect.x + srcRect.w *rect.x / 100,
-             srcRect.y + srcRect.h *rect.y / 100,
-             srcRect.w *rect.w / 100,
-             srcRect.h *rect.h / 100 };
+    Rect tmp = { srcRect.x + srcRect.w *rect.x / 100,
+                 srcRect.y + srcRect.h *rect.y / 100,
+                 srcRect.w *rect.w / 100,
+                 srcRect.h *rect.h / 100
+               };
+
+    if (srcRect.w == 0) {
+        tmp.w = rect.w;
+    }
+
+    if (srcRect.h == 0) {
+        tmp.h = rect.h;
+    }
+
+    return tmp;
 }
