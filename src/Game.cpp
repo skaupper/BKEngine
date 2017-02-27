@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "SDLEventInterface.h"
+#include "INISettingsInterface.h"
 
 using namespace bkengine;
 
@@ -107,6 +109,11 @@ Scene &Game::getCurrentScene()
     return getCurrentScene<Scene>();
 }
 
+std::shared_ptr<SettingsInterface> Game::getSettingsInterface()
+{
+    return settingsInterface;
+}
+
 void Game::run()
 {
     if (!Core::getInstance()->initEnvironment()) {
@@ -116,6 +123,11 @@ void Game::run()
     if (eventInterface == nullptr) {
         Logger::LogInfo("Game::run(): No event interface set. SDLEventInterface will be used.");
         setEventInterface<SDLEventInterface>();
+    }
+
+    if (settingsInterface == nullptr) {
+        Logger::LogInfo("Game::run(): No settings interface set. INISettingsInterface will be used.");
+        setSettingsInterface<INISettingsInterface>();
     }
 
     Timer timer;

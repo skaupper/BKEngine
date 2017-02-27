@@ -38,7 +38,8 @@ SET (SOURCES src/Core.cpp
              src/Entity.cpp
              src/Event.cpp
              src/Keys.cpp
-             src/SDLEventInterface.cpp)
+             src/SDLEventInterface.cpp
+             src/INISettingsInterface.cpp)
 
 IF (ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)

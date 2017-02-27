@@ -8,8 +8,9 @@
 #include "Core.h"
 #include "Scene.h"
 #include "Timer.h"
-#include "SDLEventInterface.h"
 #include "EventInterface.h"
+#include "SettingsInterface.h"
+
 
 namespace bkengine
 {
@@ -42,6 +43,8 @@ namespace bkengine
             template <typename T> T &getCurrentScene();
 
             template <typename T> void setEventInterface();
+            template <typename T> void setSettingsInterface();
+            std::shared_ptr<SettingsInterface> getSettingsInterface();
 
             void run();
             void stop();
@@ -56,6 +59,7 @@ namespace bkengine
             bool running;
             Timer timer;
             std::shared_ptr<EventInterface> eventInterface;
+            std::shared_ptr<SettingsInterface> settingsInterface;
 
             void onLoop();
             bool onEvent(const Event &);

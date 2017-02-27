@@ -64,4 +64,10 @@ template <typename T> void Game::setEventInterface()
     eventInterface = std::make_shared<T>();
 }
 
+template <typename T> void Game::setSettingsInterface()
+{
+    settingsInterface = std::make_shared<T>();
+}
+
+
 #endif
