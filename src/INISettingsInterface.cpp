@@ -100,7 +100,23 @@ std::string INISettingsInterface::getValue(const std::string &key) const
     if (dot == std::string::npos) {
         return withoutSections.at(key);
     } else {
-        return withSections.at(key.substr(0, dot)).at(key.substr(dot + 1));
+        std::string section = key.substr(0, dot);
+
+        if (section.empty()) {
+            Logger::LogError("INISettingsInterface::getValue(const std::string &=" + key  +
+                             "): Section is empty (parameter key has to have a format of \"section.key\")");
+            return "";
+        }
+
+        std::string newKey = key.substr(dot + 1);
+
+        if (newKey.empty()) {
+            Logger::LogError("INISettingsInterface::getValue(const std::string &=" + key +
+                             "): Key is empty (parameter key has to have a format of \"section.key\")");
+            return "";
+        }
+
+        return withSections.at(section).at(newKey);
     }
 }
 
@@ -120,7 +136,21 @@ std::string INISettingsInterface::remove(const std::string &key)
         withoutSections.erase(key);
     } else {
         std::string section = key.substr(0, dot);
+
+        if (section.empty()) {
+            Logger::LogError("INISettingsInterface::remove(const std::string &=" + key  +
+                             "): Section is empty (parameter key has to have a format of \"section.key\")");
+            return "";
+        }
+
         std::string newKey = key.substr(dot + 1);
+
+        if (newKey.empty()) {
+            Logger::LogError("INISettingsInterface::remove(const std::string &=" + key +
+                             "): Key is empty (parameter key has to have a format of \"section.key\")");
+            return "";
+        }
+
         entry = withSections[section][newKey];
         withSections[section].erase(newKey);
 
@@ -134,13 +164,32 @@ std::string INISettingsInterface::remove(const std::string &key)
 
 bool INISettingsInterface::hasValue(const std::string &key) const
 {
+    if (key.empty()) {
+        Logger::LogError("INISettingsInterface::hasValue(const std::string &=" + key +
+                         "): Parameter key is empty (it has to have a format of \"section.key\")");
+        return false;
+    }
+
     uint64_t dot = key.find('.');
 
     if (dot == std::string::npos) {
         return withoutSections.find(key) != withoutSections.end();
     } else {
         std::string section = key.substr(0, dot);
+
+        if (section.empty()) {
+            Logger::LogError("INISettingsInterface::hasValue(const std::string &=" + key  +
+                             "): Section is empty (parameter key has to have a format of \"section.key\")");
+            return false;
+        }
+
         std::string newKey = key.substr(dot + 1);
+
+        if (newKey.empty()) {
+            Logger::LogError("INISettingsInterface::hasValue(const std::string &=" + key +
+                             "): Key is empty (parameter key has to have a format of \"section.key\")");
+            return false;
+        }
 
         if (withSections.find(section) == withSections.end()) {
             return false;
@@ -153,13 +202,36 @@ bool INISettingsInterface::hasValue(const std::string &key) const
 void INISettingsInterface::create(const std::string &key,
                                   const std::string &value)
 {
+    if (key.empty()) {
+        Logger::LogError("INISettingsInterface::create(const std::string &=" + key +
+                         ", const std::string &=" + value +
+                         "): Parameter key is empty (it has to have a format of \"section.key\")");
+        return;
+    }
+
     uint64_t dot = key.find('.');
 
     if (dot == std::string::npos) {
         withoutSections[key] = value;
     } else {
         std::string section = key.substr(0, dot);
+
+        if (section.empty()) {
+            Logger::LogError("INISettingsInterface::create(const std::string &=" + key +
+                             ", const std::string &=" + value +
+                             "): Section is empty (parameter key has to have a format of \"section.key\")");
+            return;
+        }
+
         std::string newKey = key.substr(dot + 1);
+
+        if (newKey.empty()) {
+            Logger::LogError("INISettingsInterface::create(const std::string &=" + key +
+                             ", const std::string &=" + value +
+                             "): Key is empty (parameter key has to have a format of \"section.key\")");
+            return;
+        }
+
         withSections[section][newKey] = value;
     }
 }
@@ -171,6 +243,10 @@ void INISettingsInterface::change(const std::string &key,
         Logger::LogError("INISettingsInterface::change(const std::string &=" + key +
                          ", const std::string &=" + newValue + "): Key not found");
         return;
+    }
+
+    if (newValue.empty()) {
+        remove(key);
     }
 
     create(key, newValue);
