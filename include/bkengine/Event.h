@@ -2,6 +2,7 @@
 #define BKENGINE_EVENT_H
 
 #include <chrono>
+#include <vector>
 
 #include "Keys.h"
 
@@ -28,6 +29,25 @@ namespace bkengine
         MOTION,
         WHEEL,
         QUIT
+    };
+
+    enum class WindowEventType {
+        NONE,
+        SHOWN,
+        HIDDEN,
+        EXPOSED,
+        MOVED,
+        RESIZED,
+        SIZE_CHANGED,
+        MINIMIZED,
+        MAXIMIZED,
+        RESTORED,
+        ENTER,
+        LEAVE,
+        FOCUS_GAINED,
+        FOCUS_LOST,
+        CLOSE,
+        TAKE_FOCUS
     };
 
 
@@ -60,7 +80,8 @@ namespace bkengine
     };
 
     struct WindowEvent {
-        // TODO: implement
+        WindowEventType type;
+        std::vector<int32_t> data;
     };
 
     class Event

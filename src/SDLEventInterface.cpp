@@ -159,6 +159,77 @@ Event SDLEventInterface::poll()
     Event e;
 
     switch (event.type) {
+        case SDL_WINDOWEVENT: {
+            WindowEvent windowEvent;
+
+            switch (event.window.event) {
+                case SDL_WINDOWEVENT_SHOWN:
+                    windowEvent.type = WindowEventType::SHOWN;
+                    break;
+
+                case SDL_WINDOWEVENT_HIDDEN:
+                    windowEvent.type = WindowEventType::HIDDEN;
+                    break;
+
+                case SDL_WINDOWEVENT_EXPOSED:
+                    windowEvent.type = WindowEventType::EXPOSED;
+                    break;
+
+                case SDL_WINDOWEVENT_MOVED:
+                    windowEvent.type = WindowEventType::MOVED;
+                    break;
+
+                case SDL_WINDOWEVENT_RESIZED:
+                    windowEvent.type = WindowEventType::RESIZED;
+                    break;
+
+                case SDL_WINDOWEVENT_SIZE_CHANGED:
+                    windowEvent.type = WindowEventType::SIZE_CHANGED;
+                    break;
+
+                case SDL_WINDOWEVENT_MINIMIZED:
+                    windowEvent.type = WindowEventType::MINIMIZED;
+                    break;
+
+                case SDL_WINDOWEVENT_MAXIMIZED:
+                    windowEvent.type = WindowEventType::MAXIMIZED;
+                    break;
+
+                case SDL_WINDOWEVENT_RESTORED:
+                    windowEvent.type = WindowEventType::RESTORED;
+                    break;
+
+                case SDL_WINDOWEVENT_ENTER:
+                    windowEvent.type = WindowEventType::ENTER;
+                    break;
+
+                case SDL_WINDOWEVENT_LEAVE:
+                    windowEvent.type = WindowEventType::LEAVE;
+                    break;
+
+                case SDL_WINDOWEVENT_FOCUS_GAINED:
+                    windowEvent.type = WindowEventType::FOCUS_GAINED;
+                    break;
+
+                case SDL_WINDOWEVENT_FOCUS_LOST:
+                    windowEvent.type = WindowEventType::FOCUS_LOST;
+                    break;
+
+                case SDL_WINDOWEVENT_CLOSE:
+                    windowEvent.type = WindowEventType::CLOSE;
+                    break;
+
+                case SDL_WINDOWEVENT_TAKE_FOCUS:
+                    windowEvent.type = WindowEventType::TAKE_FOCUS;
+                    break;
+            }
+
+            windowEvent.data.push_back(event.window.data1);
+            windowEvent.data.push_back(event.window.data2);
+            e.window = windowEvent;
+            break;
+        }
+
         case SDL_KEYDOWN:
         case SDL_KEYUP: {
             KeyboardEvent keyboardEvent;
