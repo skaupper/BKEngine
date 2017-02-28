@@ -11,11 +11,7 @@ Texture::textCache;
 
 static void recalculateRect(Rect &rect, int w, int h)
 {
-    if (rect.w == 0 && rect.h == 0) {
-        Rect windowSize = Core::getInstance()->getWindowSize();
-        rect.w = windowSize.w / w;
-        rect.h = windowSize.h / h;
-    } else if (rect.h == 0) {
+    if (rect.h == 0) {
         rect.h = (rect.w / w) * h;
     } else if (rect.w == 0) {
         rect.w = (rect.h / h) * w;

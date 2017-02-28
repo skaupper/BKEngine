@@ -8,6 +8,7 @@
 #include "Core.h"
 #include "Scene.h"
 #include "Timer.h"
+#include "Storage.h"
 #include "EventInterface.h"
 #include "SettingsInterface.h"
 
@@ -46,12 +47,22 @@ namespace bkengine
             template <typename T> void setSettingsInterface();
             std::shared_ptr<SettingsInterface> getSettingsInterface();
 
+            template <typename T> T &getData(const std::string &name);
+            template <typename T> T &addData(const std::string &name);
+            bool hasData(const std::string &name);
+
+            void resizeWindow(int windowWidth, int windowHeight);
+            void setWindowTitle(const std::string &);
+
             void run();
             void stop();
 
             bool setIcon(const std::string &iconPath);
 
             void clear();
+
+            virtual void setup();
+            virtual void teardown();
 
         protected:
             std::vector<std::shared_ptr<Scene>> scenes;
@@ -60,6 +71,7 @@ namespace bkengine
             Timer timer;
             std::shared_ptr<EventInterface> eventInterface;
             std::shared_ptr<SettingsInterface> settingsInterface;
+            std::map<std::string, std::shared_ptr<Storage>> dataStore;
 
             void onLoop();
             bool onEvent(const Event &);

@@ -17,6 +17,7 @@ Game::Game(int width, int height, const std::string &title) : activeScene(-1),
 
 Game::~Game()
 {
+    teardown();
     clear();
 }
 
@@ -114,11 +115,28 @@ std::shared_ptr<SettingsInterface> Game::getSettingsInterface()
     return settingsInterface;
 }
 
+bool Game::hasData(const std::string &name)
+{
+    return dataStore.find(name) != dataStore.end();
+}
+
+void Game::resizeWindow(int windowWidth, int windowHeight)
+{
+    Core::getInstance()->resizeWindow(windowWidth, windowHeight);
+}
+
+void Game::setWindowTitle(const std::string &title)
+{
+    Core::getInstance()->setWindowTitle(title);
+}
+
 void Game::run()
 {
     if (!Core::getInstance()->initEnvironment()) {
         return;
     }
+
+    setup();
 
     if (eventInterface == nullptr) {
         Logger::LogInfo("Game::run(): No event interface set. SDLEventInterface will be used.");
@@ -162,7 +180,7 @@ void Game::run()
         timer.stop();
     }
 
-    return;
+    teardown();
 }
 
 void Game::stop()
@@ -178,6 +196,15 @@ bool Game::setIcon(const std::string &iconPath)
 void Game::clear()
 {
     scenes.clear();
+    dataStore.clear();
+}
+
+void Game::setup()
+{
+}
+
+void Game::teardown()
+{
 }
 
 void Game::onLoop()

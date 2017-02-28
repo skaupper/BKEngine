@@ -173,7 +173,7 @@ bool Core::initEnvironment()
     window = MANGLE_SDL(SDL_CreateWindow)(windowTitle.c_str(),
                                           SDL_WINDOWPOS_UNDEFINED,
                                           SDL_WINDOWPOS_UNDEFINED, windowWidth,
-                                          windowHeight, SDL_WINDOW_SHOWN);
+                                          windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
     if (window == NULL) {
         Logger::LogCritical("Core::initEnvironment(): Failed to create window. " +
@@ -209,6 +209,16 @@ bool Core::setIcon(const std::string &iconPath)
     MANGLE_SDL(SDL_SetWindowIcon)(window, iconSurface);
     MANGLE_SDL(SDL_FreeSurface)(iconSurface);
     return true;
+}
+
+void Core::resizeWindow(int width, int height)
+{
+    MANGLE_SDL(SDL_SetWindowSize)(window, width, height);
+}
+
+void Core::setWindowTitle(const std::string &title)
+{
+    MANGLE_SDL(SDL_SetWindowTitle)(window, title.c_str());
 }
 
 Rect Core::getWindowSize()

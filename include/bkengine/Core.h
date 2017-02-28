@@ -50,6 +50,8 @@ namespace bkengine
 
             bool initEnvironment();
             bool setIcon(const std::string &iconPath);
+            void resizeWindow(int, int);
+            void setWindowTitle(const std::string &);
 
             Rect getWindowSize();
             std::string getWindowTitle() const;

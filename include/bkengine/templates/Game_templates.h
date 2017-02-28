@@ -69,5 +69,19 @@ template <typename T> void Game::setSettingsInterface()
     settingsInterface = std::make_shared<T>();
 }
 
+template <typename T> T &Game::getData(const std::string &name)
+{
+    if(!hasData(name)) {
+        Logger::LogCritical("Game::getData(const std::string &=" + name + "): Data not found");
+        throw "Data not found";
+    }
+    return *((T *) dataStore[name].get());
+}
+
+template <typename T> T &Game::addData(const std::string &name)
+{
+    dataStore[name] = std::make_shared<T>(T::TYPE);
+    return getData<T>(name);
+}
 
 #endif

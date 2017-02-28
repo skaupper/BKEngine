@@ -42,6 +42,7 @@ namespace bkengine
             template <typename T> T &getCurrentAnimation();
 
             virtual void setup();
+
             virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
             virtual bool onEvent(const Event &);
