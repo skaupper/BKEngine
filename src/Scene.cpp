@@ -74,6 +74,17 @@ void Scene::removeElement(unsigned int index)
     }
 }
 
+Element &Scene::getElement(unsigned int index)
+{
+    return getElement<Element>(index);
+}
+
+Element &Scene::getElement(const std::string &name)
+{
+    return getElement<Element>(name);
+}
+
+
 void Scene::setup()
 {
 }

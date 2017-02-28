@@ -49,14 +49,13 @@ void INISettingsInterface::loadFromFile(const std::string &fileName)
         }
 
         file.close();
+        Logger::LogInfo("INISettingsInterface::loadFromFile(const std::string &=" +
+                        fileName + "): Successfully read " + std::to_string(count()) +
+                        " values from file");
     } else {
         Logger::LogError("INISettingsInterface::loadFromFile(const std::string &=" +
                          fileName + "): Failed to open file");
     }
-
-    Logger::LogInfo("INISettingsInterface::loadFromFile(const std::string &=" +
-                    fileName + "): Successfully read " + std::to_string(count()) +
-                    " values from file");
 }
 
 void INISettingsInterface::saveToFile(const std::string &fileName) const
@@ -87,10 +86,10 @@ void INISettingsInterface::saveToFile(const std::string &fileName) const
     }
 }
 
-std::string INISettingsInterface::getValue(const std::string &key) const
+std::string INISettingsInterface::get(const std::string &key) const
 {
     if (!hasValue(key)) {
-        Logger::LogError("INISettingsInterface::getValue(const std::string &=" + key +
+        Logger::LogError("INISettingsInterface::get(const std::string &=" + key +
                          "): Key not found");
         return "";
     }
@@ -103,7 +102,7 @@ std::string INISettingsInterface::getValue(const std::string &key) const
         std::string section = key.substr(0, dot);
 
         if (section.empty()) {
-            Logger::LogError("INISettingsInterface::getValue(const std::string &=" + key  +
+            Logger::LogError("INISettingsInterface::get(const std::string &=" + key  +
                              "): Section is empty (parameter key has to have a format of \"section.key\")");
             return "";
         }
@@ -111,7 +110,7 @@ std::string INISettingsInterface::getValue(const std::string &key) const
         std::string newKey = key.substr(dot + 1);
 
         if (newKey.empty()) {
-            Logger::LogError("INISettingsInterface::getValue(const std::string &=" + key +
+            Logger::LogError("INISettingsInterface::get(const std::string &=" + key +
                              "): Key is empty (parameter key has to have a format of \"section.key\")");
             return "";
         }

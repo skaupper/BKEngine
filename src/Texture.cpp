@@ -106,7 +106,7 @@ bool Texture::loadText(const std::string &fontName, const std::string &text,
         Texture::size = size;
         recalculateRect(Texture::size, w, h);
         Texture::clip = Rect();
-        return 0;
+        return true;
     }
 
     Rect windowSize = Core::getInstance()->getWindowSize();

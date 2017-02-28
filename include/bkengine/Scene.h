@@ -26,6 +26,9 @@ namespace bkengine
             void removeElement(const std::string &name);
             void removeElement(unsigned int index);
 
+            Element &getElement(unsigned int index);
+            Element &getElement(const std::string &name);
+
             template <typename T> T &addElement(const T &);
             template <typename T> T &addElement(const std::shared_ptr<T> &);
             template <typename T, typename... Params> T &addElement(Params...);
