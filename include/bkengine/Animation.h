@@ -1,5 +1,5 @@
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#ifndef BKENGINE_ANIMATION_H
+#define BKENGINE_ANIMATION_H
 
 #include <string>
 #include <vector>
@@ -12,10 +12,8 @@ namespace bkengine
 {
     class Animation
     {
+            /* hierarchal */
         public:
-            explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
-            virtual ~Animation();
-
             template <typename T> void addImage(const std::string &path,
                                                 const Rect &clip = Rect(), const Rect &size = Rect());
             template <typename T> void addText(const std::string &fontName,
@@ -28,22 +26,35 @@ namespace bkengine
             Texture &getNextTexture();
             Texture &getCurrentTexture();
 
+        protected:
+            int currentIndex;
+            std::vector<Texture> textures;
+
+
+            /* getter and setter */
+        public:
+            std::string getDescription() const;
+
+        protected:
+            std::string description;
+
+
+            /* other stuff */
+        public:
+            explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
+            virtual ~Animation();
+
             void incFrameCount();
             void setFramesPerTexture(unsigned int frames);
 
             void reset();
 
-            std::string getDescription() const;
-
         protected:
             unsigned int frameCounter;
             unsigned int framesPerTexture;
-            int currentIndex;
-            std::vector<Texture> textures;
-            std::string description;
     };
 
 #include "templates/Animation_templates.h"
 }
 
-#endif // ANIMATION_H
+#endif

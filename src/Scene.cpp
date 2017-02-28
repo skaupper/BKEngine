@@ -3,10 +3,10 @@
 using namespace bkengine;
 
 
-Scene::Scene(Game *parentGame, const std::string &name)
+Scene::Scene(Game *parentGame, const std::string &name) :
+    parentGame(parentGame),
+    name(name)
 {
-    this->name = name;
-    this->parentGame = parentGame;
 }
 
 Scene &Scene::operator=(Scene &&scene)

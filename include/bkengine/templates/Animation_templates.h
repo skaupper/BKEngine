@@ -1,5 +1,5 @@
-#ifndef ANIMATION_TEMPLATES_H
-#define ANIMATION_TEMPLATES_H
+#ifndef BKENGINE_ANIMATIONTEMPLATES_H
+#define BKENGINE_ANIMATIONTEMPLATES_H
 
 template <typename T> void Animation::addImage(const std::string &path,
         const Rect &size, const Rect &clip)

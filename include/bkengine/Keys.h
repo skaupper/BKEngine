@@ -1,5 +1,5 @@
-#ifndef KEYS_H
-#define KEYS_H
+#ifndef BKENGINE_KEYS_H
+#define BKENGINE_KEYS_H
 
 #include <string>
 

@@ -1,5 +1,5 @@
-#ifndef TIMER_H_INCLUDED
-#define TIMER_H_INCLUDED
+#ifndef BKENGINE_TIMER_H
+#define BKENGINE_TIMER_H
 
 #include "SDLWrapper.h"
 
@@ -25,4 +25,4 @@ namespace bkengine
     };
 }
 
-#endif // TIMER_H_INCLUDED
+#endif

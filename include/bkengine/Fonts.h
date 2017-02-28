@@ -1,5 +1,5 @@
-#ifndef FONTS_H
-#define FONTS_H
+#ifndef BKENGINE_FONTS_H
+#define BKENGINE_FONTS_H
 
 #include <string>
 #include <map>

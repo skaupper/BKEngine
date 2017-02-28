@@ -1,5 +1,5 @@
-#ifndef EVENT_H
-#define EVENT_H
+#ifndef BKENGINE_EVENT_H
+#define BKENGINE_EVENT_H
 
 #include <chrono>
 

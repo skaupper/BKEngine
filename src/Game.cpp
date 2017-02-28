@@ -9,8 +9,10 @@ using namespace bkengine;
 static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 
-Game::Game(int width, int height, const std::string &title) : activeScene(-1),
-    running(false), eventInterface(nullptr)
+Game::Game(int width, int height, const std::string &title) :
+    activeScene(-1),
+    eventInterface(nullptr),
+    running(false)
 {
     Core::getInstance(width, height, title);
 }

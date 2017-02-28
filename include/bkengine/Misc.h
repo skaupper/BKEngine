@@ -1,5 +1,5 @@
-#ifndef MISC_H
-#define MISC_H
+#ifndef BKENGINE_MISC_H
+#define BKENGINE_MISC_H
 
 #include <cstdint>
 

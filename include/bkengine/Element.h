@@ -1,5 +1,5 @@
-#ifndef ELEMENT_H
-#define ELEMENT_H
+#ifndef BKENGINE_ELEMENT_H
+#define BKENGINE_ELEMENT_H
 
 #include <vector>
 #include <string>
@@ -15,12 +15,9 @@ namespace bkengine
     class Element
     {
             friend class Scene;
-        public:
-            explicit Element(Scene *parentScene, const std::string &description = "",
-                             const Rect &renderbox = Rect(),
-                             int collisionLayer = -1);
-            virtual ~Element();
 
+            /* hierarchal */
+        public:
             void activate(unsigned int index);
             void activate(const std::string &name);
 
@@ -41,30 +38,45 @@ namespace bkengine
             template <typename T> T &getAnimation(unsigned int index);
             template <typename T> T &getCurrentAnimation();
 
-            virtual void setup();
+        protected:
+            int currentAnimation;
+            std::vector<std::shared_ptr<Animation>> animations;
+            Scene *parentScene;
 
-            virtual void onRender(const Rect &parentRect = Rect());
-            virtual void onLoop();
-            virtual bool onEvent(const Event &);
 
+            /* getter and setter */
+        public:
             void applyCollisionBox(const Rect &);
             Rect getCollisionBox() const;
             void setRenderBox(const Rect &);
             Rect getRenderBox() const;
             std::string getDescription() const;
 
-            void clear();
-
         protected:
             std::string description;
             Rect renderBox;
             Rect collisionBox;
-            bool flipped;
+
+
+            /* other stuff */
+        public:
+            explicit Element(Scene *parentScene, const std::string &description = "",
+                             const Rect &renderbox = Rect(),
+                             int collisionLayer = -1);
+            virtual ~Element();
+
+            virtual void setup();
+
+            virtual void onRender(const Rect &parentRect = Rect());
+            virtual void onLoop();
+            virtual bool onEvent(const Event &);
+
+            void clear();
+
+        protected:
             int frame;
             int collisionLayer;
-            int currentAnimation;
-            std::vector<std::shared_ptr<Animation>> animations;
-            Scene *parentScene;
+            bool flipped;
 
             std::vector<Element *> getCollisionLayer();
     };
@@ -72,4 +84,4 @@ namespace bkengine
 #include "templates/Element_templates.h"
 }
 
-#endif // ELEMENT_H
+#endif

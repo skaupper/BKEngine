@@ -1,5 +1,5 @@
-#ifndef ELEMENT_TEMPLATES_H
-#define ELEMENT_TEMPLATES_H
+#ifndef BKENGINE_ELEMENTTEMPLATES_H
+#define BKENGINE_ELEMENTTEMPLATES_H
 
 template <typename T> T &Element::addAnimation(const T &animation)
 {

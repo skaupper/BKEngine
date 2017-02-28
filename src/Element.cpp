@@ -7,14 +7,14 @@ using namespace bkengine;
 Element::Element(Scene *parentScene, const std::string &description,
                  const Rect &renderBox,
                  int collisionLayer) :
+    currentAnimation(-1),
+    parentScene(parentScene),
     description(description),
     renderBox(renderBox),
     collisionBox(Rect()),
-    flipped(false),
     frame(0),
     collisionLayer(collisionLayer),
-    currentAnimation(-1),
-    parentScene(parentScene)
+    flipped(false)
 {
     setup();
 }

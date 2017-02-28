@@ -1,5 +1,5 @@
-#ifndef LOGGER_H
-#define LOGGER_H
+#ifndef BKENGINE_LOGGER_H
+#define BKENGINE_LOGGER_H
 
 #include <iostream>
 #include <fstream>

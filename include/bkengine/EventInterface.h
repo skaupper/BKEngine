@@ -1,5 +1,5 @@
-#ifndef EVENT_INTERFACE_H
-#define EVENT_INTERFACE_H
+#ifndef BKENGINE_EVENTINTERFACE_H
+#define BKENGINE_EVENTINTERFACE_H
 
 #include "Event.h"
 

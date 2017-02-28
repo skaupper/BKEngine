@@ -1,5 +1,5 @@
-#ifndef GAME_TEMPLATES_H
-#define GAME_TEMPLATES_H
+#ifndef BKENGINE_GAMETEMPLATES_H
+#define BKENGINE_GAMETEMPLATES_H
 
 template <typename T> T &Game::addScene(const T &scene)
 {

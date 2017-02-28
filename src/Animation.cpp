@@ -4,10 +4,10 @@ using namespace bkengine;
 
 Animation::Animation(const std::string &description,
                      unsigned int framesPerTexture) :
-    frameCounter(0),
-    framesPerTexture(framesPerTexture),
     currentIndex(0),
-    description(description)
+    description(description),
+    frameCounter(0),
+    framesPerTexture(framesPerTexture)
 {
 }
 

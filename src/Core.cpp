@@ -36,9 +36,10 @@ void Core::move(Core &core)
 }
 
 Core::Core(int width, int height, const std::string &windowTitle) :
-    environmentInited(false),
+    windowTitle(windowTitle),
     windowWidth(width),
     windowHeight(height),
+    environmentInited(false),
     window(NULL),
     renderer(NULL)
 {

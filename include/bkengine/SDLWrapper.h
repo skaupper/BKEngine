@@ -1,5 +1,5 @@
-#ifndef SDLWRAPPER_H
-#define SDLWRAPPER_H
+#ifndef BKENGINE_SDLWRAPPER_H
+#define BKENGINE_SDLWRAPPER_H
 
 #include <SDL.h>
 #include <SDL_image.h>

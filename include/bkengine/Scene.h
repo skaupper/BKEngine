@@ -1,5 +1,5 @@
-#ifndef SCENE_H_INCLUDED
-#define SCENE_H_INCLUDED
+#ifndef BKENGINE_SCENE_H
+#define BKENGINE_SCENE_H
 
 #include <vector>
 #include <string>
@@ -14,12 +14,8 @@ namespace bkengine
     class Scene
     {
             friend class Element;
+            /* hierarchal */
         public:
-            explicit Scene(Game *parentGame, const std::string &name = "");
-            Scene(Scene &&scene);
-            Scene &operator=(Scene &&scene);
-            virtual ~Scene();
-
             bool hasElement(const std::string &name) const;
             bool hasElement(unsigned int index) const;
 
@@ -35,29 +31,46 @@ namespace bkengine
             template <typename T> T &getElement(const std::string &name);
             template <typename T> T &getElement(unsigned int index);
 
+        protected:
+            void addToCollisionLayer(Element *, int layer);
+            void removeFromCollisionLayer(Element *);
+            std::vector<Element *> getCollisionLayer(int layer);
+
+            Game *parentGame;
+            std::vector<std::shared_ptr<Element>> elements;
+            std::map<int, std::vector<Element *>> collisionLayers;
+
+
+            /* getter and setter */
+        public:
+            std::string getName() const;
+
+        protected:
+            std::string name;
+
+
+            /* other stuff */
+        public:
+            explicit Scene(Game *parentGame, const std::string &name = "");
+            Scene(Scene &&scene);
+            Scene &operator=(Scene &&scene);
+            virtual ~Scene();
 
             virtual void setup();
+
             virtual void onLoop();
             virtual void onRender();
             virtual bool onEvent(const Event &);
 
-            std::string getName() const;
-
             void clear();
 
         protected:
-            Game *parentGame;
 
-            std::string name;
-            std::vector<std::shared_ptr<Element>> elements;
-            std::map<int, std::vector<Element *>> collisionLayers;
-
-            void addToCollisionLayer(Element *, int layer);
-            void removeFromCollisionLayer(Element *);
-            std::vector<Element *> getCollisionLayer(int layer);
     };
 
 #include "templates/Scene_templates.h"
 }
 
-#endif // SCENE_H_INCLUDED
+#include "Game.h"
+
+#endif

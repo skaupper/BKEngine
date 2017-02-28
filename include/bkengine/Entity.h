@@ -1,5 +1,5 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef BKENGINE_ENTITY_H
+#define BKENGINE_ENTITY_H
 
 #include <memory>
 

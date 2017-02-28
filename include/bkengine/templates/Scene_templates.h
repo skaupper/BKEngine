@@ -1,5 +1,5 @@
-#ifndef SCENE_TEMPLATES_H
-#define SCENE_TEMPLATES_H
+#ifndef BKENGINE_SCENETEMPLATES_H
+#define BKENGINE_SCENETEMPLATES_H
 
 template <typename T> T &Scene::addElement(const T &element)
 {

@@ -1,5 +1,5 @@
-#ifndef CORE_H_INCLUDED
-#define CORE_H_INCLUDED
+#ifndef BKENGINE_CORE_H
+#define BKENGINE_CORE_H
 
 #include <string>
 #include <vector>
@@ -12,33 +12,9 @@
 
 namespace bkengine
 {
-    enum class FontSize {
-        SMALL = 1,
-        MEDIUM = 2,
-        LARGE = 3
-    };
-
     class Core
     {
-        protected:
-            static Core *instance;
-            static bool depsInited;
-            static std::vector<std::function<void()>> cleanupFunctions;
-
-            bool environmentInited;
-            int windowWidth;
-            int windowHeight;
-            std::string windowTitle;
-            SDL_Window *window;
-            SDL_Renderer *renderer;
-
-
-            Core();
-            Core(Core &&);
-            Core &operator=(Core &&);
-            void move(Core &);
-            Core(int width, int height, const std::string &windowTitle);
-
+            /* static stuff */
         public:
             static bool initDeps();
             static Core *getInstance();
@@ -46,17 +22,44 @@ namespace bkengine
             static void registerCleanup(std::function<void()>);
             static void quit();
 
-            virtual ~Core();
+        protected:
+            static Core *instance;
+            static bool depsInited;
+            static std::vector<std::function<void()>> cleanupFunctions;
 
-            bool initEnvironment();
+
+            /* getter and setter */
+        public:
             bool setIcon(const std::string &iconPath);
-            void resizeWindow(int, int);
             void setWindowTitle(const std::string &);
-
+            void resizeWindow(int, int);
             Rect getWindowSize();
             std::string getWindowTitle() const;
             SDL_Renderer *getRenderer() const;
+
+        protected:
+            std::string windowTitle;
+            int windowWidth;
+            int windowHeight;
+
+
+            /* other stuff */
+        public:
+            virtual ~Core();
+
+            bool initEnvironment();
+
+        protected:
+            bool environmentInited;
+            SDL_Window *window;
+            SDL_Renderer *renderer;
+
+            Core();
+            Core(Core &&);
+            Core &operator=(Core &&);
+            void move(Core &);
+            Core(int width, int height, const std::string &windowTitle);
     };
 }
 
-#endif // CORE_H_INCLUDED
+#endif

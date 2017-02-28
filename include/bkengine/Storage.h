@@ -1,5 +1,5 @@
-#ifndef STORAGE_H
-#define STORAGE_H
+#ifndef BKENGINE_STORAGE_H
+#define BKENGINE_STORAGE_H
 
 #include <string>
 

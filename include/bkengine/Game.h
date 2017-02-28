@@ -1,5 +1,5 @@
-#ifndef GAME_H_INCLUDED
-#define GAME_H_INCLUDED
+#ifndef BKENGINE_GAME_H
+#define BKENGINE_GAME_H
 
 #include <vector>
 #include <string>
@@ -19,10 +19,8 @@ namespace bkengine
 
     class Game
     {
+            /* hierarchal */
         public:
-            Game(int width, int height, const std::string &title);
-            virtual ~Game();
-
             void activate(const std::string &name);
             void activate(unsigned int index);
 
@@ -43,34 +41,46 @@ namespace bkengine
             template <typename T> T &getScene(unsigned int index);
             template <typename T> T &getCurrentScene();
 
+        protected:
+            int activeScene;
+            std::vector<std::shared_ptr<Scene>> scenes;
+
+
+            /* getter and setter */
+        public:
+            bool setIcon(const std::string &iconPath);
+            void resizeWindow(int windowWidth, int windowHeight);
+            void setWindowTitle(const std::string &);
+
             template <typename T> void setEventInterface();
             template <typename T> void setSettingsInterface();
             std::shared_ptr<SettingsInterface> getSettingsInterface();
+
+        protected:
+            std::shared_ptr<EventInterface> eventInterface;
+            std::shared_ptr<SettingsInterface> settingsInterface;
+
+
+            /* other stuff */
+        public:
+            Game(int width, int height, const std::string &title);
+            virtual ~Game();
 
             template <typename T> T &getData(const std::string &name);
             template <typename T> T &addData(const std::string &name);
             bool hasData(const std::string &name);
 
-            void resizeWindow(int windowWidth, int windowHeight);
-            void setWindowTitle(const std::string &);
-
             void run();
             void stop();
-
-            bool setIcon(const std::string &iconPath);
-
-            void clear();
 
             virtual void setup();
             virtual void teardown();
 
+            void clear();
+
         protected:
-            std::vector<std::shared_ptr<Scene>> scenes;
-            int activeScene;
             bool running;
             Timer timer;
-            std::shared_ptr<EventInterface> eventInterface;
-            std::shared_ptr<SettingsInterface> settingsInterface;
             std::map<std::string, std::shared_ptr<Storage>> dataStore;
 
             void onLoop();
@@ -81,4 +91,4 @@ namespace bkengine
 #include "templates/Game_templates.h"
 }
 
-#endif // GAME_H_INCLUDED
+#endif
