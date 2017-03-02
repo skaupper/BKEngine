@@ -12,17 +12,20 @@ FIND_PACKAGE (SDL2 REQUIRED)
 FIND_PACKAGE (SDL2_image REQUIRED)
 FIND_PACKAGE (SDL2_ttf REQUIRED)
 FIND_PACKAGE (SDL2_mixer REQUIRED)
+FIND_PACKAGE (Jsoncpp REQUIRED)
 
-INCLUDE_DIRECTORIES (${SDL2_INCLUDE_DIR}
-                     ${SDL2_IMAGE_INCLUDE_DIR}
-                     ${SDL2_TTF_INCLUDE_DIR}
-                     ${SDL2_MIXER_INCLUDE_DIRS})
+SET (LIB_INCLUDES ${SDL2_INCLUDE_DIR}
+                  ${SDL2_IMAGE_INCLUDE_DIR}
+                  ${SDL2_TTF_INCLUDE_DIR}
+                  ${SDL2_MIXER_INCLUDE_DIRS}
+                  ${JSONCPP_INCLUDE_DIRS})
 
 
-SET (SDL_LIBS ${SDL2_LIBRARY}
-              ${SDL2_IMAGE_LIBRARIES}
-              ${SDL2_TTF_LIBRARIES}
-              ${SDL2_MIXER_LIBRARIES})
+SET (LIBS ${SDL2_LIBRARY}
+          ${SDL2_IMAGE_LIBRARIES}
+          ${SDL2_TTF_LIBRARIES}
+          ${SDL2_MIXER_LIBRARIES}
+          ${JSONCPP_LIBRARIES})
 
 SET (SOURCES src/Core.cpp
              src/Game.cpp
@@ -40,7 +43,8 @@ SET (SOURCES src/Core.cpp
              src/Keys.cpp
              src/SDLEventInterface.cpp
              src/INISettingsInterface.cpp
-             src/Storage.cpp)
+             src/Storage.cpp
+             src/Serializable.cpp)
 
 IF (ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)
@@ -48,12 +52,8 @@ ENDIF()
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})
-TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine
-                                            ${SDL2_INCLUDE_DIR}
-                                            ${SDL2_IMAGE_INCLUDE_DIR}
-                                            ${SDL2_TTF_INCLUDE_DIR}
-                                            ${SDL2_MIXER_INCLUDE_DIRS})
-TARGET_LINK_LIBRARIES (bkengine ${SDL_LIBS})
+TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine ${LIB_INCLUDES})
+TARGET_LINK_LIBRARIES (bkengine ${LIBS})
 TARGET_COMPILE_OPTIONS (bkengine PRIVATE -pedantic -Wall -Wextra -Werror -Wno-unused-parameter -Wno-missing-braces)
 
 IF (${ENABLE_TESTS})

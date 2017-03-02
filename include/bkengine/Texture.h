@@ -12,11 +12,12 @@
 #include "Fonts.h"
 #include "Misc.h"
 #include "Logger.h"
+#include "Serializable.h"
 
 
 namespace bkengine
 {
-    class Texture
+    class Texture : public Serializable
     {
             /* caching */
         public:
