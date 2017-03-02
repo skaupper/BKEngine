@@ -209,6 +209,41 @@ void Game::teardown()
 {
 }
 
+void Game::deserialize(const Json::Value &obj) 
+{
+    std::string eventInterface = obj["interfaces"]["event"].asString();
+    std::string settingsInterface = obj["interfaces"]["event"].asString();
+
+    if (!eventInterface.empty()) {
+        this->eventInterface = Serializer::getInstance<EventInterface>(eventInterface);
+    }
+
+    if (!settingsInterface.empty()) {
+        this->settingsInterface = Serializer::getInstance<SettingsInterface>(settingsInterface);
+    }
+
+    for(auto font : obj["fonts"]) {
+        Fonts::registerFont(font["file"].asString(), 1, font["name"].asString());
+    }
+}
+
+Json::Value Game::serialize() const 
+{
+    Json::Value json;
+    // TODO: use any kind of dynamic approach
+    json["interfaces"]["settings"] = "ini";
+    json["interfaces"]["event"] = "sdl_event";
+    json["fonts"] = Json::arrayValue;
+    for(auto font : Fonts::fontFileCache) {
+        Json::Value f;
+        f["file"] = font.first;
+        f["name"] = font.second;
+        json["fonts"].append(f);
+    }
+    json["type"] = "GAME";
+    return json;
+}
+
 void Game::onLoop()
 {
     if (activeScene > -1) {

@@ -19,6 +19,7 @@ namespace bkengine
 {
     class Texture : public Serializable
     {
+            friend class GameSerializer;
             /* caching */
         public:
         protected:
@@ -48,7 +49,7 @@ namespace bkengine
             Rect clip;
             Rect size;
 
-        /* other stuff */
+            /* other stuff */
         public:
             Texture();
             Texture(const std::string &fontName, const std::string &text,
@@ -65,6 +66,10 @@ namespace bkengine
                                    const Rect &size = Rect());
 
             virtual void onRender(const Rect &parentRect = Rect(), bool flip = false);
+
+            virtual void deserialize(const Json::Value &) override;
+            virtual Json::Value serialize() const override;
+
 
         protected:
             bool flip;

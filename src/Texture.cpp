@@ -106,12 +106,11 @@ bool Texture::loadText(const std::string &fontName, const std::string &text,
     }
 
     Rect windowSize = Core::getInstance()->getWindowSize();
-    TTF_Font *font = Fonts::getFont(fontName, RelativeCoordinates::apply(size,
-                                    windowSize).h);
+    float fontSize = RelativeCoordinates::apply(size, windowSize).h;
+    TTF_Font *font = Fonts::getFont(fontName, fontSize);
 
     if (!font) {
-        font = Fonts::registerFont(fontName, RelativeCoordinates::apply(size,
-                                   windowSize).h);
+        font = Fonts::registerFont(fontName, fontSize);
 
         if (!font) {
             Logger::LogError("Texture::loadText(const std::string &=" + fontName +
@@ -159,7 +158,7 @@ bool Texture::loadText(const std::string &fontName, const std::string &text,
     int w = textSurface->w, h = textSurface->h;
     MANGLE_SDL(SDL_FreeSurface)(textSurface);
     texture = textCache[text][size][color] = std::make_shared<TextureWrapper>
-              (nTexture);
+              (nTexture, text, fontName, color, quality);
     Texture::size = size;
     recalculateRect(Texture::size, w, h);
     Texture::clip = Rect();
@@ -202,7 +201,7 @@ bool Texture::loadImage(const std::string &path, const Rect &size,
     }
 
     MANGLE_SDL(SDL_FreeSurface)(loadedSurface);
-    texture = imageCache[path] = std::make_shared<TextureWrapper>(nTexture);
+    texture = imageCache[path] = std::make_shared<TextureWrapper>(nTexture, path);
     Rect tmpSize = size;
     recalculateRect(tmpSize, loadedSurface->w, loadedSurface->h);
     Texture::clip = clip;
@@ -214,6 +213,7 @@ Rect Texture::getSize() const
 {
     return size;
 }
+
 
 void Texture::setSize(int w, int h)
 {
@@ -274,4 +274,82 @@ void Texture::cleanup()
     Logger::LogDebug("Texture::cleanup(): clear caches");
     imageCache.clear();
     textCache.clear();
+}
+
+void Texture::deserialize(const Json::Value &obj)
+{
+    flip = obj["flip"].asBool();
+    auto jsonSize = obj["size"];
+    Rect size { jsonSize["x"].asFloat(),
+                jsonSize["y"].asFloat(),
+                jsonSize["w"].asFloat(),
+                jsonSize["h"].asFloat()};
+    auto texTypeString = obj["texture_type"].asString();
+
+    if (texTypeString == "IMAGE") {
+        auto jsonClip = obj["size"];
+        Rect clip { jsonClip["x"].asFloat(),
+                    jsonClip["y"].asFloat(),
+                    jsonClip["w"].asFloat(),
+                    jsonClip["h"].asFloat()};
+        loadImage(obj["path"].asString(), clip, size);
+    } else if (texTypeString == "TEXT") {
+        auto jsonColor = obj["color"];
+        Color color { (uint8_t) jsonColor["r"].asUInt(),
+                      (uint8_t) jsonColor["g"].asUInt(),
+                      (uint8_t) jsonColor["b"].asUInt(),
+                      (uint8_t) jsonColor["a"].asUInt()};
+        TextQuality quality;
+        auto qualityString = obj["quality"];
+
+        if (qualityString == "BLENDED") {
+            quality = TextQuality::BLENDED;
+        } else if (qualityString == "SOLID") {
+            quality = TextQuality::SOLID;
+        }
+
+        loadText(obj["font_name"].asString(), obj["text"].asString(), size,
+                 color, quality);
+    }
+}
+
+Json::Value Texture::serialize() const
+{
+    Json::Value json;
+    json["type"] = "TEXTURE";
+    json["flip"] = flip;
+    json["size"]["x"] = size.x;
+    json["size"]["y"] = size.y;
+    json["size"]["w"] = size.w;
+    json["size"]["h"] = size.h;
+    json["clip"]["x"] = clip.x;
+    json["clip"]["y"] = clip.y;
+    json["clip"]["w"] = clip.w;
+    json["clip"]["h"] = clip.h;
+    std::string texType;
+
+    if (texture->type == TextureType::IMAGE) {
+        texType = "IMAGE";
+        json["path"] = texture->path;
+    } else if (texture->type == TextureType::TEXT) {
+        texType = "TEXT";
+        json["text"] = texture->text;
+        json["font_name"] = texture->fontName;
+        json["color"]["r"] = texture->color.r;
+        json["color"]["g"] = texture->color.g;
+        json["color"]["b"] = texture->color.b;
+        json["color"]["a"] = texture->color.a;
+        std::string quality;
+
+        if (texture->quality == TextQuality::SOLID) {
+            quality = "SOLID";
+        } else if (texture->quality == TextQuality::BLENDED) {
+            quality = "BLENDED";
+        }
+
+        json["quality"] = quality;
+    }
+
+    json["texture_type"] = texType;
+    return json;
 }

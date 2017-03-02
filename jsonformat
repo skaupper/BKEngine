@@ -1,0 +1,82 @@
+{
+    "type": "GAME",
+    "interfaces":{
+        "settings": "ini",
+        "event": "sdl_event"
+    },
+    "active_scene": 0,
+    "fonts": [
+        {
+            "file": "FUTURAB.ttf",
+            "name": "futurab"
+        },
+        {
+            "file": "Meath.ttf",
+            "name": "meath"
+        }
+    ],
+    "scenes": [
+        {
+            "type": "SCENE",
+            "name": "testscene",
+            "elements": [
+                {
+                    "type": "ELEMENT",
+                    "description": "testelement",
+                    "render_box": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 100,
+                        "h": 100
+                    },
+                    "collision_box": {
+                        "x": 0,
+                        "y": 0,
+                        "w": 100,
+                        "h": 100
+                    },
+                    "collision_layer": -1,
+                    "frame": 123,
+                    "flip": false,
+                    "animations": [
+                        {
+                            "type": "ANIMATION",
+                            "description": "testanimation",
+                            "frames_per_texture": 60,
+                            "textures": [
+                                {
+                                    "type": "TEXTURE",
+                                    "flip": false,
+                                    "size": {
+                                        "x": 0,
+                                        "y": 0,
+                                        "w": 100,
+                                        "h": 100
+                                    },
+                                    "clip": {
+                                        "x": 0,
+                                        "y": 0,
+                                        "w": 100,
+                                        "h": 100
+                                    },
+                                    "color": {
+                                        "r": 0,
+                                        "g": 0,
+                                        "b": 0,
+                                        "a": 255
+                                    },
+                                    "texture_type": "IMAGE",
+                                    "path": "jo.png",
+                                    "text": "test",
+                                    "size": 50,
+                                    "font_name": "futurab",
+                                    "quality": "BLENDED"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

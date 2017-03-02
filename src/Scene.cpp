@@ -169,3 +169,16 @@ void Scene::clear()
 {
     elements.clear();
 }
+
+void Scene::deserialize(const Json::Value &obj) 
+{
+    name = obj["description"].asString();
+}
+
+Json::Value Scene::serialize() const 
+{
+    Json::Value json;
+    json["description"] = name;
+    json["type"] = "SCENE";
+    return json;
+}

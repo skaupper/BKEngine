@@ -78,10 +78,18 @@ namespace bkengine
         BLENDED = 2
     };
 
+    enum class TextureType {
+        TEXT,
+        IMAGE
+    };
+
     class TextureWrapper
     {
+            friend class Texture;
         public:
-            explicit TextureWrapper(SDL_Texture *tex);
+            explicit TextureWrapper(SDL_Texture *tex, const std::string &path);
+            explicit TextureWrapper(SDL_Texture *tex, const std::string &text,
+                                    const std::string &fontName, Color c, TextQuality quality);
             virtual ~TextureWrapper();
 
             SDL_Texture *get() const;
@@ -90,6 +98,12 @@ namespace bkengine
             Rect getSize() const;
 
         private:
+            TextureType type;
+            std::string path;
+            std::string text;
+            std::string fontName;
+            Color color;
+            TextQuality quality;
             SDL_Texture *texture = NULL;
             Rect originalSize;
     };

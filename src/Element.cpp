@@ -14,7 +14,7 @@ Element::Element(Scene *parentScene, const std::string &description,
     collisionBox(Rect()),
     frame(0),
     collisionLayer(collisionLayer),
-    flipped(false)
+    flip(false)
 {
     setup();
 }
@@ -125,7 +125,7 @@ void Element::onRender(const Rect &parentRect)
 
         if (animation.hasTexture(0)) {
             animation.getNextTexture().onRender(RelativeCoordinates::apply(renderBox,
-                                                parentRect), flipped);
+                                                parentRect), flip);
         }
     }
 }
@@ -172,4 +172,43 @@ void Element::clear()
 std::vector<Element *> Element::getCollisionLayer()
 {
     return parentScene->getCollisionLayer(collisionLayer);
+}
+
+void Element::deserialize(const Json::Value &obj)
+{
+    description = obj["description"].asString();
+    renderBox = {
+        obj["render_box"]["x"].asFloat(),
+        obj["render_box"]["y"].asFloat(),
+        obj["render_box"]["w"].asFloat(),
+        obj["render_box"]["h"].asFloat()
+    };
+    collisionBox = {
+        obj["collision_box"]["x"].asFloat(),
+        obj["collision_box"]["y"].asFloat(),
+        obj["collision_box"]["w"].asFloat(),
+        obj["collision_box"]["h"].asFloat()
+    };
+    collisionLayer = obj["collision_layer"].asInt();
+    frame = obj["frame"].asInt();
+    flip = obj["flip"].asBool();
+}
+
+Json::Value Element::serialize() const
+{
+    Json::Value json;
+    json["type"] = "ELEMENT";
+    json["description"] = description;
+    json["render_box"]["x"] = renderBox.x;
+    json["render_box"]["y"] = renderBox.y;
+    json["render_box"]["w"] = renderBox.w;
+    json["render_box"]["h"] = renderBox.h;
+    json["collision_box"]["x"] = collisionBox.x;
+    json["collision_box"]["y"] = collisionBox.y;
+    json["collision_box"]["w"] = collisionBox.w;
+    json["collision_box"]["h"] = collisionBox.h;
+    json["collision_layer"] = collisionLayer;
+    json["frame"] = frame;
+    json["flip"] = flip;
+    return json;
 }

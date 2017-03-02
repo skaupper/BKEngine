@@ -11,14 +11,16 @@
 #include "Storage.h"
 #include "EventInterface.h"
 #include "SettingsInterface.h"
+#include "Serializable.h"
 
 
 namespace bkengine
 {
     class Scene;
 
-    class Game
+    class Game : public Serializable
     {
+            friend class GameSerializer;
             /* hierarchal */
         public:
             void activate(const std::string &name);
@@ -77,6 +79,10 @@ namespace bkengine
             virtual void teardown();
 
             void clear();
+
+            virtual void deserialize(const Json::Value &) override;
+            virtual Json::Value serialize() const override;
+
 
         protected:
             bool running;

@@ -18,6 +18,7 @@ namespace bkengine
             void moveTo(float x, float y);
             bool collidesWith();
             virtual bool collidesWith(const Element &other) const;
+            
 
         protected:
             constexpr static float MINIMUM_MOVE = 0.001;

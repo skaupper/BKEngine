@@ -27,7 +27,7 @@ Texture &Animation::getNextTexture()
 Texture &Animation::getCurrentTexture()
 {
     if (hasTexture(currentIndex)) {
-        return textures.at(currentIndex);
+        return *textures.at(currentIndex);
     }
 
     Logger::LogCritical("Animation::getCurrentTexture(): Texture not found");
@@ -66,4 +66,19 @@ Animation::~Animation()
 std::string Animation::getDescription() const
 {
     return description;
+}
+
+void Animation::deserialize(const Json::Value &obj) 
+{
+    description = obj["description"].asString();
+    framesPerTexture = obj["frames_per_texture"].asUInt();
+}
+
+Json::Value Animation::serialize() const 
+{
+    Json::Value json;
+    json["description"] = description;
+    json["frames_per_texture"] = framesPerTexture;
+    json["type"] = "ANIMATION";
+    return json;
 }

@@ -8,13 +8,15 @@
 #include "Animation.h"
 #include "Misc.h"
 #include "Event.h"
+#include "Serializable.h"
 
 namespace bkengine
 {
     class Scene;
-    class Element
+    class Element : public Serializable
     {
             friend class Scene;
+            friend class GameSerializer;
 
             /* hierarchal */
         public:
@@ -73,10 +75,14 @@ namespace bkengine
 
             void clear();
 
+            virtual void deserialize(const Json::Value &) override;
+            virtual Json::Value serialize() const override;
+
+
         protected:
             int frame;
             int collisionLayer;
-            bool flipped;
+            bool flip;
 
             std::vector<Element *> getCollisionLayer();
     };

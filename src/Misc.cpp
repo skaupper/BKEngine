@@ -69,7 +69,18 @@ Color Color::PURPLE(0x80, 0, 0x80);
 Color Color::TEAL(0, 0x80, 0x80);
 Color Color::NAVY(0, 0, 0x80);
 
-TextureWrapper::TextureWrapper(SDL_Texture *tex)
+TextureWrapper::TextureWrapper(SDL_Texture *tex, const std::string &path) :
+    type(TextureType::IMAGE),
+    path(path)
+{
+    set(tex);
+}
+
+TextureWrapper::TextureWrapper(SDL_Texture *tex, const std::string &text,
+                               const std::string &fontName, Color c,
+                               TextQuality quality) :
+    type(TextureType::TEXT), text(text), fontName(fontName), color(c),
+    quality(quality)
 {
     set(tex);
 }

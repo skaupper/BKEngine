@@ -3,15 +3,18 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Texture.h"
+#include "Serializable.h"
 #include "Logger.h"
 
 
 namespace bkengine
 {
-    class Animation
+    class Animation : public Serializable
     {
+            friend class GameSerializer;
             /* hierarchal */
         public:
             template <typename T> void addImage(const std::string &path,
@@ -20,6 +23,7 @@ namespace bkengine
                                                const std::string &text, const Rect &size, const Color &color = Color(),
                                                TextQuality quality = TextQuality::SOLID);
             template <typename T> void addTexture(const T &texture);
+            template <typename T> void addTexture(std::shared_ptr<T> texture);
 
             bool hasTexture(unsigned int index) const;
 
@@ -28,7 +32,7 @@ namespace bkengine
 
         protected:
             int currentIndex;
-            std::vector<Texture> textures;
+            std::vector<std::shared_ptr<Texture>> textures;
 
 
             /* getter and setter */
@@ -46,8 +50,10 @@ namespace bkengine
 
             void incFrameCount();
             void setFramesPerTexture(unsigned int frames);
-
             void reset();
+
+            virtual void deserialize(const Json::Value &) override;
+            virtual Json::Value serialize() const override;
 
         protected:
             unsigned int frameCounter;

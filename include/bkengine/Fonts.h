@@ -14,6 +14,7 @@ namespace bkengine
 {
     class Fonts
     {
+        friend class Game;
         public:
             static TTF_Font *registerFont(const std::string &fontFile, int size,
                                           const std::string &fontName = "");

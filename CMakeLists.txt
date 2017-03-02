@@ -44,7 +44,8 @@ SET (SOURCES src/Core.cpp
              src/SDLEventInterface.cpp
              src/INISettingsInterface.cpp
              src/Storage.cpp
-             src/Serializable.cpp)
+             src/Serializable.cpp
+             src/GameSerializer.cpp)
 
 IF (ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)

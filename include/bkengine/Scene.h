@@ -7,13 +7,15 @@
 #include <algorithm>
 
 #include "Element.h"
+#include "Serializable.h"
 
 namespace bkengine
 {
     class Game;
-    class Scene
+    class Scene : public Serializable
     {
             friend class Element;
+            friend class GameSerializer;
             /* hierarchal */
         public:
             bool hasElement(const std::string &name) const;
@@ -63,6 +65,9 @@ namespace bkengine
             virtual bool onEvent(const Event &);
 
             void clear();
+
+            virtual void deserialize(const Json::Value &) override;
+            virtual Json::Value serialize() const override;
 
         protected:
 

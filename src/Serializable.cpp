@@ -3,8 +3,12 @@
 using namespace bkengine;
 
 
-std::map<std::string, std::shared_ptr<Serializable>(*)()> Serializer::factories;
+std::map<std::string, constructor> Serializer::typeConstructors;
 
+Serializable::Serializable()
+{
+    
+}
 
 Serializable::Serializable(const Json::Value &json)
 {
@@ -12,23 +16,7 @@ Serializable::Serializable(const Json::Value &json)
     swap(v);
 }
 
-std::string Serializable::serialize() const
+std::string Serializable::toString() const
 {
-    Json::StyledWriter writer;
-    std::string output = writer.write(*this);
-    return output;
-}
-
-std::shared_ptr<Serializable> Serializable::deserialize(
-    const std::string &serializedString)
-{
-    Json::Value root;
-    Json::Reader reader;
-    bool parsingSuccessful = reader.parse(serializedString, root);
-
-    if (!parsingSuccessful) {
-        return nullptr;
-    }
-
-    return std::make_shared<Serializable>(root);
+    return Json::StyledWriter().write(serialize());
 }
