@@ -12,11 +12,8 @@ Element::Element(Scene *parentScene, const std::string &description,
     description(description),
     renderBox(renderBox),
     collisionBox(Rect()),
-    frame(0),
-    collisionLayer(collisionLayer),
-    flip(false)
+    collisionLayer(collisionLayer)
 {
-    setup();
 }
 
 Element::~Element()
@@ -113,19 +110,23 @@ Animation &Element::getCurrentAnimation()
     return getCurrentAnimation<Animation>();
 }
 
-void Element::setup()
+void Element::setupAnimations()
+{
+}
+
+void Element::setupEnvironment()
 {
 }
 
 void Element::onRender(const Rect &parentRect)
 {
     if (hasAnimation(currentAnimation)) {
-        frame++;
         Animation &animation = getCurrentAnimation<Animation>();
 
         if (animation.hasTexture(0)) {
+            // TODO: flip is hardcoded!
             animation.getNextTexture().onRender(RelativeCoordinates::apply(renderBox,
-                                                parentRect), flip);
+                                                parentRect), false);
         }
     }
 }
@@ -176,6 +177,7 @@ std::vector<Element *> Element::getCollisionLayer()
 
 void Element::deserialize(const Json::Value &obj)
 {
+    Serializable::deserialize(obj);
     description = obj["description"].asString();
     renderBox = {
         obj["render_box"]["x"].asFloat(),
@@ -190,8 +192,12 @@ void Element::deserialize(const Json::Value &obj)
         obj["collision_box"]["h"].asFloat()
     };
     collisionLayer = obj["collision_layer"].asInt();
-    frame = obj["frame"].asInt();
-    flip = obj["flip"].asBool();
+
+    for (auto &animation : obj["animations"]) {
+        auto a = GameSerializer::deserialize<Animation>(animation);
+        a->setupEnvironment();
+        addAnimation(a);
+    }
 }
 
 Json::Value Element::serialize() const
@@ -208,7 +214,11 @@ Json::Value Element::serialize() const
     json["collision_box"]["w"] = collisionBox.w;
     json["collision_box"]["h"] = collisionBox.h;
     json["collision_layer"] = collisionLayer;
-    json["frame"] = frame;
-    json["flip"] = flip;
+
+    json["animations"] = Json::arrayValue;
+
+    for (auto animation : animations) {
+        json["animations"].append(animation->serialize());
+    }
     return json;
 }

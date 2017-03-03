@@ -18,7 +18,7 @@ namespace bkengine
         public:
             static bool initDeps();
             static Core *getInstance();
-            static Core *getInstance(int width, int height, const std::string &windowTitle);
+            static Core *createInstance(int width, int height, const std::string &windowTitle);
             static void registerCleanup(std::function<void()>);
             static void quit();
 
@@ -33,7 +33,9 @@ namespace bkengine
             bool setIcon(const std::string &iconPath);
             void setWindowTitle(const std::string &);
             void resizeWindow(int, int);
-            Rect getWindowSize();
+            Rect getTrueWindowSize() const;
+            std::string getTrueWindowTitle() const;
+            Rect getWindowSize() const;
             std::string getWindowTitle() const;
             SDL_Renderer *getRenderer() const;
 

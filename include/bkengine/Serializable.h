@@ -10,15 +10,19 @@
 
 namespace bkengine
 {
-    class Serializable : public Json::Value
+    class Serializable
     {
+    private:
+        Json::Value original;
+
         public:
             Serializable();
-            Serializable(const Json::Value &json);
 
-            virtual void deserialize(const Json::Value &) = 0;
+            virtual void deserialize(const Json::Value &);
             virtual Json::Value serialize() const = 0;
 
+            void set();
+            void reset();
             std::string toString() const;
     };
 

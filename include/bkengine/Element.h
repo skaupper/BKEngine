@@ -62,12 +62,13 @@ namespace bkengine
 
             /* other stuff */
         public:
-            explicit Element(Scene *parentScene, const std::string &description = "",
+            explicit Element(Scene *parentScene = nullptr, const std::string &description = "",
                              const Rect &renderbox = Rect(),
                              int collisionLayer = -1);
             virtual ~Element();
 
-            virtual void setup();
+            virtual void setupEnvironment();
+            virtual void setupAnimations();
 
             virtual void onRender(const Rect &parentRect = Rect());
             virtual void onLoop();
@@ -80,9 +81,7 @@ namespace bkengine
 
 
         protected:
-            int frame;
             int collisionLayer;
-            bool flip;
 
             std::vector<Element *> getCollisionLayer();
     };

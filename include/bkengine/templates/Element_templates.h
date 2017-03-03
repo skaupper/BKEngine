@@ -21,7 +21,11 @@ template <typename T> T &Element::addAnimation(const std::shared_ptr<T>
 template <typename T, typename... Params> T &Element::addAnimation(
     Params... params)
 {
-    return addAnimation<T>(std::make_shared<T>(params...));
+    auto animation = std::make_shared<T>(params...);
+    animation->setupTextures();
+    animation->setupEnvironment();
+    animation->set();
+    return addAnimation<T>(animation);
 }
 
 

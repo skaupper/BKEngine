@@ -52,14 +52,14 @@ namespace bkengine
 
 
     struct KeyboardEvent {
-        Keys key;
+        Key key;
         KeyState state;
         bool repeat;
     };
 
     struct MouseEvent {
         ButtonState state;
-        Buttons button;
+        Button button;
         uint8_t specialId;
         uint8_t clicks;
         int32_t x;

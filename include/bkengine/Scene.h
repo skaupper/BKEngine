@@ -15,7 +15,7 @@ namespace bkengine
     class Scene : public Serializable
     {
             friend class Element;
-            friend class GameSerializer;
+            friend class Game;
             /* hierarchal */
         public:
             bool hasElement(const std::string &name) const;
@@ -45,20 +45,21 @@ namespace bkengine
 
             /* getter and setter */
         public:
-            std::string getName() const;
+            std::string getDescription() const;
 
         protected:
-            std::string name;
+            std::string description;
 
 
             /* other stuff */
         public:
-            explicit Scene(Game *parentGame, const std::string &name = "");
+            explicit Scene(Game *parentGame = nullptr, const std::string &description = "");
             Scene(Scene &&scene);
             Scene &operator=(Scene &&scene);
             virtual ~Scene();
 
-            virtual void setup();
+            virtual void setupEnvironment();
+            virtual void setupElements();
 
             virtual void onLoop();
             virtual void onRender();

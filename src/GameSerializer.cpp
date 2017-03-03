@@ -1,117 +1,40 @@
 #include "GameSerializer.h"
+#include "Game.h"
 
-using namespace bkengine;
-
-
-Json::Value GameSerializer::serializeGame(const Game &game)
+namespace bkengine
 {
-    auto json = game.serialize();
-    json["scenes"] = Json::arrayValue;
-
-    for (auto scene : game.scenes) {
-        json["scenes"].append(serializeScene(*scene));
-    }
-
-    json["active_scene"] = game.activeScene;
-    return json;
+template <> std::shared_ptr<Game> GameSerializer::deserialize(const Json::Value &obj)
+{
+    auto tmp = Serializer::getInstance<Game>(obj["type"].asString());
+    tmp->deserialize(obj);
+    return tmp;
 }
 
-Json::Value GameSerializer::serializeScene(const Scene &scene)
+template <> std::shared_ptr<Scene> GameSerializer::deserialize(const Json::Value &obj)
 {
-    auto json = scene.serialize();
-    json["elements"] = Json::arrayValue;
-
-    for (auto element : scene.elements) {
-        json["elements"].append(serializeElement(*element));
-    }
-
-    return json;
+    auto tmp = Serializer::getInstance<Scene>(obj["type"].asString());
+    tmp->deserialize(obj);
+    return tmp;
 }
 
-Json::Value GameSerializer::serializeElement(const Element &element)
+template <> std::shared_ptr<Element> GameSerializer::deserialize(const Json::Value &obj)
 {
-    auto json = element.serialize();
-    json["animations"] = Json::arrayValue;
-
-    for (auto animation : element.animations) {
-        json["animations"].append(serializeAnimation(*animation));
-    }
-
-    return json;
+    auto tmp = Serializer::getInstance<Element>(obj["type"].asString());
+    tmp->deserialize(obj);
+    return tmp;
 }
 
-Json::Value GameSerializer::serializeAnimation(const Animation &animation)
+template <> std::shared_ptr<Animation> GameSerializer::deserialize(const Json::Value &obj)
 {
-    auto json = animation.serialize();
-    json["textures"] = Json::arrayValue;
-
-    for (auto texture : animation.textures) {
-        json["textures"].append(serializeTexture(*texture));
-    }
-
-    return json;
+    auto tmp = Serializer::getInstance<Animation>(obj["type"].asString());
+    tmp->deserialize(obj);
+    return tmp;
 }
 
-Json::Value GameSerializer::serializeTexture(const Texture &texture)
+template <> std::shared_ptr<Texture> GameSerializer::deserialize(const Json::Value &obj)
 {
-    return texture.serialize();
+    auto tmp = Serializer::getInstance<Texture>(obj["type"].asString());
+    tmp->deserialize(obj);
+    return tmp;
 }
-
-std::shared_ptr<Game> GameSerializer::deserializeGame(const Json::Value &obj)
-{
-    auto game = Serializer::getInstance<Game>(obj["type"].asString());
-    game->deserialize(obj);
-
-    for (auto &scene : obj["scenes"]) {
-        game->addScene(deserializeScene(scene));
-    }
-
-    game->activate(obj["active_scene"].asInt());
-    return game;
-}
-
-std::shared_ptr<Scene> GameSerializer::deserializeScene(const Json::Value &obj)
-{
-    auto scene = Serializer::getInstance<Scene>(obj["type"].asString());
-    scene->deserialize(obj);
-
-    for (auto &element : obj["elements"]) {
-        scene->addElement(deserializeElement(element));
-    }
-
-    return scene;
-}
-
-std::shared_ptr<Element> GameSerializer::deserializeElement(
-    const Json::Value &obj)
-{
-    auto element = Serializer::getInstance<Element>(obj["type"].asString());
-    element->deserialize(obj);
-
-    for (auto &animation : obj["animations"]) {
-        element->addAnimation(deserializeAnimation(animation));
-    }
-
-    return element;
-}
-
-std::shared_ptr<Animation> GameSerializer::deserializeAnimation(
-    const Json::Value &obj)
-{
-    auto animation = Serializer::getInstance<Animation>(obj["type"].asString());
-    animation->deserialize(obj);
-
-    for (auto &texture : obj["textures"]) {
-        animation->addTexture(deserializeTexture(texture));
-    }
-
-    return animation;
-}
-
-std::shared_ptr<Texture> GameSerializer::deserializeTexture(
-    const Json::Value &obj)
-{
-    auto texture = Serializer::getInstance<Texture>(obj["type"].asString());
-    texture->deserialize(obj);
-    return texture;
 }

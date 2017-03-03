@@ -12,7 +12,7 @@
 #include "EventInterface.h"
 #include "SettingsInterface.h"
 #include "Serializable.h"
-
+#include "GameSerializer.h"
 
 namespace bkengine
 {
@@ -65,6 +65,8 @@ namespace bkengine
 
             /* other stuff */
         public:
+            template <typename T> static T create(int=1024, int=768, const std::string &title="BKENGINE WINDOW");
+            explicit Game();
             Game(int width, int height, const std::string &title);
             virtual ~Game();
 
@@ -75,7 +77,8 @@ namespace bkengine
             void run();
             void stop();
 
-            virtual void setup();
+            virtual void setupEnvironment();
+            virtual void setupScenes();
             virtual void teardown();
 
             void clear();

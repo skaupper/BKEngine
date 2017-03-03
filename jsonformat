@@ -1,5 +1,10 @@
 {
     "type": "GAME",
+    "window": {
+        "width": 1024,
+        "height": 768,
+        "title": "BKENGINE TEST"
+    },
     "interfaces":{
         "settings": "ini",
         "event": "sdl_event"

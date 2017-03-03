@@ -7,6 +7,7 @@
 
 #include "Texture.h"
 #include "Serializable.h"
+#include "GameSerializer.h"
 #include "Logger.h"
 
 
@@ -51,6 +52,9 @@ namespace bkengine
             void incFrameCount();
             void setFramesPerTexture(unsigned int frames);
             void reset();
+
+            virtual void setupTextures();
+            virtual void setupEnvironment();
 
             virtual void deserialize(const Json::Value &) override;
             virtual Json::Value serialize() const override;

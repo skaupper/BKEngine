@@ -56,7 +56,7 @@ bool Texture::hasTextureCached(const std::string &s, const Rect &size,
     return true;
 }
 
-Texture::Texture() : flip(false), texture(nullptr)
+Texture::Texture() : texture(nullptr)
 {
     if (!cleanupRegistered) {
         Core::registerCleanup(cleanup);
@@ -105,7 +105,7 @@ bool Texture::loadText(const std::string &fontName, const std::string &text,
         return true;
     }
 
-    Rect windowSize = Core::getInstance()->getWindowSize();
+    Rect windowSize = Core::getInstance()->getTrueWindowSize();
     float fontSize = RelativeCoordinates::apply(size, windowSize).h;
     TTF_Font *font = Fonts::getFont(fontName, fontSize);
 
@@ -241,7 +241,7 @@ void Texture::onRender(const Rect &parentRect, bool flip)
 
     SDL_Renderer *renderer = Core::getInstance()->getRenderer();
     Rect rect = { 0, 0, size.w, size.h };
-    Rect windowSize = Core::getInstance()->getWindowSize();
+    Rect windowSize = Core::getInstance()->getTrueWindowSize();
     Rect absoluteSize = RelativeCoordinates::apply(RelativeCoordinates::apply(rect,
                         parentRect), windowSize);
     SDL_Rect sdlRect = absoluteSize.toSDLRect();
@@ -278,7 +278,7 @@ void Texture::cleanup()
 
 void Texture::deserialize(const Json::Value &obj)
 {
-    flip = obj["flip"].asBool();
+    Serializable::deserialize(obj);
     auto jsonSize = obj["size"];
     Rect size { jsonSize["x"].asFloat(),
                 jsonSize["y"].asFloat(),
@@ -299,7 +299,7 @@ void Texture::deserialize(const Json::Value &obj)
                       (uint8_t) jsonColor["g"].asUInt(),
                       (uint8_t) jsonColor["b"].asUInt(),
                       (uint8_t) jsonColor["a"].asUInt()};
-        TextQuality quality;
+        TextQuality quality = TextQuality::SOLID;
         auto qualityString = obj["quality"];
 
         if (qualityString == "BLENDED") {
@@ -317,7 +317,6 @@ Json::Value Texture::serialize() const
 {
     Json::Value json;
     json["type"] = "TEXTURE";
-    json["flip"] = flip;
     json["size"]["x"] = size.x;
     json["size"]["y"] = size.y;
     json["size"]["w"] = size.w;

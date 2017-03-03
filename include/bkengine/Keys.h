@@ -5,181 +5,193 @@
 
 namespace bkengine
 {
-    class Keys
+    class Key
     {
         private:
             std::string keyString;
 
         public:
-            Keys() : Keys("UNKNOWN") {}
-            Keys(const std::string &keyString) : keyString(keyString) {}
-            bool operator==(const Keys &) const;
-            bool operator!=(const Keys &) const;
+            Key() : Key("UNKNOWN") {}
+            Key(const std::string &keyString) : keyString(keyString) {}
+            bool operator==(const Key &) const;
+            bool operator!=(const Key &) const;
 
             operator const std::string() const;
-            operator const char *() const;
             std::string toString() const;
-
-            static Keys UNKNOWN;
-
-            /* Control keys */
-            static Keys RETURN;
-            static Keys ESCAPE;
-            static Keys BACKSPACE;
-            static Keys TAB;
-            static Keys SPACE;
-            static Keys CAPSLOCK;
-
-            /* Number keys */
-            static Keys ZERO;
-            static Keys ONE;
-            static Keys TWO;
-            static Keys THREE;
-            static Keys FOUR;
-            static Keys FIVE;
-            static Keys SIX;
-            static Keys SEVEN;
-            static Keys EIGHT;
-            static Keys NINE;
-
-            /* Letter keys */
-            static Keys A;
-            static Keys B;
-            static Keys C;
-            static Keys D;
-            static Keys E;
-            static Keys F;
-            static Keys G;
-            static Keys H;
-            static Keys I;
-            static Keys J;
-            static Keys K;
-            static Keys L;
-            static Keys M;
-            static Keys N;
-            static Keys O;
-            static Keys P;
-            static Keys Q;
-            static Keys R;
-            static Keys S;
-            static Keys T;
-            static Keys U;
-            static Keys V;
-            static Keys W;
-            static Keys X;
-            static Keys Y;
-            static Keys Z;
-
-            /* Function keys */
-            static Keys F1;
-            static Keys F2;
-            static Keys F3;
-            static Keys F4;
-            static Keys F5;
-            static Keys F6;
-            static Keys F7;
-            static Keys F8;
-            static Keys F9;
-            static Keys F10;
-            static Keys F11;
-            static Keys F12;
-            static Keys F13;
-            static Keys F14;
-            static Keys F15;
-            static Keys F16;
-            static Keys F17;
-            static Keys F18;
-            static Keys F19;
-            static Keys F20;
-            static Keys F21;
-            static Keys F22;
-            static Keys F23;
-            static Keys F24;
-
-            /* Arrow keys */
-            static Keys RIGHT;
-            static Keys LEFT;
-            static Keys DOWN;
-            static Keys UP;
-
-            static Keys PRINTSCREEN;
-            static Keys SCROLLLOCK;
-            static Keys PAUSE;
-            static Keys INSERT;
-            static Keys HOME;
-            static Keys PAGEUP;
-            static Keys DELETE;
-            static Keys END;
-            static Keys PAGEDOWN;
-
-            /* Numpad keys */
-            static Keys NUMLOCKCLEAR;
-            static Keys NP_DIVIDE;
-            static Keys NP_MULTIPLY;
-            static Keys NP_MINUS;
-            static Keys NP_PLUS;
-            static Keys NP_ENTER;
-            static Keys NP_ONE;
-            static Keys NP_TWO;
-            static Keys NP_THREE;
-            static Keys NP_FOUR;
-            static Keys NP_FIVE;
-            static Keys NP_SIX;
-            static Keys NP_SEVEN;
-            static Keys NP_EIGHT;
-            static Keys NP_NINE;
-            static Keys NP_ZERO;
-            static Keys NP_SEPARATOR;
-
-            /* Modifier keys */
-            static Keys LCTRL;
-            static Keys LSHIFT;
-            static Keys LALT;
-            static Keys LGUI;
-            static Keys RCTRL;
-            static Keys RSHIFT;
-            static Keys RALT;
-            static Keys RGUI;
-
-            /* Media keys */
-            static Keys MUTE;
-            static Keys VOLUMEUP;
-            static Keys VOLUMEDOWN;
-            static Keys AUDIONEXT;
-            static Keys AUDIOPREV;
-            static Keys AUDIOSTOP;
-            static Keys AUDIOPLAY;
-            static Keys AUDIOMUTE;
-
-            /* Special keys */
-            static Keys APPLICATION;
-            static Keys MENU;
-            static Keys BRIGHTNESSDOWN;
-            static Keys BRIGHTNESSUP;
-            static Keys SLEEP;
-            static Keys POWER;
     };
 
-    class Buttons
+    class Keys
+    {
+    private:
+        Keys() = delete;
+
+    public:
+        static Key UNKNOWN;
+
+        /* Control Key */
+        static Key RETURN;
+        static Key ESCAPE;
+        static Key BACKSPACE;
+        static Key TAB;
+        static Key SPACE;
+        static Key CAPSLOCK;
+
+        /* Number Key */
+        static Key ZERO;
+        static Key ONE;
+        static Key TWO;
+        static Key THREE;
+        static Key FOUR;
+        static Key FIVE;
+        static Key SIX;
+        static Key SEVEN;
+        static Key EIGHT;
+        static Key NINE;
+
+        /* Letter Key */
+        static Key A;
+        static Key B;
+        static Key C;
+        static Key D;
+        static Key E;
+        static Key F;
+        static Key G;
+        static Key H;
+        static Key I;
+        static Key J;
+        static Key K;
+        static Key L;
+        static Key M;
+        static Key N;
+        static Key O;
+        static Key P;
+        static Key Q;
+        static Key R;
+        static Key S;
+        static Key T;
+        static Key U;
+        static Key V;
+        static Key W;
+        static Key X;
+        static Key Y;
+        static Key Z;
+
+        /* Function Key */
+        static Key F1;
+        static Key F2;
+        static Key F3;
+        static Key F4;
+        static Key F5;
+        static Key F6;
+        static Key F7;
+        static Key F8;
+        static Key F9;
+        static Key F10;
+        static Key F11;
+        static Key F12;
+        static Key F13;
+        static Key F14;
+        static Key F15;
+        static Key F16;
+        static Key F17;
+        static Key F18;
+        static Key F19;
+        static Key F20;
+        static Key F21;
+        static Key F22;
+        static Key F23;
+        static Key F24;
+
+        /* Arrow Key */
+        static Key RIGHT;
+        static Key LEFT;
+        static Key DOWN;
+        static Key UP;
+
+        static Key PRINTSCREEN;
+        static Key SCROLLLOCK;
+        static Key PAUSE;
+        static Key INSERT;
+        static Key HOME;
+        static Key PAGEUP;
+        static Key DELETE;
+        static Key END;
+        static Key PAGEDOWN;
+
+        /* Numpad Key */
+        static Key NUMLOCKCLEAR;
+        static Key NP_DIVIDE;
+        static Key NP_MULTIPLY;
+        static Key NP_MINUS;
+        static Key NP_PLUS;
+        static Key NP_ENTER;
+        static Key NP_ONE;
+        static Key NP_TWO;
+        static Key NP_THREE;
+        static Key NP_FOUR;
+        static Key NP_FIVE;
+        static Key NP_SIX;
+        static Key NP_SEVEN;
+        static Key NP_EIGHT;
+        static Key NP_NINE;
+        static Key NP_ZERO;
+        static Key NP_SEPARATOR;
+
+        /* Modifier Key */
+        static Key LCTRL;
+        static Key LSHIFT;
+        static Key LALT;
+        static Key LGUI;
+        static Key RCTRL;
+        static Key RSHIFT;
+        static Key RALT;
+        static Key RGUI;
+
+        /* Media Key */
+        static Key MUTE;
+        static Key VOLUMEUP;
+        static Key VOLUMEDOWN;
+        static Key AUDIONEXT;
+        static Key AUDIOPREV;
+        static Key AUDIOSTOP;
+        static Key AUDIOPLAY;
+        static Key AUDIOMUTE;
+
+        /* Special Key */
+        static Key APPLICATION;
+        static Key MENU;
+        static Key BRIGHTNESSDOWN;
+        static Key BRIGHTNESSUP;
+        static Key SLEEP;
+        static Key POWER;
+    };
+
+    class Button
     {
         private:
             std::string buttonString;
 
         public:
-            Buttons() : Buttons("UNKNOWN") {}
-            Buttons(const std::string &buttonString) : buttonString(buttonString) {}
-            bool operator==(const Buttons &) const;
-            bool operator!=(const Buttons &) const;
+            Button() : Button("UNKNOWN") {}
+            Button(const std::string &buttonString) : buttonString(buttonString) {}
+            bool operator==(const Button &) const;
+            bool operator!=(const Button &) const;
 
             operator const std::string() const;
-            operator const char *() const;
             std::string toString();
+    };
 
-            static Buttons UNKNOWN;
-            static Buttons LEFT;
-            static Buttons RIGHT;
-            static Buttons MIDDLE;
-            static Buttons SPECIAL;
+    class Buttons
+    {
+    private:
+        Buttons() = delete;
+        
+    public:
+        static Button UNKNOWN;
+        static Button LEFT;
+        static Button RIGHT;
+        static Button MIDDLE;
+        static Button SPECIAL;
     };
 }
 

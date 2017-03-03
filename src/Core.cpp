@@ -150,13 +150,13 @@ Core *Core::getInstance()
     return instance;
 }
 
-Core *Core::getInstance(int width, int height, const std::string &windowTitle)
+Core *Core::createInstance(int width, int height, const std::string &windowTitle)
 {
     if (!instance) {
-        return (instance = new Core(width, height, windowTitle));
+        delete instance;
     }
 
-    return instance;
+    return (instance = new Core(width, height, windowTitle));
 }
 
 
@@ -222,16 +222,26 @@ void Core::setWindowTitle(const std::string &title)
     MANGLE_SDL(SDL_SetWindowTitle)(window, title.c_str());
 }
 
-Rect Core::getWindowSize()
+Rect Core::getTrueWindowSize() const
 {
     int w, h;
     MANGLE_SDL(SDL_GetWindowSize)(window, &w, &h);
     return { (float) w, (float) h };
 }
 
-std::string Core::getWindowTitle() const
+std::string Core::getTrueWindowTitle() const
 {
     return MANGLE_SDL(SDL_GetWindowTitle)(window);
+}
+
+Rect Core::getWindowSize() const
+{
+    return { (float) windowWidth, (float) windowHeight };
+}
+
+std::string Core::getWindowTitle() const
+{
+    return windowTitle;
 }
 
 SDL_Renderer *Core::getRenderer() const

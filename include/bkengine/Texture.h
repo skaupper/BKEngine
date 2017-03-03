@@ -72,7 +72,6 @@ namespace bkengine
 
 
         protected:
-            bool flip;
             std::shared_ptr<TextureWrapper> texture;
     };
 }

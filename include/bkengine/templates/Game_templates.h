@@ -1,6 +1,16 @@
 #ifndef BKENGINE_GAMETEMPLATES_H
 #define BKENGINE_GAMETEMPLATES_H
 
+
+template <typename T> T Game::create(int width, int height, const std::string &title)
+{
+    Game g(width, height, title);
+    g.setupScenes();
+    g.setupEnvironment();
+    g.set();
+    return g;
+}
+
 template <typename T> T &Game::addScene(const T &scene)
 {
     return addScene<T>(std::make_shared<T>(std::move((T &) scene)));
@@ -20,7 +30,9 @@ template <typename T> T &Game::addScene(const std::shared_ptr<T> &scene)
 template <typename T, typename... Params> T &Game::addScene(Params... params)
 {
     auto scene = std::make_shared<T>(this, params...);
-    scene->setup();
+    scene->setupElements();
+    scene->setupEnvironment();
+    scene->set();
     return addScene<T>(scene);
 }
 
@@ -28,7 +40,7 @@ template <typename T, typename... Params> T &Game::addScene(Params... params)
 template <typename T> T &Game::getScene(const std::string &name)
 {
     for (auto &scene : scenes) {
-        if (scene->getName() == name) {
+        if (scene->getDescription() == name) {
             return *((T *) scene.get());
         }
     }
@@ -80,7 +92,7 @@ template <typename T> T &Game::getData(const std::string &name)
 
 template <typename T> T &Game::addData(const std::string &name)
 {
-    dataStore[name] = std::make_shared<T>(T::TYPE);
+    dataStore[name] = std::static_pointer_cast<Storage>(std::make_shared<T>("test"));
     return getData<T>(name);
 }
 

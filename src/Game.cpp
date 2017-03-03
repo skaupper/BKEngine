@@ -9,12 +9,17 @@ using namespace bkengine;
 static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 
+Game::Game() : Game(1024, 768, "TEST WINDOW")
+{
+
+}
+
 Game::Game(int width, int height, const std::string &title) :
     activeScene(-1),
     eventInterface(nullptr),
     running(false)
 {
-    Core::getInstance(width, height, title);
+    Core::createInstance(width, height, title);
 }
 
 Game::~Game()
@@ -28,7 +33,7 @@ void Game::activate(const std::string &name)
     int index = 0;
 
     for (auto &scene : scenes) {
-        if (scene->getName() == name) {
+        if (scene->getDescription() == name) {
             activeScene = index;
             return;
         }
@@ -55,7 +60,7 @@ void Game::activate(unsigned int index)
 bool Game::hasScene(const std::string &name) const
 {
     for (auto &scene : scenes) {
-        if (scene->getName() == name) {
+        if (scene->getDescription() == name) {
             return true;
         }
     }
@@ -73,7 +78,7 @@ void Game::removeScene(const std::string &name)
     int index = 0;
 
     for (auto &scene : scenes) {
-        if (scene->getName() == name) {
+        if (scene->getDescription() == name) {
             scenes.erase(scenes.begin() + index);
             return;
         }
@@ -138,7 +143,10 @@ void Game::run()
         return;
     }
 
-    setup();
+    if(scenes.size() == 0) {
+        setupScenes();
+    }
+    setupEnvironment();
 
     if (eventInterface == nullptr) {
         Logger::LogInfo("Game::run(): No event interface set. SDLEventInterface will be used.");
@@ -201,7 +209,11 @@ void Game::clear()
     dataStore.clear();
 }
 
-void Game::setup()
+void Game::setupEnvironment()
+{
+}
+
+void Game::setupScenes()
 {
 }
 
@@ -209,10 +221,11 @@ void Game::teardown()
 {
 }
 
-void Game::deserialize(const Json::Value &obj) 
+void Game::deserialize(const Json::Value &obj)
 {
+    Serializable::deserialize(obj);
     std::string eventInterface = obj["interfaces"]["event"].asString();
-    std::string settingsInterface = obj["interfaces"]["event"].asString();
+    std::string settingsInterface = obj["interfaces"]["settings"].asString();
 
     if (!eventInterface.empty()) {
         this->eventInterface = Serializer::getInstance<EventInterface>(eventInterface);
@@ -225,9 +238,23 @@ void Game::deserialize(const Json::Value &obj)
     for(auto font : obj["fonts"]) {
         Fonts::registerFont(font["file"].asString(), 1, font["name"].asString());
     }
+
+    for (auto &scene : obj["scenes"]) {
+        auto s = GameSerializer::deserialize<Scene>(scene);
+        s->parentGame = this;
+        s->setupEnvironment();
+        addScene(s);
+    }
+    int width = obj["window"]["width"].asInt();
+    int height = obj["window"]["height"].asInt();
+    std::string title = obj["window"]["title"].asString();
+    Core::createInstance(width, height, title);
+
+    setupEnvironment();
+    activate(obj["active_scene"].asInt());
 }
 
-Json::Value Game::serialize() const 
+Json::Value Game::serialize() const
 {
     Json::Value json;
     // TODO: use any kind of dynamic approach
@@ -236,11 +263,24 @@ Json::Value Game::serialize() const
     json["fonts"] = Json::arrayValue;
     for(auto font : Fonts::fontFileCache) {
         Json::Value f;
-        f["file"] = font.first;
-        f["name"] = font.second;
+        f["file"] = font.second;
+        f["name"] = font.first;
         json["fonts"].append(f);
     }
     json["type"] = "GAME";
+
+    json["scenes"] = Json::arrayValue;
+
+    for (auto scene : scenes) {
+        json["scenes"].append(scene->serialize());
+    }
+
+    json["active_scene"] = activeScene;
+
+    Rect windowSize = Core::getInstance()->getWindowSize();
+    json["window"]["width"] = (int) windowSize.w;
+    json["window"]["height"] = (int) windowSize.h;
+    json["window"]["title"] = Core::getInstance()->getWindowTitle();
     return json;
 }
 

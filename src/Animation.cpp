@@ -68,17 +68,38 @@ std::string Animation::getDescription() const
     return description;
 }
 
-void Animation::deserialize(const Json::Value &obj) 
+
+void Animation::setupTextures()
 {
-    description = obj["description"].asString();
-    framesPerTexture = obj["frames_per_texture"].asUInt();
+
 }
 
-Json::Value Animation::serialize() const 
+void Animation::setupEnvironment()
+{
+    
+}
+
+void Animation::deserialize(const Json::Value &obj)
+{
+    Serializable::deserialize(obj);
+    description = obj["description"].asString();
+    framesPerTexture = obj["frames_per_texture"].asUInt();
+
+    for (auto &texture : obj["textures"]) {
+        addTexture(GameSerializer::deserialize<Texture>(texture));
+    }
+}
+
+Json::Value Animation::serialize() const
 {
     Json::Value json;
     json["description"] = description;
     json["frames_per_texture"] = framesPerTexture;
     json["type"] = "ANIMATION";
+    json["textures"] = Json::arrayValue;
+
+    for (auto texture : textures) {
+        json["textures"].append(texture->serialize());
+    }
     return json;
 }

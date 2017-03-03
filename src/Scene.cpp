@@ -3,22 +3,22 @@
 using namespace bkengine;
 
 
-Scene::Scene(Game *parentGame, const std::string &name) :
+Scene::Scene(Game *parentGame, const std::string &description) :
     parentGame(parentGame),
-    name(name)
+    description(description)
 {
 }
 
 Scene &Scene::operator=(Scene &&scene)
 {
-    name = std::move(scene.name);
+    description = std::move(scene.description);
     elements = std::move(scene.elements);
     return *this;
 }
 
 Scene::Scene(Scene &&scene)
 {
-    name = std::move(scene.name);
+    description = std::move(scene.description);
     elements = std::move(scene.elements);
 }
 
@@ -85,7 +85,11 @@ Element &Scene::getElement(const std::string &name)
 }
 
 
-void Scene::setup()
+void Scene::setupEnvironment()
+{
+}
+
+void Scene::setupElements()
 {
 }
 
@@ -114,9 +118,9 @@ bool Scene::onEvent(const Event &event)
     return true;
 }
 
-std::string Scene::getName() const
+std::string Scene::getDescription() const
 {
-    return name;
+    return description;
 }
 
 void Scene::addToCollisionLayer(Element *element, int layer)
@@ -170,15 +174,29 @@ void Scene::clear()
     elements.clear();
 }
 
-void Scene::deserialize(const Json::Value &obj) 
+void Scene::deserialize(const Json::Value &obj)
 {
-    name = obj["description"].asString();
+    Serializable::deserialize(obj);
+    description = obj["description"].asString();
+
+    for (auto &element : obj["elements"]) {
+        auto e = GameSerializer::deserialize<Element>(element);
+        e->parentScene = this;
+        e->setupEnvironment();
+        Logger::LogDebug("add element " + e->getDescription());
+        addElement(e);
+    }
 }
 
-Json::Value Scene::serialize() const 
+Json::Value Scene::serialize() const
 {
     Json::Value json;
-    json["description"] = name;
+    json["description"] = description;
     json["type"] = "SCENE";
+    json["elements"] = Json::arrayValue;
+
+    for (auto element : elements) {
+        json["elements"].append(element->serialize());
+    }
     return json;
 }

@@ -2,9 +2,9 @@
 
 using namespace bkengine;
 
-static Keys mapSDLKeys(SDL_Keycode code)
+static Key mapSDLKeys(SDL_Keycode code)
 {
-    static std::map<SDL_Keycode, Keys> map = {
+    static std::map<SDL_Keycode, Key> map = {
         { SDLK_RETURN, Keys::RETURN },
         { SDLK_ESCAPE, Keys::ESCAPE },
         { SDLK_BACKSPACE, Keys::BACKSPACE },
