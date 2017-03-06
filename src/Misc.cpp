@@ -2,19 +2,23 @@
 
 using namespace bkengine;
 
+template <typename T> static int sgn(T val)
+{
+    return (T(0) < val) - (val < T(0));
+}
 
-Location::operator Rect() const
+Point::operator Rect() const
 {
     return { x, y, 0, 0 };
 }
 
-std::string Location::toString() const
+std::string Point::toString() const
 {
-    return "<Location {x: " + std::to_string(x) + ", y: " + std::to_string(y)
+    return "<Point {x: " + std::to_string(x) + ", y: " + std::to_string(y)
            + "}>";
 }
 
-SDL_Point Location::toSDLPoint() const
+SDL_Point Point::toSDLPoint() const
 {
     return SDL_Point { (int) round(x), (int) round(y) };
 }
@@ -30,12 +34,7 @@ std::string Size::toString() const
            + "}>";
 }
 
-SDL_Point Size::toSDLPoint() const
-{
-    return SDL_Point { (int) round(w), (int) round(h) };
-}
-
-Rect::operator Location() const
+Rect::operator Point() const
 {
     return { x, y };
 }
@@ -61,10 +60,16 @@ bool Rect::operator==(const Rect &r) const
     return x == r.x && y == r.y && w == r.w && h == r.h;
 }
 
+bool Rect::operator!=(const Rect &r) const
+{
+    return !(r == *this);
+}
+
 bool Rect::operator<(const Rect &r) const
 {
-    return (x + y + w + h) < (r.x + r.y + r.w + r.h);
+    return r != *this;
 }
+
 
 std::string Color::toString() const
 {
@@ -77,27 +82,32 @@ bool Color::operator==(const Color &c) const
     return r == c.r && g == c.g && b == c.b && a == c.a;
 }
 
-bool Color::operator<(const Color &c) const
+bool Color::operator!=(const Color &c) const
 {
-    return (r + g + b + a) < (c.r + c.g + c.b + c.a);
+    return !(c == *this);
 }
 
-Color Color::BLACK(0, 0, 0);
-Color Color::WHITE(0xff, 0xff, 0xff);
-Color Color::RED(0xff, 0, 0);
-Color Color::LIME(0, 0xff, 0);
-Color Color::BLUE(0, 0, 0xff);
-Color Color::YELLOW(0xff, 0xff, 0);
-Color Color::CYAN(0, 0xff, 0xff);
-Color Color::MAGENTA(0xff, 0, 0xff);
-Color Color::SILVER(0xc0, 0xc0, 0xc0);
-Color Color::GRAY(0x80, 0x80, 0x80);
-Color Color::MAROON(0x80, 0, 0);
-Color Color::OLIVE(0x80, 0x80, 0);
-Color Color::GREEN(0, 0x80, 0);
-Color Color::PURPLE(0x80, 0, 0x80);
-Color Color::TEAL(0, 0x80, 0x80);
-Color Color::NAVY(0, 0, 0x80);
+bool Color::operator<(const Color &c) const
+{
+    return c != *this;
+}
+
+Color Colors::BLACK(0, 0, 0);
+Color Colors::WHITE(0xff, 0xff, 0xff);
+Color Colors::RED(0xff, 0, 0);
+Color Colors::LIME(0, 0xff, 0);
+Color Colors::BLUE(0, 0, 0xff);
+Color Colors::YELLOW(0xff, 0xff, 0);
+Color Colors::CYAN(0, 0xff, 0xff);
+Color Colors::MAGENTA(0xff, 0, 0xff);
+Color Colors::SILVER(0xc0, 0xc0, 0xc0);
+Color Colors::GRAY(0x80, 0x80, 0x80);
+Color Colors::MAROON(0x80, 0, 0);
+Color Colors::OLIVE(0x80, 0x80, 0);
+Color Colors::GREEN(0, 0x80, 0);
+Color Colors::PURPLE(0x80, 0, 0x80);
+Color Colors::TEAL(0, 0x80, 0x80);
+Color Colors::NAVY(0, 0, 0x80);
 
 TextureWrapper::TextureWrapper(SDL_Texture *tex, const std::string &path) :
     type(TextureType::IMAGE),
@@ -146,7 +156,7 @@ void TextureWrapper::free()
     }
 }
 
-Rect TextureWrapper::getSize() const
+Size TextureWrapper::getSize() const
 {
     return originalSize;
 }

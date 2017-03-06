@@ -15,8 +15,8 @@ namespace bkengine
 {
     class Animation : public Serializable
     {
-        friend class Element;
-        friend class Serializer;
+            friend class Element;
+            friend class Serializer;
             /* hierarchal */
         public:
             /**

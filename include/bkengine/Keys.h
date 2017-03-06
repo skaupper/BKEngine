@@ -5,21 +5,69 @@
 
 namespace bkengine
 {
+    /**
+        Represents a keyboard key.
+    */
     class Key
     {
         private:
             std::string keyString;
 
         public:
+            /**
+                Creates a instance of Key "UNKNOWN".
+            */
             Key() : Key("UNKNOWN") {}
-            Key(const std::string &keyString) : keyString(keyString) {}
-            bool operator==(const Key &) const;
-            bool operator!=(const Key &) const;
 
+            /**
+                Creates a instance of Key *keyString*.
+                Valid values for *keyString* currently contain all uppercase letters,
+                written-out numbers from zero to nine and a whole bunch of other keys.
+                However, you should not need to call this by yourself. Instead use a predefined instance from Keys.
+
+                \param [in] keyString A `std::string` representing a key.
+
+                \sa Keys
+            */
+            Key(const std::string &keyString) : keyString(keyString) {}
+
+            /**
+                Compares two instances of Key for equality.
+                Simply compares the internally stored string representation.
+
+                \param [in] key Instance of Key to compare to.
+
+                \return `true` if both representations are equal `false` otherwise
+            */
+            bool operator==(const Key &key) const;
+
+            /**
+                Compares two instances of Key for inequality.
+                Simply compares the internally stored string representation.
+
+                \param [in] key Instance of Key to compare to.
+
+                \return `true` if the representations differ `false` otherwise
+            */
+            bool operator!=(const Key &key) const;
+
+            /**
+                Converts the key to a `std::string` using the stored representation.
+            */
             operator const std::string() const;
+
+            /**
+                Returns the string representation of the key.
+
+                \return The key as `std::string`.
+            */
             std::string toString() const;
     };
 
+    /**
+        A collection of predefined keyboard keys.
+        The string representations equal the member names as `std::string`.
+    */
     class Keys
     {
         private:
@@ -166,21 +214,68 @@ namespace bkengine
             static Key POWER;
     };
 
+    /**
+        Represents a mouse button.
+        The string representations equal the member names as `std::string`.
+    */
     class Button
     {
         private:
             std::string buttonString;
 
         public:
+            /**
+                Creates a instance of Button "UNKNOWN".
+            */
             Button() : Button("UNKNOWN") {}
-            Button(const std::string &buttonString) : buttonString(buttonString) {}
-            bool operator==(const Button &) const;
-            bool operator!=(const Button &) const;
 
+            /**
+                Creates a instance of Button *buttonString*.
+                Valid values for *buttonString* currently are "UNKNOWN", "LEFT", "RIGHT", "MIDDLE" and "SPECIAL".
+                However, you should not need to call this by yourself. Instead use a predefined instance from Buttons.
+
+                \param [in] buttonString A `std::string` representing a button.
+
+                \sa Buttons
+            */
+            Button(const std::string &buttonString) : buttonString(buttonString) {}
+
+            /**
+                Compares two instances of Button for equality.
+                Simply compares the internally stored string representation.
+
+                \param [in] button Instance of Button to compare to.
+
+                \return `true` if both representations are equal `false` otherwise
+            */
+            bool operator==(const Button &button) const;
+
+            /**
+                Compares two instances of Button for inequality.
+                Simply compares the internally stored string representation.
+
+                \param [in] button Instance of Button to compare to.
+
+                \return `true` if the representations differ `false` otherwise
+            */
+            bool operator!=(const Button &button) const;
+
+            /**
+                Converts the button to a `std::string` using the stored representation.
+            */
             operator const std::string() const;
-            std::string toString();
+
+            /**
+                Returns the string representation of the button.
+
+                \return The button as `std::string`.
+            */
+            std::string toString() const;
     };
 
+    /**
+        A collection of predefined mouse buttons.
+    */
     class Buttons
     {
         private:

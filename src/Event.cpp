@@ -10,19 +10,19 @@ static void copy(Event &e1, const Event &e2)
 
     switch (e1.type) {
         case EventType::KEYBOARD:
-            new(&e1.keyboard) KeyboardEvent(e2.keyboard);
+            new (&e1.keyboard) KeyboardEvent(e2.keyboard);
             break;
 
         case EventType::MOUSE:
-            new(&e1.mouse) MouseEvent(e2.mouse);
+            new (&e1.mouse) MouseEvent(e2.mouse);
             break;
 
         case EventType::MOTION:
-            new(&e1.motion) MotionEvent(e2.motion);
+            new (&e1.motion) MotionEvent(e2.motion);
             break;
 
         case EventType::WHEEL:
-            new(&e1.wheel) WheelEvent(e2.wheel);
+            new (&e1.wheel) WheelEvent(e2.wheel);
             break;
 
         case EventType::UNKNOWN:

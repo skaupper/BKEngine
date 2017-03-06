@@ -2,6 +2,10 @@
 
 using namespace bkengine;
 
+template <typename T> static int sgn(T val)
+{
+    return (T(0) < val) - (val < T(0));
+}
 
 Entity::~Entity()
 {

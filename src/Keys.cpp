@@ -183,7 +183,7 @@ Button::operator const std::string() const
     return buttonString;
 }
 
-std::string Button::toString()
+std::string Button::toString() const
 {
     return buttonString;
 }
