@@ -21,7 +21,7 @@ template <typename T> T &Game::addScene(const std::shared_ptr<T> &scene)
     scenes.push_back(scene);
 
     if (scenes.size() == 1) {
-        activeScene = 0;
+        currentScene = 0;
     }
 
     return *((T *) scenes.back().get());
@@ -40,7 +40,7 @@ template <typename T, typename... Params> T &Game::addScene(Params... params)
 template <typename T> T &Game::getScene(const std::string &name)
 {
     for (auto &scene : scenes) {
-        if (scene->getDescription() == name) {
+        if (scene->getName() == name) {
             return *((T *) scene.get());
         }
     }
@@ -63,12 +63,12 @@ template <typename T> T &Game::getScene(unsigned int index)
 
 template <typename T> T &Game::getCurrentScene()
 {
-    if (activeScene == -1) {
+    if (currentScene == -1) {
         Logger::LogCritical("Game::getCurrentScene(): Scene not found");
         throw "No scene added";
     }
 
-    return *((T *) scenes[activeScene].get());
+    return *((T *) scenes[currentScene].get());
 }
 
 template <typename T> void Game::setEventInterface()

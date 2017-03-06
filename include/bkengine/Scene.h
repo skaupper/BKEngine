@@ -45,15 +45,15 @@ namespace bkengine
 
             /* getter and setter */
         public:
-            std::string getDescription() const;
+            std::string getName() const;
 
         protected:
-            std::string description;
+            std::string name;
 
 
             /* other stuff */
         public:
-            explicit Scene(Game *parentGame = nullptr, const std::string &description = "");
+            explicit Scene(Game *parentGame = nullptr, const std::string &name = "");
             Scene(Scene &&scene);
             Scene &operator=(Scene &&scene);
             virtual ~Scene();

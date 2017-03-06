@@ -26,7 +26,7 @@ template <typename T, typename... Params> T &Scene::addElement(Params... params)
 template <typename T> T &Scene::getElement(const std::string &name)
 {
     for (auto &element : elements) {
-        if (element->getDescription() == name) {
+        if (element->getName() == name) {
             return *((T *) element.get());
         }
     }

@@ -18,7 +18,8 @@ namespace bkengine
         public:
             static bool initDeps();
             static Core *getInstance();
-            static Core *createInstance(int width, int height, const std::string &windowTitle);
+            static Core *createInstance(int width, int height,
+                                        const std::string &windowTitle);
             static void registerCleanup(std::function<void()>);
             static void quit();
 

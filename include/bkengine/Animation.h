@@ -15,7 +15,6 @@ namespace bkengine
 {
     class Animation : public Serializable
     {
-            friend class GameSerializer;
             /* hierarchal */
         public:
             template <typename T> void addImage(const std::string &path,
@@ -32,16 +31,16 @@ namespace bkengine
             Texture &getCurrentTexture();
 
         protected:
-            int currentIndex;
+            int currentTexture;
             std::vector<std::shared_ptr<Texture>> textures;
 
 
             /* getter and setter */
         public:
-            std::string getDescription() const;
+            std::string getName() const;
 
         protected:
-            std::string description;
+            std::string name;
 
 
             /* other stuff */

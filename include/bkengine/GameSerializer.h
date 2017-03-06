@@ -18,8 +18,9 @@ namespace bkengine
 
     class GameSerializer
     {
-    public:
-        template <typename T> static std::shared_ptr<T> deserialize(const Json::Value &obj);
+        public:
+            template <typename T> static std::shared_ptr<T> deserialize(
+                const Json::Value &obj);
     };
 }
 

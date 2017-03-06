@@ -2,10 +2,10 @@
 
 using namespace bkengine;
 
-Animation::Animation(const std::string &description,
+Animation::Animation(const std::string &name,
                      unsigned int framesPerTexture) :
-    currentIndex(0),
-    description(description),
+    currentTexture(0),
+    name(name),
     frameCounter(0),
     framesPerTexture(framesPerTexture)
 {
@@ -14,7 +14,7 @@ Animation::Animation(const std::string &description,
 void Animation::reset()
 {
     frameCounter = 0;
-    currentIndex = -1;
+    currentTexture = -1;
 }
 
 Texture &Animation::getNextTexture()
@@ -26,8 +26,8 @@ Texture &Animation::getNextTexture()
 
 Texture &Animation::getCurrentTexture()
 {
-    if (hasTexture(currentIndex)) {
-        return *textures.at(currentIndex);
+    if (hasTexture(currentTexture)) {
+        return *textures.at(currentTexture);
     }
 
     Logger::LogCritical("Animation::getCurrentTexture(): Texture not found");
@@ -49,7 +49,7 @@ void Animation::incFrameCount()
         frameCounter++;
     } else {
         frameCounter = 0;
-        currentIndex = (currentIndex + 1) % textures.size();
+        currentTexture = (currentTexture + 1) % textures.size();
     }
 }
 
@@ -63,37 +63,55 @@ Animation::~Animation()
     textures.clear();
 }
 
-std::string Animation::getDescription() const
+std::string Animation::getName() const
 {
-    return description;
+    return name;
 }
 
 
 void Animation::setupTextures()
 {
-
 }
 
 void Animation::setupEnvironment()
 {
-    
 }
 
 void Animation::deserialize(const Json::Value &obj)
 {
+    Json::FastWriter writer;
     Serializable::deserialize(obj);
-    description = obj["description"].asString();
-    framesPerTexture = obj["frames_per_texture"].asUInt();
+
+    if (!obj.isMember("textures") || !obj["textures"].isArray()) {
+        Logger::LogCritical("Animation::deserialize(const Json::Value &=<optimized out>): JSON object must have an member \"textures\" of type array. Deserialization aborted");
+        return;
+    }
 
     for (auto &texture : obj["textures"]) {
         addTexture(GameSerializer::deserialize<Texture>(texture));
+    }
+
+    if (!obj.isMember("name")) {
+        Logger::LogWarning("Animation::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"name\"");
+    } else {
+        name = obj["name"].asString();
+    }
+
+    if (!obj.isMember("frames_per_texture")) {
+        Logger::LogWarning("Animation::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"frames_per_texture\"");
+    } else {
+        if (!obj["frames_per_texture"].isInt()) {
+            Logger::LogError("Animation::deserialize(const Json::Value &=<optimized out>): Member \"frames_per_texture\" has to be an integer number. Value will be ignored");
+        } else {
+            framesPerTexture = obj["frames_per_texture"].asUInt();
+        }
     }
 }
 
 Json::Value Animation::serialize() const
 {
     Json::Value json;
-    json["description"] = description;
+    json["name"] = name;
     json["frames_per_texture"] = framesPerTexture;
     json["type"] = "ANIMATION";
     json["textures"] = Json::arrayValue;
@@ -101,5 +119,7 @@ Json::Value Animation::serialize() const
     for (auto texture : textures) {
         json["textures"].append(texture->serialize());
     }
+
+    json["active"] = currentTexture;
     return json;
 }

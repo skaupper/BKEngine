@@ -3,13 +3,14 @@
     "window": {
         "width": 1024,
         "height": 768,
-        "title": "BKENGINE TEST"
+        "title": "BKENGINE TEST",
+        "icon": "icon.ico"
     },
     "interfaces":{
         "settings": "ini",
         "event": "sdl_event"
     },
-    "active_scene": 0,
+    "active": 0,
     "fonts": [
         {
             "file": "FUTURAB.ttf",
@@ -26,8 +27,9 @@
             "name": "testscene",
             "elements": [
                 {
+                    "active": "testanimation",
                     "type": "ELEMENT",
-                    "description": "testelement",
+                    "name": "testelement",
                     "render_box": {
                         "x": 0,
                         "y": 0,
@@ -46,7 +48,7 @@
                     "animations": [
                         {
                             "type": "ANIMATION",
-                            "description": "testanimation",
+                            "name": "testanimation",
                             "frames_per_texture": 60,
                             "textures": [
                                 {

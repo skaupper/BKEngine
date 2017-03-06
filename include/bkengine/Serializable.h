@@ -12,8 +12,8 @@ namespace bkengine
 {
     class Serializable
     {
-    private:
-        Json::Value original;
+        private:
+            Json::Value original;
 
         public:
             Serializable();

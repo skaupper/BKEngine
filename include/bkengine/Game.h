@@ -20,7 +20,6 @@ namespace bkengine
 
     class Game : public Serializable
     {
-            friend class GameSerializer;
             /* hierarchal */
         public:
             void activate(const std::string &name);
@@ -44,7 +43,7 @@ namespace bkengine
             template <typename T> T &getCurrentScene();
 
         protected:
-            int activeScene;
+            int currentScene;
             std::vector<std::shared_ptr<Scene>> scenes;
 
 
@@ -65,7 +64,8 @@ namespace bkengine
 
             /* other stuff */
         public:
-            template <typename T> static T create(int=1024, int=768, const std::string &title="BKENGINE WINDOW");
+            template <typename T> static T create(int = 1024, int = 768,
+                                                  const std::string &title = "BKENGINE WINDOW");
             explicit Game();
             Game(int width, int height, const std::string &title);
             virtual ~Game();

@@ -3,22 +3,22 @@
 using namespace bkengine;
 
 
-Scene::Scene(Game *parentGame, const std::string &description) :
+Scene::Scene(Game *parentGame, const std::string &name) :
     parentGame(parentGame),
-    description(description)
+    name(name)
 {
 }
 
 Scene &Scene::operator=(Scene &&scene)
 {
-    description = std::move(scene.description);
+    name = std::move(scene.name);
     elements = std::move(scene.elements);
     return *this;
 }
 
 Scene::Scene(Scene &&scene)
 {
-    description = std::move(scene.description);
+    name = std::move(scene.name);
     elements = std::move(scene.elements);
 }
 
@@ -35,7 +35,7 @@ bool Scene::hasElement(unsigned int index) const
 bool Scene::hasElement(const std::string &name) const
 {
     for (auto &element : elements) {
-        if (element->getDescription() == name) {
+        if (element->getName() == name) {
             return true;
         }
     }
@@ -48,7 +48,7 @@ void Scene::removeElement(const std::string &name)
     int index = 0;
 
     for (auto &element : elements) {
-        if (element->getDescription() == name) {
+        if (element->getName() == name) {
             removeFromCollisionLayer(elements[index].get());
             elements.erase(elements.begin() + index);
             return;
@@ -118,9 +118,9 @@ bool Scene::onEvent(const Event &event)
     return true;
 }
 
-std::string Scene::getDescription() const
+std::string Scene::getName() const
 {
-    return description;
+    return name;
 }
 
 void Scene::addToCollisionLayer(Element *element, int layer)
@@ -176,14 +176,24 @@ void Scene::clear()
 
 void Scene::deserialize(const Json::Value &obj)
 {
+    Json::FastWriter writer;
     Serializable::deserialize(obj);
-    description = obj["description"].asString();
+
+    if (!obj.isMember("name")) {
+        Logger::LogWarning("Scene::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"name\"");
+    } else {
+        name = obj["name"].asString();
+    }
+
+    if (!obj.isMember("elements") || !obj["elements"].isArray()) {
+        Logger::LogCritical("Scene::deserialize(const Json::Value &=<optimized out>): JSON object must have an member \"elements\" of type array. Deserialization aborted");
+        return;
+    }
 
     for (auto &element : obj["elements"]) {
         auto e = GameSerializer::deserialize<Element>(element);
         e->parentScene = this;
         e->setupEnvironment();
-        Logger::LogDebug("add element " + e->getDescription());
         addElement(e);
     }
 }
@@ -191,12 +201,13 @@ void Scene::deserialize(const Json::Value &obj)
 Json::Value Scene::serialize() const
 {
     Json::Value json;
-    json["description"] = description;
+    json["name"] = name;
     json["type"] = "SCENE";
     json["elements"] = Json::arrayValue;
 
     for (auto element : elements) {
         json["elements"].append(element->serialize());
     }
+
     return json;
 }

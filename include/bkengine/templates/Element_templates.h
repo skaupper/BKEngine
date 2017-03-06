@@ -32,7 +32,7 @@ template <typename T, typename... Params> T &Element::addAnimation(
 template <typename T> T &Element::getAnimation(const std::string &name)
 {
     for (auto &animation : animations) {
-        if (animation->getDescription() == name) {
+        if (animation->getName() == name) {
             return *((T *) animation.get());
         }
     }

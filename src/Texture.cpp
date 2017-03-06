@@ -278,38 +278,139 @@ void Texture::cleanup()
 
 void Texture::deserialize(const Json::Value &obj)
 {
+    Json::FastWriter writer;
     Serializable::deserialize(obj);
-    auto jsonSize = obj["size"];
-    Rect size { jsonSize["x"].asFloat(),
-                jsonSize["y"].asFloat(),
-                jsonSize["w"].asFloat(),
-                jsonSize["h"].asFloat()};
+    Rect size;
+
+    if (obj.isMember("size")) {
+        auto jsonSize = obj["size"];
+
+        if (!jsonSize.isObject()) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Member \"size\" has to be an object. Deserialization aborted");
+            return;
+        }
+
+        if (!jsonSize.isMember("x") || !jsonSize.isMember("y")
+                || !jsonSize.isMember("w") || !jsonSize.isMember("h")) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Member \"size\" must have the members \"x\", \"y\", \"w\" and \"h\". Deserialization aborted");
+            return;
+        }
+
+        if (!jsonSize["x"].isNumeric() || !jsonSize["y"].isNumeric()
+                || !jsonSize["w"].isNumeric() || !jsonSize["h"].isNumeric()) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Members \"x\", \"y\", \"w\" and \"h\" must be (floating point) numbers. Deserialization aborted");
+            return;
+        }
+
+        size = { jsonSize["x"].asFloat(),
+                 jsonSize["y"].asFloat(),
+                 jsonSize["w"].asFloat(),
+                 jsonSize["h"].asFloat()
+               };
+    } else {
+        Logger::LogWarning("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"size\"");
+    }
+
+    if (!obj.isMember("texture_type")) {
+        Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"texture_type\". Deserialization aborted");
+        return;
+    }
+
     auto texTypeString = obj["texture_type"].asString();
 
     if (texTypeString == "IMAGE") {
-        auto jsonClip = obj["size"];
-        Rect clip { jsonClip["x"].asFloat(),
-                    jsonClip["y"].asFloat(),
-                    jsonClip["w"].asFloat(),
-                    jsonClip["h"].asFloat()};
+        Rect clip;
+
+        if (obj.isMember("clip")) {
+            auto jsonClip = obj["clip"];
+
+            if (!jsonClip.isMember("x") || !jsonClip.isMember("y")
+                    || !jsonClip.isMember("w") || !jsonClip.isMember("h")) {
+                Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Member \"clip\" must have the members \"x\", \"y\", \"w\" and \"h\". Deserialization aborted");
+                return;
+            }
+
+            if (!jsonClip["x"].isNumeric() || !jsonClip["y"].isNumeric()
+                    || !jsonClip["w"].isNumeric() || !jsonClip["h"].isNumeric()) {
+                Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Members \"x\", \"y\", \"w\" and \"h\" must be (floating point) numbers. Deserialization aborted");
+                return;
+            }
+
+            clip = { jsonClip["x"].asFloat(),
+                     jsonClip["y"].asFloat(),
+                     jsonClip["w"].asFloat(),
+                     jsonClip["h"].asFloat()
+                   };
+        } else {
+            Logger::LogWarning("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"clip\"");
+        }
+
+        if (!obj.isMember("path")) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"path\" although the texture_type is IMAGE. Deserialization aborted");
+            return;
+        }
+
         loadImage(obj["path"].asString(), clip, size);
     } else if (texTypeString == "TEXT") {
-        auto jsonColor = obj["color"];
-        Color color { (uint8_t) jsonColor["r"].asUInt(),
-                      (uint8_t) jsonColor["g"].asUInt(),
-                      (uint8_t) jsonColor["b"].asUInt(),
-                      (uint8_t) jsonColor["a"].asUInt()};
-        TextQuality quality = TextQuality::SOLID;
-        auto qualityString = obj["quality"];
+        Color color;
 
-        if (qualityString == "BLENDED") {
-            quality = TextQuality::BLENDED;
-        } else if (qualityString == "SOLID") {
-            quality = TextQuality::SOLID;
+        if (obj.isMember("color")) {
+            auto jsonColor = obj["color"];
+
+            if (!jsonColor.isMember("r") || !jsonColor.isMember("g")
+                    || !jsonColor.isMember("b") || !jsonColor.isMember("a")) {
+                Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Member \"clip\" must have the members \"r\", \"g\", \"b\" and \"a\". Deserialization aborted");
+                return;
+            }
+
+            if (!jsonColor["r"].isNumeric() || !jsonColor["g"].isNumeric()
+                    || !jsonColor["b"].isNumeric() || !jsonColor["a"].isNumeric()
+                    || jsonColor["r"].asUInt() > 255 || jsonColor["g"].asUInt() > 255
+                    || jsonColor["b"].asUInt() > 255 || jsonColor["a"].asUInt() > 255) {
+                Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Members \"r\", \"g\", \"b\" and \"a\" must be numbers between 0 and 255. Deserialization aborted");
+                return;
+            }
+
+            color =  { (uint8_t) jsonColor["r"].asUInt(),
+                       (uint8_t) jsonColor["g"].asUInt(),
+                       (uint8_t) jsonColor["b"].asUInt(),
+                       (uint8_t) jsonColor["a"].asUInt()
+                     };
+        } else {
+            Logger::LogWarning("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"color\"");
+        }
+
+        TextQuality quality = TextQuality::SOLID;
+
+        if (obj.isMember("quality")) {
+            auto qualityString = obj["quality"];
+
+            if (qualityString == "BLENDED") {
+                quality = TextQuality::BLENDED;
+            } else if (qualityString == "SOLID") {
+                quality = TextQuality::SOLID;
+            } else {
+                Logger::LogWarning("Texture::deserialize(const Json::Value &=<optimized out>): Member \"quality\" must be one of BLENDED or SOLID. Default value SOLID is used");
+            }
+        } else {
+            Logger::LogWarning("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"quality\"");
+        }
+
+        if (!obj.isMember("font_name")) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"font_name\". Deserialization aborted");
+            return;
+        }
+
+        if (!obj.isMember("text")) {
+            Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"text\". Deserialization aborted");
+            return;
         }
 
         loadText(obj["font_name"].asString(), obj["text"].asString(), size,
                  color, quality);
+    } else {
+        Logger::LogCritical("Texture::deserialize(const Json::Value &=<optimized out>): Member \"texture_type\" must be one of IMAGE or TEXT. Deserialization aborted");
+        return;
     }
 }
 

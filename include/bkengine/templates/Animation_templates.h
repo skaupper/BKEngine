@@ -35,7 +35,7 @@ template <typename T> void Animation::addTexture(const T &texture)
     textures.push_back(std::make_shared<T>(std::move((T &) texture)));
 
     if (textures.size() == 1) {
-        currentIndex = 0;
+        currentTexture = 0;
     }
 }
 
@@ -44,7 +44,7 @@ template <typename T> void Animation::addTexture(std::shared_ptr<T> texture)
     textures.push_back(texture);
 
     if (textures.size() == 1) {
-        currentIndex = 0;
+        currentTexture = 0;
     }
 }
 #endif

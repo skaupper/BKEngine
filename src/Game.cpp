@@ -11,11 +11,10 @@ static const float SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
 Game::Game() : Game(1024, 768, "TEST WINDOW")
 {
-
 }
 
 Game::Game(int width, int height, const std::string &title) :
-    activeScene(-1),
+    currentScene(-1),
     eventInterface(nullptr),
     running(false)
 {
@@ -33,8 +32,8 @@ void Game::activate(const std::string &name)
     int index = 0;
 
     for (auto &scene : scenes) {
-        if (scene->getDescription() == name) {
-            activeScene = index;
+        if (scene->getName() == name) {
+            currentScene = index;
             return;
         }
 
@@ -49,7 +48,7 @@ void Game::activate(const std::string &name)
 void Game::activate(unsigned int index)
 {
     if (index < scenes.size()) {
-        activeScene = index;
+        currentScene = index;
     } else {
         Logger::LogCritical("Game::activate(int=" + std::to_string(
                                 index) + "): Scene not found");
@@ -60,7 +59,7 @@ void Game::activate(unsigned int index)
 bool Game::hasScene(const std::string &name) const
 {
     for (auto &scene : scenes) {
-        if (scene->getDescription() == name) {
+        if (scene->getName() == name) {
             return true;
         }
     }
@@ -78,7 +77,7 @@ void Game::removeScene(const std::string &name)
     int index = 0;
 
     for (auto &scene : scenes) {
-        if (scene->getDescription() == name) {
+        if (scene->getName() == name) {
             scenes.erase(scenes.begin() + index);
             return;
         }
@@ -142,11 +141,6 @@ void Game::run()
     if (!Core::getInstance()->initEnvironment()) {
         return;
     }
-
-    if(scenes.size() == 0) {
-        setupScenes();
-    }
-    setupEnvironment();
 
     if (eventInterface == nullptr) {
         Logger::LogInfo("Game::run(): No event interface set. SDLEventInterface will be used.");
@@ -223,20 +217,85 @@ void Game::teardown()
 
 void Game::deserialize(const Json::Value &obj)
 {
+    Json::FastWriter writer;
     Serializable::deserialize(obj);
-    std::string eventInterface = obj["interfaces"]["event"].asString();
-    std::string settingsInterface = obj["interfaces"]["settings"].asString();
 
-    if (!eventInterface.empty()) {
-        this->eventInterface = Serializer::getInstance<EventInterface>(eventInterface);
+    if (!obj.isMember("interfaces")) {
+        Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"interfaces\". Default interfaces will be used");
+    } else {
+        auto jsonInterfaces = obj["interfaces"];
+
+        if (!jsonInterfaces.isMember("event")) {
+            Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"interfaces\".\"event\". Default event interface will be used");
+        } else {
+            eventInterface = Serializer::getInstance<EventInterface>
+                             (jsonInterfaces["event"].asString());
+        }
+
+        if (!jsonInterfaces.isMember("settings")) {
+            Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"interfaces\".\"settings\". Default settings interface will be used");
+        } else {
+            settingsInterface = Serializer::getInstance<SettingsInterface>
+                                (jsonInterfaces["settings"].asString());
+        }
     }
 
-    if (!settingsInterface.empty()) {
-        this->settingsInterface = Serializer::getInstance<SettingsInterface>(settingsInterface);
+    if (!obj.isMember("fonts")) {
+        Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"fonts\"");
+    } else {
+        for (auto font : obj["fonts"]) {
+            if (!font.isMember("file") || !font.isMember("name")) {
+                Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): A font object must have a \"file\" and a \"name\" member");
+            } else {
+                Fonts::registerFont(font["file"].asString(), 1, font["name"].asString());
+            }
+        }
     }
 
-    for(auto font : obj["fonts"]) {
-        Fonts::registerFont(font["file"].asString(), 1, font["name"].asString());
+    int width = 1024;
+    int height = 768;
+    std::string title = "BKENGINE WINDOW";
+    std::string icon = "";
+
+    if (!obj.isMember("window")) {
+        Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"window\". Default values will be used");
+    } else {
+        auto jsonWindow = obj["window"];
+
+        if (!jsonWindow.isMember("width") || !jsonWindow["width"].isInt()) {
+            Logger::LogError("Game::deserialize(const Json::Value &=<optimized out>): Member \"window\".\"width\" must be an integer. Default value will be used");
+        } else {
+            width = jsonWindow["width"].asInt();
+        }
+
+        if (!jsonWindow.isMember("height") || !jsonWindow["height"].isInt()) {
+            Logger::LogError("Game::deserialize(const Json::Value &=<optimized out>): Member \"window\".\"height\" must be an integer. Default value will be used");
+        } else {
+            height = jsonWindow["height"].asInt();
+        }
+
+        if (!jsonWindow.isMember("title")) {
+            Logger::LogError("Game::deserialize(const Json::Value &=<optimized out>): Member \"window\".\"height\" not found. Default value will be used");
+        } else {
+            title = jsonWindow["title"].asString();
+        }
+
+        if (!jsonWindow.isMember("icon")) {
+            Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): Member \"window\".\"icon\" not found.");
+        } else {
+            icon = jsonWindow["icon"].asString();
+        }
+    }
+
+    auto core = Core::createInstance(width, height, title);
+
+    if (!icon.empty()) {
+        core->setIcon(icon);
+    }
+
+    if (!obj.isMember("scenes") || !obj["scenes"].isArray()) {
+        Logger::LogCritical("Game::deserialize(const Json::Value &=<optimized out>): JSON object must have an member \"scenes\" of type array. Deserialization aborted");
+        return;
     }
 
     for (auto &scene : obj["scenes"]) {
@@ -245,13 +304,20 @@ void Game::deserialize(const Json::Value &obj)
         s->setupEnvironment();
         addScene(s);
     }
-    int width = obj["window"]["width"].asInt();
-    int height = obj["window"]["height"].asInt();
-    std::string title = obj["window"]["title"].asString();
-    Core::createInstance(width, height, title);
+
+    if (!obj.isMember("active")) {
+        Logger::LogWarning("Game::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"active\"");
+    } else {
+        auto jsonActive = obj["active"];
+
+        if (jsonActive.isInt()) {
+            activate(jsonActive.asInt());
+        } else {
+            activate(jsonActive.asString());
+        }
+    }
 
     setupEnvironment();
-    activate(obj["active_scene"].asInt());
 }
 
 Json::Value Game::serialize() const
@@ -261,39 +327,39 @@ Json::Value Game::serialize() const
     json["interfaces"]["settings"] = "ini";
     json["interfaces"]["event"] = "sdl_event";
     json["fonts"] = Json::arrayValue;
-    for(auto font : Fonts::fontFileCache) {
+
+    for (auto font : Fonts::fontFileCache) {
         Json::Value f;
         f["file"] = font.second;
         f["name"] = font.first;
         json["fonts"].append(f);
     }
-    json["type"] = "GAME";
 
+    json["type"] = "GAME";
     json["scenes"] = Json::arrayValue;
 
     for (auto scene : scenes) {
         json["scenes"].append(scene->serialize());
     }
 
-    json["active_scene"] = activeScene;
-
     Rect windowSize = Core::getInstance()->getWindowSize();
     json["window"]["width"] = (int) windowSize.w;
     json["window"]["height"] = (int) windowSize.h;
     json["window"]["title"] = Core::getInstance()->getWindowTitle();
+    json["active"] = currentScene;
     return json;
 }
 
 void Game::onLoop()
 {
-    if (activeScene > -1) {
+    if (currentScene > -1) {
         getCurrentScene<Scene>().onLoop();
     }
 }
 
 bool Game::onEvent(const Event &event)
 {
-    if (activeScene > -1 && !getCurrentScene<Scene>().onEvent(event)) {
+    if (currentScene > -1 && !getCurrentScene<Scene>().onEvent(event)) {
         return false;
     }
 
@@ -302,7 +368,7 @@ bool Game::onEvent(const Event &event)
 
 void Game::onRender()
 {
-    if (activeScene > -1) {
+    if (currentScene > -1) {
         MANGLE_SDL(SDL_RenderClear)(Core::getInstance()->getRenderer());
         getCurrentScene<Scene>().onRender();
         MANGLE_SDL(SDL_RenderPresent)(Core::getInstance()->getRenderer());

@@ -150,7 +150,8 @@ Core *Core::getInstance()
     return instance;
 }
 
-Core *Core::createInstance(int width, int height, const std::string &windowTitle)
+Core *Core::createInstance(int width, int height,
+                           const std::string &windowTitle)
 {
     if (!instance) {
         delete instance;

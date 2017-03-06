@@ -7,7 +7,6 @@ std::map<std::string, constructor> Serializer::typeConstructors;
 
 Serializable::Serializable()
 {
-
 }
 
 void Serializable::deserialize(const Json::Value &obj)

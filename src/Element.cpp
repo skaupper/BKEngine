@@ -4,12 +4,12 @@
 using namespace bkengine;
 
 
-Element::Element(Scene *parentScene, const std::string &description,
+Element::Element(Scene *parentScene, const std::string &name,
                  const Rect &renderBox,
                  int collisionLayer) :
     currentAnimation(-1),
     parentScene(parentScene),
-    description(description),
+    name(name),
     renderBox(renderBox),
     collisionBox(Rect()),
     collisionLayer(collisionLayer)
@@ -37,7 +37,7 @@ void Element::activate(const std::string &name)
     int index = 0;
 
     for (auto &animation : animations) {
-        if (animation->getDescription() == name) {
+        if (animation->getName() == name) {
             activate(index);
             return;
         }
@@ -57,7 +57,7 @@ bool Element::hasAnimation(unsigned int index) const
 bool Element::hasAnimation(const std::string &name) const
 {
     for (auto &animation : animations) {
-        if (animation->getDescription() == name) {
+        if (animation->getName() == name) {
             return true;
         }
     }
@@ -71,7 +71,7 @@ void Element::removeAnimation(const std::string &name)
     int index = 0;
 
     for (auto &animation : animations) {
-        if (animation->getDescription() == name) {
+        if (animation->getName() == name) {
             animations.erase(animations.begin() + index);
             return;
         }
@@ -160,9 +160,9 @@ Rect Element::getRenderBox() const
     return renderBox;
 }
 
-std::string Element::getDescription() const
+std::string Element::getName() const
 {
-    return description;
+    return name;
 }
 
 void Element::clear()
@@ -177,26 +177,100 @@ std::vector<Element *> Element::getCollisionLayer()
 
 void Element::deserialize(const Json::Value &obj)
 {
+    Json::FastWriter writer;
     Serializable::deserialize(obj);
-    description = obj["description"].asString();
-    renderBox = {
-        obj["render_box"]["x"].asFloat(),
-        obj["render_box"]["y"].asFloat(),
-        obj["render_box"]["w"].asFloat(),
-        obj["render_box"]["h"].asFloat()
-    };
-    collisionBox = {
-        obj["collision_box"]["x"].asFloat(),
-        obj["collision_box"]["y"].asFloat(),
-        obj["collision_box"]["w"].asFloat(),
-        obj["collision_box"]["h"].asFloat()
-    };
-    collisionLayer = obj["collision_layer"].asInt();
+
+    if (!obj.isMember("animations") || !obj["animations"].isArray()) {
+        Logger::LogCritical("Element::deserialize(const Json::Value &=<optimized out>): JSON object must have an member \"animations\" of type array. Deserialization aborted");
+        return;
+    }
 
     for (auto &animation : obj["animations"]) {
         auto a = GameSerializer::deserialize<Animation>(animation);
         a->setupEnvironment();
         addAnimation(a);
+    }
+
+    if (!obj.isMember("name")) {
+        Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"name\"");
+    } else {
+        name = obj["name"].asString();
+    }
+
+    if (!obj.isMember("active")) {
+        Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"active\"");
+    } else {
+        auto jsonActive = obj["active"];
+
+        if (jsonActive.isInt()) {
+            activate(jsonActive.asInt());
+        } else {
+            activate(jsonActive.asString());
+        }
+    }
+
+    if (!obj.isMember("render_box")) {
+        Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"render_box\"");
+    } else {
+        auto jsonRender = obj["render_box"];
+
+        if (!jsonRender.isMember("x") || !jsonRender.isMember("y")
+                || !jsonRender.isMember("w") || !jsonRender.isMember("h")) {
+            Logger::LogCritical("Element::deserialize(const Json::Value &=<optimized out>): Member \"render_box\" must have the members \"x\", \"y\", \"w\" and \"h\". Deserialization aborted");
+            clear();
+            return;
+        }
+
+        if (!jsonRender["x"].isNumeric() || !jsonRender["y"].isNumeric()
+                || !jsonRender["w"].isNumeric() || !jsonRender["h"].isNumeric()) {
+            Logger::LogCritical("Element::deserialize(const Json::Value &=<optimized out>): Members \"x\", \"y\", \"w\" and \"h\" must be (floating point) numbers. Deserialization aborted");
+            clear();
+            return;
+        }
+
+        renderBox = {
+            jsonRender["x"].asFloat(),
+            jsonRender["y"].asFloat(),
+            jsonRender["w"].asFloat(),
+            jsonRender["h"].asFloat()
+        };
+    }
+
+    if (!obj.isMember("collision_box")) {
+        Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"collision_box\"");
+    } else {
+        auto jsonCollision = obj["collision_box"];
+
+        if (!jsonCollision.isMember("x") || !jsonCollision.isMember("y")
+                || !jsonCollision.isMember("w") || !jsonCollision.isMember("h")) {
+            Logger::LogCritical("Element::deserialize(const Json::Value &=<optimized out>): Member \"collision_box\" must have the members \"x\", \"y\", \"w\" and \"h\". Deserialization aborted");
+            clear();
+            return;
+        }
+
+        if (!jsonCollision["x"].isNumeric() || !jsonCollision["y"].isNumeric()
+                || !jsonCollision["w"].isNumeric() || !jsonCollision["h"].isNumeric()) {
+            Logger::LogCritical("Element::deserialize(const Json::Value &=<optimized out>): Members \"x\", \"y\", \"w\" and \"h\" must be (floating point) numbers. Deserialization aborted");
+            clear();
+            return;
+        }
+
+        collisionBox = {
+            jsonCollision["x"].asFloat(),
+            jsonCollision["y"].asFloat(),
+            jsonCollision["w"].asFloat(),
+            jsonCollision["h"].asFloat()
+        };
+    }
+
+    if (!obj.isMember("collision_layer")) {
+        Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): JSON object has no member \"collision_layer\"");
+    } else {
+        if (!obj["collision_layer"].isInt()) {
+            Logger::LogWarning("Element::deserialize(const Json::Value &=<optimized out>): Member \"collision_layer\" must be a integer");
+        } else {
+            collisionLayer = obj["collision_layer"].asInt();
+        }
     }
 }
 
@@ -204,7 +278,7 @@ Json::Value Element::serialize() const
 {
     Json::Value json;
     json["type"] = "ELEMENT";
-    json["description"] = description;
+    json["name"] = name;
     json["render_box"]["x"] = renderBox.x;
     json["render_box"]["y"] = renderBox.y;
     json["render_box"]["w"] = renderBox.w;
@@ -214,11 +288,12 @@ Json::Value Element::serialize() const
     json["collision_box"]["w"] = collisionBox.w;
     json["collision_box"]["h"] = collisionBox.h;
     json["collision_layer"] = collisionLayer;
-
     json["animations"] = Json::arrayValue;
 
     for (auto animation : animations) {
         json["animations"].append(animation->serialize());
     }
+
+    json["active"] = currentAnimation;
     return json;
 }

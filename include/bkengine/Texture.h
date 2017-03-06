@@ -19,7 +19,6 @@ namespace bkengine
 {
     class Texture : public Serializable
     {
-            friend class GameSerializer;
             /* caching */
         public:
         protected:

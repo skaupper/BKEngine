@@ -16,7 +16,6 @@ namespace bkengine
     class Element : public Serializable
     {
             friend class Scene;
-            friend class GameSerializer;
 
             /* hierarchal */
         public:
@@ -52,17 +51,18 @@ namespace bkengine
             Rect getCollisionBox() const;
             void setRenderBox(const Rect &);
             Rect getRenderBox() const;
-            std::string getDescription() const;
+            std::string getName() const;
 
         protected:
-            std::string description;
+            std::string name;
             Rect renderBox;
             Rect collisionBox;
 
 
             /* other stuff */
         public:
-            explicit Element(Scene *parentScene = nullptr, const std::string &description = "",
+            explicit Element(Scene *parentScene = nullptr,
+                             const std::string &name = "",
                              const Rect &renderbox = Rect(),
                              int collisionLayer = -1);
             virtual ~Element();
