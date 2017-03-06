@@ -3,7 +3,7 @@
 using namespace bkengine;
 
 
-std::map<std::string, constructor> Serializer::typeConstructors;
+std::map<std::string, Serializer::constructor> Serializer::typeConstructors;
 
 Serializable::Serializable()
 {
@@ -19,12 +19,12 @@ Json::Value Serializable::serialize() const
     return original;
 }
 
-void Serializable::set()
+void Serializable::backup()
 {
     original = serialize();
 }
 
-void Serializable::reset()
+void Serializable::restore()
 {
     auto tmp = original;
     deserialize(original);

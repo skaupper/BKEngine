@@ -18,7 +18,7 @@ template <typename T, typename... Params> T &Scene::addElement(Params... params)
     auto element = std::make_shared<T>(this, params...);
     element->setupAnimations();
     element->setupEnvironment();
-    element->set();
+    element->backup();
     return addElement<T>(element);
 }
 

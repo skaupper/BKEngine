@@ -24,7 +24,7 @@ template <typename T, typename... Params> T &Element::addAnimation(
     auto animation = std::make_shared<T>(params...);
     animation->setupTextures();
     animation->setupEnvironment();
-    animation->set();
+    animation->backup();
     return addAnimation<T>(animation);
 }
 

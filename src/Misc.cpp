@@ -3,6 +3,10 @@
 using namespace bkengine;
 
 
+Location::operator Rect() const
+{
+    return { x, y, 0, 0 };
+}
 
 std::string Location::toString() const
 {
@@ -15,6 +19,11 @@ SDL_Point Location::toSDLPoint() const
     return SDL_Point { (int) round(x), (int) round(y) };
 }
 
+Size::operator Rect() const
+{
+    return { 0, 0, w, h };
+}
+
 std::string Size::toString() const
 {
     return "<Size {x: " + std::to_string(w) + ", y: " + std::to_string(h)
@@ -24,6 +33,16 @@ std::string Size::toString() const
 SDL_Point Size::toSDLPoint() const
 {
     return SDL_Point { (int) round(w), (int) round(h) };
+}
+
+Rect::operator Location() const
+{
+    return { x, y };
+}
+
+Rect::operator Size() const
+{
+    return { w, h };
 }
 
 std::string Rect::toString() const

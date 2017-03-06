@@ -7,7 +7,7 @@ template <typename T> T Game::create(int width, int height, const std::string &t
     Game g(width, height, title);
     g.setupScenes();
     g.setupEnvironment();
-    g.set();
+    g.backup();
     return g;
 }
 
@@ -32,7 +32,7 @@ template <typename T, typename... Params> T &Game::addScene(Params... params)
     auto scene = std::make_shared<T>(this, params...);
     scene->setupElements();
     scene->setupEnvironment();
-    scene->set();
+    scene->backup();
     return addScene<T>(scene);
 }
 

@@ -342,7 +342,7 @@ Json::Value Game::serialize() const
         json["scenes"].append(scene->serialize());
     }
 
-    Rect windowSize = Core::getInstance()->getWindowSize();
+    Size windowSize = Core::getInstance()->getWindowSize();
     json["window"]["width"] = (int) windowSize.w;
     json["window"]["height"] = (int) windowSize.h;
     json["window"]["title"] = Core::getInstance()->getWindowTitle();

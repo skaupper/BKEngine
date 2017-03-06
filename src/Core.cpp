@@ -143,7 +143,7 @@ Core *Core::getInstance()
 Core *Core::createInstance(int width, int height,
                            const std::string &windowTitle)
 {
-    if (!instance) {
+    if (instance) {
         delete instance;
     }
 
@@ -152,6 +152,8 @@ Core *Core::createInstance(int width, int height,
     if (!instance->environmentInited && !instance->initEnvironment()) {
         Logger::LogCritical("Core::getInstance(): Environment initialization failed. " +
                             std::string(MANGLE_SDL(SDL_GetError)()));
+        delete instance;
+        instance = nullptr;
         return nullptr;
     }
 
@@ -224,7 +226,7 @@ void Core::setWindowTitle(const std::string &title)
     windowTitle = title;
 }
 
-Rect Core::getTrueWindowSize() const
+Size Core::getTrueWindowSize() const
 {
     int w, h;
     MANGLE_SDL(SDL_GetWindowSize)(window, &w, &h);
@@ -236,7 +238,7 @@ std::string Core::getTrueWindowTitle() const
     return MANGLE_SDL(SDL_GetWindowTitle)(window);
 }
 
-Rect Core::getWindowSize() const
+Size Core::getWindowSize() const
 {
     return { (float) windowWidth, (float) windowHeight };
 }

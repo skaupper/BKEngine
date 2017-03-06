@@ -15,6 +15,8 @@ namespace bkengine
 {
     class Animation : public Serializable
     {
+        friend class Element;
+        friend class Serializer;
             /* hierarchal */
         public:
             /**
@@ -99,6 +101,9 @@ namespace bkengine
 
             /* other stuff */
         public:
+            explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
+            virtual ~Animation();
+
             /**
                 Sets how long a single texture should be rendered straight.
 
@@ -134,9 +139,6 @@ namespace bkengine
             virtual Json::Value serialize() const override;
 
         protected:
-            explicit Animation(const std::string &descr = "", unsigned int frameDelta = 1);
-            virtual ~Animation();
-
             void incFrameCount();
 
             unsigned int frameCounter;

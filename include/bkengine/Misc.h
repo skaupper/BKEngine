@@ -14,6 +14,9 @@ namespace bkengine
         return (T(0) < val) - (val < T(0));
     }
 
+
+    struct Rect;
+
     struct Location {
         float x;
         float y;
@@ -23,6 +26,8 @@ namespace bkengine
 
         std::string toString() const;
         SDL_Point toSDLPoint() const;
+
+        operator Rect() const;
     };
 
 
@@ -32,6 +37,8 @@ namespace bkengine
 
         Size() : w(0), h(0) {}
         Size(float w, float h) : w(w), h(h) {}
+
+        operator Rect() const;
 
         std::string toString() const;
         SDL_Point toSDLPoint() const;
@@ -46,6 +53,9 @@ namespace bkengine
         Rect() : Rect(100, 100) {}
         Rect(float w, float h) : Rect(0, 0, w, h) {}
         Rect(float x, float y, float w, float h) : x(x), y(y), w(w), h(h) {}
+
+        explicit operator Location() const;
+        explicit operator Size() const;
 
         std::string toString() const;
         SDL_Rect toSDLRect() const;
