@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['seticon',['setIcon',['../classbkengine_1_1Core.html#a9328f09fc3ddd00de43f1dfe93f77c74',1,'bkengine::Core']]],
-  ['setwindowtitle',['setWindowTitle',['../classbkengine_1_1Core.html#a6c510c45e9463399359664965918b431',1,'bkengine::Core']]]
+  ['hastexture',['hasTexture',['../classbkengine_1_1Animation.html#a41a3d19e22693a3cf8d82309d6ef9580',1,'bkengine::Animation']]]
 ];

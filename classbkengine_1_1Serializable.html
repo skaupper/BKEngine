@@ -68,9 +68,14 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classbkengine_1_1Serializable-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bkengine::Serializable Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">bkengine::Serializable Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Provides a skeleton for basic serialization and deserialization together with a backup and restore mechanism.  
+ <a href="classbkengine_1_1Serializable.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Serializable_8h_source.html">Serializable.h</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bkengine::Serializable:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -91,33 +96,186 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adcb6ba349430cf279d985a31c9251d1f"><td class="memItemLeft" align="right" valign="top"><a id="adcb6ba349430cf279d985a31c9251d1f"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>deserialize</b> (const Json::Value &amp;)</td></tr>
-<tr class="separator:adcb6ba349430cf279d985a31c9251d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44d249742000d1818b44bde3ebcfe3ce"><td class="memItemLeft" align="right" valign="top"><a id="a44d249742000d1818b44bde3ebcfe3ce"></a>
-virtual Json::Value&#160;</td><td class="memItemRight" valign="bottom"><b>serialize</b> () const =0</td></tr>
-<tr class="separator:a44d249742000d1818b44bde3ebcfe3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad97f199bcd3cfe35b1e29adead7acf74"><td class="memItemLeft" align="right" valign="top"><a id="ad97f199bcd3cfe35b1e29adead7acf74"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set</b> ()</td></tr>
-<tr class="separator:ad97f199bcd3cfe35b1e29adead7acf74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a283a95509d8ab2e8cb6d0ac4b8d2d8d9"><td class="memItemLeft" align="right" valign="top"><a id="a283a95509d8ab2e8cb6d0ac4b8d2d8d9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> ()</td></tr>
-<tr class="separator:a283a95509d8ab2e8cb6d0ac4b8d2d8d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72754434ccc30248fc64faaca277c69b"><td class="memItemLeft" align="right" valign="top"><a id="a72754434ccc30248fc64faaca277c69b"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const</td></tr>
+<tr class="memitem:a503c6928e764878ea5d0a10d9683ac55"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55">deserialize</a> (const Json::Value &amp;json)</td></tr>
+<tr class="memdesc:a503c6928e764878ea5d0a10d9683ac55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses a JSON object to set member variables.  <a href="#a503c6928e764878ea5d0a10d9683ac55">More...</a><br /></td></tr>
+<tr class="separator:a503c6928e764878ea5d0a10d9683ac55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea76daa5e59d52f09d7df3fe79ebef3"><td class="memItemLeft" align="right" valign="top">virtual Json::Value&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializable.html#a7ea76daa5e59d52f09d7df3fe79ebef3">serialize</a> () const</td></tr>
+<tr class="memdesc:a7ea76daa5e59d52f09d7df3fe79ebef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serializes the object to a JSON object.  <a href="#a7ea76daa5e59d52f09d7df3fe79ebef3">More...</a><br /></td></tr>
+<tr class="separator:a7ea76daa5e59d52f09d7df3fe79ebef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5f0e99953ffd0540783c7b5ce99fa92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92">backup</a> ()</td></tr>
+<tr class="memdesc:aa5f0e99953ffd0540783c7b5ce99fa92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backups the current state of the object.  <a href="#aa5f0e99953ffd0540783c7b5ce99fa92">More...</a><br /></td></tr>
+<tr class="separator:aa5f0e99953ffd0540783c7b5ce99fa92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4196dd4151f9de7277219b66d636a24"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24">restore</a> ()</td></tr>
+<tr class="memdesc:aa4196dd4151f9de7277219b66d636a24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores any backup of the object.  <a href="#aa4196dd4151f9de7277219b66d636a24">More...</a><br /></td></tr>
+<tr class="separator:aa4196dd4151f9de7277219b66d636a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72754434ccc30248fc64faaca277c69b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializable.html#a72754434ccc30248fc64faaca277c69b">toString</a> () const</td></tr>
+<tr class="memdesc:a72754434ccc30248fc64faaca277c69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a (beautified) string representation of the object.  <a href="#a72754434ccc30248fc64faaca277c69b">More...</a><br /></td></tr>
 <tr class="separator:a72754434ccc30248fc64faaca277c69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00013">13</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>Provides a skeleton for basic serialization and deserialization together with a backup and restore mechanism. </p>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00017">17</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa5f0e99953ffd0540783c7b5ce99fa92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5f0e99953ffd0540783c7b5ce99fa92">&#9670;&nbsp;</a></span>backup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Serializable::backup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Backups the current state of the object. </p>
+<p>Through a call to <a class="el" href="classbkengine_1_1Serializable.html#a7ea76daa5e59d52f09d7df3fe79ebef3" title="Serializes the object to a JSON object. ">Serializable::serialize</a> the current state of the object is backupped to allow the current state to be restored later on.<br />
+Note: This overrides any backups done by <a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a>!</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#a7ea76daa5e59d52f09d7df3fe79ebef3" title="Serializes the object to a JSON object. ">Serializable::serialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24" title="Restores any backup of the object. ">Serializable::restore</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8cpp_source.html#l00022">22</a> of file <a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a503c6928e764878ea5d0a10d9683ac55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a503c6928e764878ea5d0a10d9683ac55">&#9670;&nbsp;</a></span>deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Serializable::deserialize </td>
+          <td>(</td>
+          <td class="paramtype">const Json::Value &amp;&#160;</td>
+          <td class="paramname"><em>json</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Uses a JSON object to set member variables. </p>
+<p>Is used by subclasses to simplify serialization. The default implementation creates a backup of <em>json</em> to allow resetting the object later on.<br />
+The recommended way of using this method is following: </p><div class="fragment"><div class="line"><span class="keywordtype">void</span> SubSerialize::deserialize(<span class="keyword">const</span> Json::Value &amp;json)</div><div class="line">{</div><div class="line">    Serialize::deserialize(json);</div><div class="line"></div><div class="line">    <span class="comment">// add your own code here</span></div><div class="line">}</div></div><!-- fragment --><p>In this way you ensure that the overridden methods will be called anyways.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializable.html#a7ea76daa5e59d52f09d7df3fe79ebef3" title="Serializes the object to a JSON object. ">Serializable::serialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92" title="Backups the current state of the object. ">Serializable::backup</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24" title="Restores any backup of the object. ">Serializable::restore</a> </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classbkengine_1_1Animation.html#a53f49f65aad3c3c442a8212862400c84">bkengine::Animation</a>, <a class="el" href="classbkengine_1_1Game.html#ac6f616f1adabfb8622df30edbb63e7e7">bkengine::Game</a>, <a class="el" href="classbkengine_1_1Element.html#a84c3ed3c1f65adcff1febfcaccb6dfbc">bkengine::Element</a>, <a class="el" href="classbkengine_1_1Scene.html#af4a628160b935f47a247c9abbe083598">bkengine::Scene</a>, and <a class="el" href="classbkengine_1_1Texture.html#afaf8154bb525d6b600c1850822714d5c">bkengine::Texture</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8cpp_source.html#l00012">12</a> of file <a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="classbkengine_1_1Texture.html#afaf8154bb525d6b600c1850822714d5c">bkengine::Texture::deserialize()</a>, <a class="el" href="classbkengine_1_1Scene.html#af4a628160b935f47a247c9abbe083598">bkengine::Scene::deserialize()</a>, <a class="el" href="classbkengine_1_1Element.html#a84c3ed3c1f65adcff1febfcaccb6dfbc">bkengine::Element::deserialize()</a>, <a class="el" href="classbkengine_1_1Game.html#ac6f616f1adabfb8622df30edbb63e7e7">bkengine::Game::deserialize()</a>, <a class="el" href="classbkengine_1_1Animation.html#a53f49f65aad3c3c442a8212862400c84">bkengine::Animation::deserialize()</a>, and <a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24">restore()</a>.</p>
+
+</div>
+</div>
+<a id="aa4196dd4151f9de7277219b66d636a24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4196dd4151f9de7277219b66d636a24">&#9670;&nbsp;</a></span>restore()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Serializable::restore </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Restores any backup of the object. </p>
+<p>If any backup has been created so far (through calls to <a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> or <a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92" title="Backups the current state of the object. ">Serializable::backup</a>) it will be restored with calling <a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a>. Note: This overrides does <b>NOT</b> override the current backup.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#a7ea76daa5e59d52f09d7df3fe79ebef3" title="Serializes the object to a JSON object. ">Serializable::serialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24" title="Restores any backup of the object. ">Serializable::restore</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8cpp_source.html#l00027">27</a> of file <a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ea76daa5e59d52f09d7df3fe79ebef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ea76daa5e59d52f09d7df3fe79ebef3">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Json::Value Serializable::serialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Serializes the object to a JSON object. </p>
+<p>Subclasses can override this method to map its members to a JSON object which allows to save it to a file and restore it later on (given that <a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> is overridden as well!).<br />
+The default implementation returns any backup done by <a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> or <a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92" title="Backups the current state of the object. ">Serializable::backup</a> (or an empty object if none of them has been called).<br />
+The recommended way of using this method is following: </p><div class="fragment"><div class="line">Json::Value SubSerialize::serialize()</div><div class="line">{</div><div class="line">    Json::Value json = Serialize::serialize();</div><div class="line">    <span class="comment">// add your own code here</span></div><div class="line">    <span class="keywordflow">return</span> json;</div><div class="line">}</div></div><!-- fragment --><p>This way you ensure that all serialization done by super classes is really done!</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializable.html#a503c6928e764878ea5d0a10d9683ac55" title="Uses a JSON object to set member variables. ">Serializable::deserialize</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92" title="Backups the current state of the object. ">Serializable::backup</a> <br />
+ <a class="el" href="classbkengine_1_1Serializable.html#aa4196dd4151f9de7277219b66d636a24" title="Restores any backup of the object. ">Serializable::restore</a> </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classbkengine_1_1Animation.html#a089b67a89dbf3529cbcc48a7ea84dd85">bkengine::Animation</a>, <a class="el" href="classbkengine_1_1Game.html#a02fd84a6e0f0dfc82f360738581f9eed">bkengine::Game</a>, <a class="el" href="classbkengine_1_1Element.html#a8c82eb831b009ca1c25637402c1d6c42">bkengine::Element</a>, <a class="el" href="classbkengine_1_1Scene.html#a14a8d5ffd84e2fe7babafaff7a39fd73">bkengine::Scene</a>, and <a class="el" href="classbkengine_1_1Texture.html#af1e8d8e6738ead367fadd06522be2c56">bkengine::Texture</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8cpp_source.html#l00017">17</a> of file <a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="classbkengine_1_1Serializable.html#aa5f0e99953ffd0540783c7b5ce99fa92">backup()</a>, and <a class="el" href="classbkengine_1_1Serializable.html#a72754434ccc30248fc64faaca277c69b">toString()</a>.</p>
+
+</div>
+</div>
+<a id="a72754434ccc30248fc64faaca277c69b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72754434ccc30248fc64faaca277c69b">&#9670;&nbsp;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Serializable::toString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a (beautified) string representation of the object. </p>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::string</code> representing the current state of the object. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8cpp_source.html#l00034">34</a> of file <a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/skaupper/dev/BKEngine/include/bkengine/<a class="el" href="Serializable_8h_source.html">Serializable.h</a></li>
 <li>/home/skaupper/dev/BKEngine/src/<a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 6 2017 13:02:28 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 6 2017 15:14:39 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -71,29 +71,119 @@ $(function() {
 <div class="title">bkengine::Serializer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Allows associations from a string to a type which allows a (more or less) dynamic creation of any object.  
+ <a href="classbkengine_1_1Serializer.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Serializable_8h_source.html">Serializable.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a80fab1c59d2ddbb9328f6428fb404a66"><td class="memTemplParams" colspan="2"><a id="a80fab1c59d2ddbb9328f6428fb404a66"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a80fab1c59d2ddbb9328f6428fb404a66"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>addType</b> (const std::string &amp;name)</td></tr>
+<tr class="memitem:a80fab1c59d2ddbb9328f6428fb404a66"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a80fab1c59d2ddbb9328f6428fb404a66"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializer.html#a80fab1c59d2ddbb9328f6428fb404a66">addType</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:a80fab1c59d2ddbb9328f6428fb404a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Associates a type with a string name.  <a href="#a80fab1c59d2ddbb9328f6428fb404a66">More...</a><br /></td></tr>
 <tr class="separator:a80fab1c59d2ddbb9328f6428fb404a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="memTemplParams" colspan="2"><a id="ac41e89308a3a250d3fcc2c6ded2fd468"></a>
-template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="memTemplItemLeft" align="right" valign="top">static std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>getInstance</b> (const std::string &amp;name)</td></tr>
+<tr class="memitem:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="memTemplItemLeft" align="right" valign="top">static std::shared_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classbkengine_1_1Serializer.html#ac41e89308a3a250d3fcc2c6ded2fd468">getInstance</a> (const std::string &amp;name)</td></tr>
+<tr class="memdesc:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an instance of a type associated with <em>name</em>.  <a href="#ac41e89308a3a250d3fcc2c6ded2fd468">More...</a><br /></td></tr>
 <tr class="separator:ac41e89308a3a250d3fcc2c6ded2fd468"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00030">30</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<div class="textblock"><p>Allows associations from a string to a type which allows a (more or less) dynamic creation of any object. </p>
+<p><b>Important note:</b> Using <a class="el" href="classbkengine_1_1Serializer.html" title="Allows associations from a string to a type which allows a (more or less) dynamic creation of any obj...">Serializer</a> effectively disables type checking done by the compiler. This way the compiler would allow you unreasonable conversions which create runtime errors! </p>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00103">103</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a80fab1c59d2ddbb9328f6428fb404a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fab1c59d2ddbb9328f6428fb404a66">&#9670;&nbsp;</a></span>addType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void bkengine::Serializer::addType </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Associates a type with a string name. </p>
+<p>Association is done by caching the name and the constructor (!) of the type (given as template parameter) in a map (a <code>std::shared_ptr</code> to the type to be exact).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>A name for the type specified as template parameter.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializer.html#ac41e89308a3a250d3fcc2c6ded2fd468" title="Gets an instance of a type associated with name. ">Serializer::getInstance</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00120">120</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
+
+</div>
+</div>
+<a id="ac41e89308a3a250d3fcc2c6ded2fd468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac41e89308a3a250d3fcc2c6ded2fd468">&#9670;&nbsp;</a></span>getInstance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::shared_ptr&lt;T&gt; bkengine::Serializer::getInstance </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets an instance of a type associated with <em>name</em>. </p>
+<p><em>name</em> will be looked up in the type associations created with Serializable::addType. If no type is found <code>nullptr</code> will be returned.<br />
+<b>Important note:</b> Using <a class="el" href="classbkengine_1_1Serializer.html#a80fab1c59d2ddbb9328f6428fb404a66" title="Associates a type with a string name. ">Serializer::addType</a> and <a class="el" href="classbkengine_1_1Serializer.html#ac41e89308a3a250d3fcc2c6ded2fd468" title="Gets an instance of a type associated with name. ">Serializer::getInstance</a> effectively disables type checking done by the compiler. This way the compiler would allow you unreasonable conversions which create runtime errors!</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>An associated name for the constructor of a type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <code>std::shared_ptr</code> to the type given as template parameter created with the constructor associated with <em>name</em>.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classbkengine_1_1Serializer.html#a80fab1c59d2ddbb9328f6428fb404a66" title="Associates a type with a string name. ">Serializer::addType</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Serializable_8h_source.html#l00142">142</a> of file <a class="el" href="Serializable_8h_source.html">Serializable.h</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/skaupper/dev/BKEngine/include/bkengine/<a class="el" href="Serializable_8h_source.html">Serializable.h</a></li>
 <li>/home/skaupper/dev/BKEngine/src/<a class="el" href="Serializable_8cpp_source.html">Serializable.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 6 2017 13:02:28 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 6 2017 15:14:39 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

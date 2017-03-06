@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['quit',['quit',['../classbkengine_1_1Core.html#a7d6ca7943e0aa8d8d33a151fdc131f6e',1,'bkengine::Core']]]
+  ['location',['Location',['../structbkengine_1_1Location.html',1,'bkengine']]],
+  ['logger',['Logger',['../classbkengine_1_1Logger.html',1,'bkengine']]]
 ];
