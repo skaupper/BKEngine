@@ -118,7 +118,7 @@ namespace bkengine
                 Asks the underlying framework which owns the window for the current title.
 
                 \sa Core::getWindowTitle \n Core::setWindowTitle
-                \return The current window title as std::string.
+                \return The current window title as `std::string`.
             */
             std::string getTrueWindowTitle() const;
 
@@ -142,7 +142,7 @@ namespace bkengine
                 Note: The returned string may or may not differ from the actual title.
 
                 \sa Core::getTrueWindowTitle \n Core::setWindowTitle
-                \return The requested window title as std::string.
+                \return The requested window title as `std::string`.
             */
             std::string getWindowTitle() const;
 

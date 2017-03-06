@@ -39,7 +39,7 @@ template <typename T> void Animation::addTexture(const T &texture)
     }
 }
 
-template <typename T> void Animation::addTexture(std::shared_ptr<T> texture)
+template <typename T> void Animation::addTexture(const std::shared_ptr<T> texture)
 {
     textures.push_back(texture);
 
