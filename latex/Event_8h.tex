@@ -1,0 +1,74 @@
+\hypertarget{Event_8h}{}\section{/home/skaupper/dev/\+B\+K\+Engine/include/bkengine/\+Event.h File Reference}
+\label{Event_8h}\index{/home/skaupper/dev/\+B\+K\+Engine/include/bkengine/\+Event.\+h@{/home/skaupper/dev/\+B\+K\+Engine/include/bkengine/\+Event.\+h}}
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}Keys.\+h\char`\"{}}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structbkengine_1_1KeyboardEvent}{bkengine\+::\+Keyboard\+Event}
+\item 
+struct \hyperlink{structbkengine_1_1MouseEvent}{bkengine\+::\+Mouse\+Event}
+\item 
+struct \hyperlink{structbkengine_1_1MotionEvent}{bkengine\+::\+Motion\+Event}
+\item 
+struct \hyperlink{structbkengine_1_1WheelEvent}{bkengine\+::\+Wheel\+Event}
+\item 
+struct \hyperlink{structbkengine_1_1WindowEvent}{bkengine\+::\+Window\+Event}
+\item 
+class \hyperlink{classbkengine_1_1Event}{bkengine\+::\+Event}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacebkengine}{bkengine}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef Key\+State \hyperlink{namespacebkengine_a205072b2a91b1d8f00890857eec156d1}{bkengine\+::\+Button\+State}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacebkengine_a98437a3b234dfae2c61231b4737d0834}{bkengine\+::\+Key\+State} \{ \hyperlink{namespacebkengine_a98437a3b234dfae2c61231b4737d0834ab50339a10e1de285ac99d4c3990b8693}{bkengine\+::\+Key\+State\+::\+N\+O\+NE}, 
+\hyperlink{namespacebkengine_a98437a3b234dfae2c61231b4737d0834ac4e0e4e3118472beeb2ae75827450f1f}{bkengine\+::\+Key\+State\+::\+D\+O\+WN}, 
+\hyperlink{namespacebkengine_a98437a3b234dfae2c61231b4737d0834afbaedde498cdead4f2780217646e9ba1}{bkengine\+::\+Key\+State\+::\+UP}
+ \}
+\item 
+enum \hyperlink{namespacebkengine_aa44114d68464e64c59b6fceae1084af6}{bkengine\+::\+Wheel\+Direction} \{ \hyperlink{namespacebkengine_aa44114d68464e64c59b6fceae1084af6a1e23852820b9154316c7c06e2b7ba051}{bkengine\+::\+Wheel\+Direction\+::\+N\+O\+R\+M\+AL}, 
+\hyperlink{namespacebkengine_aa44114d68464e64c59b6fceae1084af6aa6629f68b0278b6b5f4f07dd674bc5fb}{bkengine\+::\+Wheel\+Direction\+::\+F\+L\+I\+P\+P\+ED}
+ \}
+\item 
+enum \hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056}{bkengine\+::\+Event\+Type} \{ \newline
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056a696b031073e74bf2cb98e5ef201d4aa3}{bkengine\+::\+Event\+Type\+::\+U\+N\+K\+N\+O\+WN}, 
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056aedda266cdb6345b9f6914cc2e7577475}{bkengine\+::\+Event\+Type\+::\+K\+E\+Y\+B\+O\+A\+RD}, 
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056a2ec2be318cc86a1224c0e9dcc71321e4}{bkengine\+::\+Event\+Type\+::\+M\+O\+U\+SE}, 
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056af96e6ea7a7375bd60bad3f3caae3cf27}{bkengine\+::\+Event\+Type\+::\+M\+O\+T\+I\+ON}, 
+\newline
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056a0f0dd2bcb848ba94248d660bada66b34}{bkengine\+::\+Event\+Type\+::\+W\+H\+E\+EL}, 
+\hyperlink{namespacebkengine_a3e5e03aeca2071b818e61f66670f6056a5dfd352dd6b7a5d118237fcf1e19fcc1}{bkengine\+::\+Event\+Type\+::\+Q\+U\+IT}
+ \}
+\item 
+enum \hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3e}{bkengine\+::\+Window\+Event\+Type} \{ \newline
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eab50339a10e1de285ac99d4c3990b8693}{bkengine\+::\+Window\+Event\+Type\+::\+N\+O\+NE}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea964ee5bf12d775d179554a8c12f752ae}{bkengine\+::\+Window\+Event\+Type\+::\+S\+H\+O\+WN}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea347e628a8f72626a0611ef842fe9d304}{bkengine\+::\+Window\+Event\+Type\+::\+H\+I\+D\+D\+EN}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eae6c3285efaaf842a01589de98649d7c1}{bkengine\+::\+Window\+Event\+Type\+::\+E\+X\+P\+O\+S\+ED}, 
+\newline
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea6f2d0bce8e047d9f2eadd436b29c3f6d}{bkengine\+::\+Window\+Event\+Type\+::\+M\+O\+V\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eac9d11cc1defb37f067079d6a2f47eb87}{bkengine\+::\+Window\+Event\+Type\+::\+R\+E\+S\+I\+Z\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea49fe265c18fa896e430caae785bc98e4}{bkengine\+::\+Window\+Event\+Type\+::\+S\+I\+Z\+E\+\_\+\+C\+H\+A\+N\+G\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea43245b4788b59a22d5357a7146c06deb}{bkengine\+::\+Window\+Event\+Type\+::\+M\+I\+N\+I\+M\+I\+Z\+ED}, 
+\newline
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea2f33d682f3a4e19c31ced6cb4fd022e3}{bkengine\+::\+Window\+Event\+Type\+::\+M\+A\+X\+I\+M\+I\+Z\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eab8c05d010b112c77a9f87ecf15eb151b}{bkengine\+::\+Window\+Event\+Type\+::\+R\+E\+S\+T\+O\+R\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea331b3100a485d8cacff1d3df8e9b0c13}{bkengine\+::\+Window\+Event\+Type\+::\+E\+N\+T\+ER}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eae0f9ef6d3025baf33497bafcca7ff781}{bkengine\+::\+Window\+Event\+Type\+::\+L\+E\+A\+VE}, 
+\newline
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eab7c63b4bcf4d4d06f4e4793a639abb0d}{bkengine\+::\+Window\+Event\+Type\+::\+F\+O\+C\+U\+S\+\_\+\+G\+A\+I\+N\+ED}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea490adebb0e34cbd967f13eb478833f28}{bkengine\+::\+Window\+Event\+Type\+::\+F\+O\+C\+U\+S\+\_\+\+L\+O\+ST}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3ea7286293c9125ac7d7bace94c190bc16d}{bkengine\+::\+Window\+Event\+Type\+::\+C\+L\+O\+SE}, 
+\hyperlink{namespacebkengine_a9a2b91b816d91057aca0de0b6e471b3eae44a77ea9f0e7aedf917b400561ffa16}{bkengine\+::\+Window\+Event\+Type\+::\+T\+A\+K\+E\+\_\+\+F\+O\+C\+US}
+ \}
+\end{DoxyCompactItemize}

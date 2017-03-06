@@ -1,0 +1,65 @@
+\hypertarget{classbkengine_1_1Event}{}\section{bkengine\+:\+:Event Class Reference}
+\label{classbkengine_1_1Event}\index{bkengine\+::\+Event@{bkengine\+::\+Event}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Event_ae8b35bf9237b74824194f87128e4fdab}\label{classbkengine_1_1Event_ae8b35bf9237b74824194f87128e4fdab}} 
+{\bfseries Event} (const \hyperlink{classbkengine_1_1Event}{Event} \&event)
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Event_af37245d358792cdef34ff4c76c74c022}\label{classbkengine_1_1Event_af37245d358792cdef34ff4c76c74c022}} 
+\hyperlink{classbkengine_1_1Event}{Event} \& {\bfseries operator=} (const \hyperlink{classbkengine_1_1Event}{Event} \&event)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Event_a8145facb5263afa33ca9f9e800ce5118}\label{classbkengine_1_1Event_a8145facb5263afa33ca9f9e800ce5118}} 
+Event\+Type {\bfseries type} = Event\+Type\+::\+U\+N\+K\+N\+O\+WN
+\item 
+uint32\+\_\+t {\bfseries time\+Stamp}
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Event_a05484dcb868d79f253c09976f924e751}\label{classbkengine_1_1Event_a05484dcb868d79f253c09976f924e751}} 
+uint32\+\_\+t {\bfseries window\+Id} = 0
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Event_aadc58f0db80bf22bcc5fca0e7fa18ad9}\label{classbkengine_1_1Event_aadc58f0db80bf22bcc5fca0e7fa18ad9}} 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\hyperlink{structbkengine_1_1KeyboardEvent}{KeyboardEvent} {\bfseries keyboard}\\
+\>\hyperlink{structbkengine_1_1MouseEvent}{MouseEvent} {\bfseries mouse}\\
+\>\hyperlink{structbkengine_1_1MotionEvent}{MotionEvent} {\bfseries motion}\\
+\>\hyperlink{structbkengine_1_1WheelEvent}{WheelEvent} {\bfseries wheel}\\
+\>\hyperlink{structbkengine_1_1WindowEvent}{WindowEvent} {\bfseries window}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 87 of file Event.\+h.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classbkengine_1_1Event_a4d84f11e0495c24c8056653b33e62d3e}\label{classbkengine_1_1Event_a4d84f11e0495c24c8056653b33e62d3e}} 
+\index{bkengine\+::\+Event@{bkengine\+::\+Event}!time\+Stamp@{time\+Stamp}}
+\index{time\+Stamp@{time\+Stamp}!bkengine\+::\+Event@{bkengine\+::\+Event}}
+\subsubsection{\texorpdfstring{time\+Stamp}{timeStamp}}
+{\footnotesize\ttfamily uint32\+\_\+t bkengine\+::\+Event\+::time\+Stamp}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= std::chrono::duration\_cast<std::chrono::seconds>
+                                 (std::chrono::system\_clock::now().time\_since\_epoch()).count()
+\end{DoxyCode}
+
+
+Definition at line 96 of file Event.\+h.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/skaupper/dev/\+B\+K\+Engine/include/bkengine/Event.\+h\item 
+/home/skaupper/dev/\+B\+K\+Engine/src/Event.\+cpp\end{DoxyCompactItemize}

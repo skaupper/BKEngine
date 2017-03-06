@@ -1,0 +1,355 @@
+\hypertarget{classbkengine_1_1Core}{}\section{bkengine\+:\+:Core Class Reference}
+\label{classbkengine_1_1Core}\index{bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classbkengine_1_1Core_a9328f09fc3ddd00de43f1dfe93f77c74}{set\+Icon} (const std\+::string \&icon\+Path)
+\begin{DoxyCompactList}\small\item\em Sets the window icon of the current window. \end{DoxyCompactList}\item 
+void \hyperlink{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}{set\+Window\+Title} (const std\+::string \&window\+Title)
+\begin{DoxyCompactList}\small\item\em Sets the window title of the current window. \end{DoxyCompactList}\item 
+void \hyperlink{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}{resize\+Window} (int width, int height)
+\begin{DoxyCompactList}\small\item\em Resizes the current window. \end{DoxyCompactList}\item 
+\hyperlink{structbkengine_1_1Size}{Size} \hyperlink{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}{get\+True\+Window\+Size} () const
+\begin{DoxyCompactList}\small\item\em Queries the current size of the window. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}{get\+True\+Window\+Title} () const
+\begin{DoxyCompactList}\small\item\em Queries the current title of the window. \end{DoxyCompactList}\item 
+\hyperlink{structbkengine_1_1Size}{Size} \hyperlink{classbkengine_1_1Core_a92e101c1e579bd2bc7fee001de816d6f}{get\+Window\+Size} () const
+\begin{DoxyCompactList}\small\item\em Returns the window size requested at window creation. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classbkengine_1_1Core_a0c42cf916f6232e384ea6d7f326becd9}{get\+Window\+Title} () const
+\begin{DoxyCompactList}\small\item\em Returns the window title requested at window creation. \end{DoxyCompactList}\item 
+S\+D\+L\+\_\+\+Renderer $\ast$ \hyperlink{classbkengine_1_1Core_ae60422517185c5e03e754765af0806bb}{get\+Renderer} () const
+\begin{DoxyCompactList}\small\item\em Returns the S\+DL renderer used by the current window. \end{DoxyCompactList}\item 
+bool \hyperlink{classbkengine_1_1Core_a05f45aa1489fe4c7c2ebd4506b838a32}{init\+Environment} ()
+\begin{DoxyCompactList}\small\item\em Initializes all (directly) underlying frameworks like {\bfseries S\+D\+L2}, S\+D\+L2\+\_\+ttf$\ast$$\ast$, {\bfseries S\+D\+L2\+\_\+image} and {\bfseries S\+D\+L2\+\_\+mixer}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classbkengine_1_1Core_ad5185a24e7bada8bc8ee70b6c27b7c45}\label{classbkengine_1_1Core_ad5185a24e7bada8bc8ee70b6c27b7c45}} 
+static bool \hyperlink{classbkengine_1_1Core_ad5185a24e7bada8bc8ee70b6c27b7c45}{init\+Deps} ()
+\begin{DoxyCompactList}\small\item\em Initializes all interfaces. \end{DoxyCompactList}\item 
+static \hyperlink{classbkengine_1_1Core}{Core} $\ast$ \hyperlink{classbkengine_1_1Core_a6d89a3e61f9a485ce2ff6586c340e94b}{get\+Instance} ()
+\begin{DoxyCompactList}\small\item\em Returns the instance of \hyperlink{classbkengine_1_1Core}{Core} created with \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance}. \end{DoxyCompactList}\item 
+static \hyperlink{classbkengine_1_1Core}{Core} $\ast$ \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{create\+Instance} (int width, int height, const std\+::string \&window\+Title)
+\begin{DoxyCompactList}\small\item\em Creates a single instance of \hyperlink{classbkengine_1_1Core}{Core} with the given parameter. \end{DoxyCompactList}\item 
+static void \hyperlink{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}{register\+Cleanup} (std\+::function$<$ void()$>$ cleanup\+Function)
+\begin{DoxyCompactList}\small\item\em Registers a cleanup callback which is called when \hyperlink{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}{Core\+::quit} is called. \end{DoxyCompactList}\item 
+static void \hyperlink{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}{quit} ()
+\begin{DoxyCompactList}\small\item\em Cleanup all members and dependencies initialized at the creation of \hyperlink{classbkengine_1_1Core}{Core} and calls all functions registered with \hyperlink{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}{Core\+::register\+Cleanup}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 15 of file Core.\+h.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}\label{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!create\+Instance@{create\+Instance}}
+\index{create\+Instance@{create\+Instance}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{create\+Instance()}{createInstance()}}
+{\footnotesize\ttfamily \hyperlink{classbkengine_1_1Core}{Core} $\ast$ Core\+::create\+Instance (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height,  }\item[{const std\+::string \&}]{window\+Title }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Creates a single instance of \hyperlink{classbkengine_1_1Core}{Core} with the given parameter. 
+
+If a instance has already been created it will be destroyed before creating a new one. If an error occurs while creating renderer and window a {\ttfamily nullptr} is returned.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em width} & Specifies the width of the window to be created. \\
+\hline
+\mbox{\tt in}  & {\em height} & Specifies the height of the window to be created. \\
+\hline
+\mbox{\tt in}  & {\em window\+Title} & Specifies the title of the window to be created.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to an instance of \hyperlink{classbkengine_1_1Core}{Core} or {\ttfamily nullptr} if an error occurred.
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a6d89a3e61f9a485ce2ff6586c340e94b}{Core\+::get\+Instance} 
+\end{DoxySeeAlso}
+
+
+Definition at line 143 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a6d89a3e61f9a485ce2ff6586c340e94b}\label{classbkengine_1_1Core_a6d89a3e61f9a485ce2ff6586c340e94b}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+Instance@{get\+Instance}}
+\index{get\+Instance@{get\+Instance}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+Instance()}{getInstance()}}
+{\footnotesize\ttfamily \hyperlink{classbkengine_1_1Core}{Core} $\ast$ Core\+::get\+Instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Returns the instance of \hyperlink{classbkengine_1_1Core}{Core} created with \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance}. 
+
+Note\+: This method does not guarantee any validity check of the returned pointer!
+
+\begin{DoxyReturn}{Returns}
+The value of the static {\itshape instance} variable which contains either {\ttfamily nullptr} if no instance has been created yet or a pointer to \hyperlink{classbkengine_1_1Core}{Core}. 
+\end{DoxyReturn}
+
+
+Definition at line 138 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_ae60422517185c5e03e754765af0806bb}\label{classbkengine_1_1Core_ae60422517185c5e03e754765af0806bb}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+Renderer@{get\+Renderer}}
+\index{get\+Renderer@{get\+Renderer}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+Renderer()}{getRenderer()}}
+{\footnotesize\ttfamily S\+D\+L\+\_\+\+Renderer $\ast$ Core\+::get\+Renderer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the S\+DL renderer used by the current window. 
+
+The renderer is created by \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance}.~\newline
+Note\+: This method does not guarantee any validity check of the returned pointer!~\newline
+Note\+: This method may or may not be changed or dropped in the future during the introduction of separate graphical interfaces!
+
+\begin{DoxyReturn}{Returns}
+A pointer to an S\+DL renderer used by the current window. 
+\end{DoxyReturn}
+
+
+Definition at line 249 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}\label{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+True\+Window\+Size@{get\+True\+Window\+Size}}
+\index{get\+True\+Window\+Size@{get\+True\+Window\+Size}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+True\+Window\+Size()}{getTrueWindowSize()}}
+{\footnotesize\ttfamily \hyperlink{structbkengine_1_1Rect}{Rect} Core\+::get\+True\+Window\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Queries the current size of the window. 
+
+Asks the underlying framework which owns the window for the current size.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a92e101c1e579bd2bc7fee001de816d6f}{Core\+::get\+Window\+Size} ~\newline
+ \hyperlink{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}{Core\+::resize\+Window} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+A \hyperlink{structbkengine_1_1Size}{Size} object filled with the actual dimensions. 
+\end{DoxyReturn}
+
+
+Definition at line 227 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}\label{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+True\+Window\+Title@{get\+True\+Window\+Title}}
+\index{get\+True\+Window\+Title@{get\+True\+Window\+Title}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+True\+Window\+Title()}{getTrueWindowTitle()}}
+{\footnotesize\ttfamily std\+::string Core\+::get\+True\+Window\+Title (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Queries the current title of the window. 
+
+Asks the underlying framework which owns the window for the current title.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a0c42cf916f6232e384ea6d7f326becd9}{Core\+::get\+Window\+Title} ~\newline
+ \hyperlink{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}{Core\+::set\+Window\+Title} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+The current window title as std\+::string. 
+\end{DoxyReturn}
+
+
+Definition at line 234 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a92e101c1e579bd2bc7fee001de816d6f}\label{classbkengine_1_1Core_a92e101c1e579bd2bc7fee001de816d6f}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+Window\+Size@{get\+Window\+Size}}
+\index{get\+Window\+Size@{get\+Window\+Size}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+Window\+Size()}{getWindowSize()}}
+{\footnotesize\ttfamily \hyperlink{structbkengine_1_1Rect}{Rect} Core\+::get\+Window\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the window size requested at window creation. 
+
+In contrast to \hyperlink{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}{Core\+::get\+True\+Window\+Size} {\itshape get\+Window\+Size} returns the dimensions the user requested with a call to \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance} resp. subsequent calls to \hyperlink{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}{Core\+::resize\+Window}.~\newline
+Note\+: The returned values may or may not differ from the actual values.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}{Core\+::get\+True\+Window\+Size} ~\newline
+ \hyperlink{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}{Core\+::resize\+Window} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+A \hyperlink{structbkengine_1_1Size}{Size} object filled with the requested window dimensions. 
+\end{DoxyReturn}
+
+
+Definition at line 239 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a0c42cf916f6232e384ea6d7f326becd9}\label{classbkengine_1_1Core_a0c42cf916f6232e384ea6d7f326becd9}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!get\+Window\+Title@{get\+Window\+Title}}
+\index{get\+Window\+Title@{get\+Window\+Title}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{get\+Window\+Title()}{getWindowTitle()}}
+{\footnotesize\ttfamily std\+::string Core\+::get\+Window\+Title (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Returns the window title requested at window creation. 
+
+In contrast to \hyperlink{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}{Core\+::get\+True\+Window\+Title} {\itshape get\+Window\+Title} returns the title the user requested with a call to \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance} resp. subsequent calls to \hyperlink{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}{Core\+::set\+Window\+Title}.~\newline
+Note\+: The returned string may or may not differ from the actual title.
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}{Core\+::get\+True\+Window\+Title} ~\newline
+ \hyperlink{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}{Core\+::set\+Window\+Title} 
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+The requested window title as std\+::string. 
+\end{DoxyReturn}
+
+
+Definition at line 244 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a05f45aa1489fe4c7c2ebd4506b838a32}\label{classbkengine_1_1Core_a05f45aa1489fe4c7c2ebd4506b838a32}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!init\+Environment@{init\+Environment}}
+\index{init\+Environment@{init\+Environment}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{init\+Environment()}{initEnvironment()}}
+{\footnotesize\ttfamily bool Core\+::init\+Environment (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Initializes all (directly) underlying frameworks like {\bfseries S\+D\+L2}, S\+D\+L2\+\_\+ttf$\ast$$\ast$, {\bfseries S\+D\+L2\+\_\+image} and {\bfseries S\+D\+L2\+\_\+mixer}. 
+
+You may want to call this method by yourself if your code relies on the initialized third party tools but you do not need a window or a renderer yet.~\newline
+Note\+: {\itshape init\+Environment} will be called automatically at \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance} if it has not been called by then.
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if initialization was successful otherwise {\ttfamily false}. 
+\end{DoxyReturn}
+
+
+Definition at line 163 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}\label{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!quit@{quit}}
+\index{quit@{quit}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{quit()}{quit()}}
+{\footnotesize\ttfamily void Core\+::quit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Cleanup all members and dependencies initialized at the creation of \hyperlink{classbkengine_1_1Core}{Core} and calls all functions registered with \hyperlink{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}{Core\+::register\+Cleanup}. 
+
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}{Core\+::register\+Cleanup} 
+\end{DoxySeeAlso}
+
+
+Definition at line 67 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}\label{classbkengine_1_1Core_a629951e5dec1e2c3f387790bd9ebb920}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!register\+Cleanup@{register\+Cleanup}}
+\index{register\+Cleanup@{register\+Cleanup}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{register\+Cleanup()}{registerCleanup()}}
+{\footnotesize\ttfamily void Core\+::register\+Cleanup (\begin{DoxyParamCaption}\item[{std\+::function$<$ void()$>$}]{cleanup\+Function }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Registers a cleanup callback which is called when \hyperlink{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}{Core\+::quit} is called. 
+
+Can be used to deinitialize interfaces or static storages on exit.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em cleanup\+Function} & Cleanup function to be called while \hyperlink{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}{Core\+::quit}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a7d6ca7943e0aa8d8d33a151fdc131f6e}{Core\+::quit} 
+\end{DoxySeeAlso}
+
+
+Definition at line 62 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}\label{classbkengine_1_1Core_a88b8c671689df472845515953b5b7b2d}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!resize\+Window@{resize\+Window}}
+\index{resize\+Window@{resize\+Window}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{resize\+Window()}{resizeWindow()}}
+{\footnotesize\ttfamily void Core\+::resize\+Window (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+
+Resizes the current window. 
+
+Requires that an window has already been created with \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em width} & New window width. \\
+\hline
+\mbox{\tt in}  & {\em height} & New window height.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a92e101c1e579bd2bc7fee001de816d6f}{Core\+::get\+Window\+Size} ~\newline
+ \hyperlink{classbkengine_1_1Core_a5238bcd142db1cb5a15cd3d6733a92da}{Core\+::get\+True\+Window\+Size} 
+\end{DoxySeeAlso}
+
+
+Definition at line 214 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a9328f09fc3ddd00de43f1dfe93f77c74}\label{classbkengine_1_1Core_a9328f09fc3ddd00de43f1dfe93f77c74}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!set\+Icon@{set\+Icon}}
+\index{set\+Icon@{set\+Icon}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{set\+Icon()}{setIcon()}}
+{\footnotesize\ttfamily bool Core\+::set\+Icon (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{icon\+Path }\end{DoxyParamCaption})}
+
+
+
+Sets the window icon of the current window. 
+
+Requires that an window has already been created with \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance} and {\itshape icon\+Path} refers to a suitable icon file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em icon\+Path} & Path to a .ico file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+{\ttfamily true} if operation suceeded otherwise {\ttfamily false}. 
+\end{DoxyReturn}
+
+
+Definition at line 199 of file Core.\+cpp.
+
+\mbox{\Hypertarget{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}\label{classbkengine_1_1Core_a6c510c45e9463399359664965918b431}} 
+\index{bkengine\+::\+Core@{bkengine\+::\+Core}!set\+Window\+Title@{set\+Window\+Title}}
+\index{set\+Window\+Title@{set\+Window\+Title}!bkengine\+::\+Core@{bkengine\+::\+Core}}
+\subsubsection{\texorpdfstring{set\+Window\+Title()}{setWindowTitle()}}
+{\footnotesize\ttfamily void Core\+::set\+Window\+Title (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{window\+Title }\end{DoxyParamCaption})}
+
+
+
+Sets the window title of the current window. 
+
+Requires that an window has already been created with \hyperlink{classbkengine_1_1Core_a8b809ebbd1348ae9b59d49388e7a18f0}{Core\+::create\+Instance}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em window\+Title} & Window title to be set.\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\hyperlink{classbkengine_1_1Core_a0c42cf916f6232e384ea6d7f326becd9}{Core\+::get\+Window\+Title} ~\newline
+ \hyperlink{classbkengine_1_1Core_a9fa654f1b1391876dbf77349f979e106}{Core\+::get\+True\+Window\+Title} 
+\end{DoxySeeAlso}
+
+
+Definition at line 221 of file Core.\+cpp.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/skaupper/dev/\+B\+K\+Engine/include/bkengine/Core.\+h\item 
+/home/skaupper/dev/\+B\+K\+Engine/src/Core.\+cpp\end{DoxyCompactItemize}
