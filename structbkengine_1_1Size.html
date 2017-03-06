@@ -72,21 +72,28 @@ $(function() {
 <div class="title">bkengine::Size Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a plane in a two dimensional system.  
+ <a href="structbkengine_1_1Size.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Misc_8h_source.html">Misc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:ad8d1dd631d4bbfd465edb6095e665db3"><td class="memItemLeft" align="right" valign="top"><a id="ad8d1dd631d4bbfd465edb6095e665db3"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Size.html#ad8d1dd631d4bbfd465edb6095e665db3">Size</a> ()</td></tr>
+<tr class="memdesc:ad8d1dd631d4bbfd465edb6095e665db3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a instance of a plane with the dimensions (0/0). <br /></td></tr>
+<tr class="separator:ad8d1dd631d4bbfd465edb6095e665db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83fc60222fdc4509baacd931f1f2e19f"><td class="memItemLeft" align="right" valign="top"><a id="a83fc60222fdc4509baacd931f1f2e19f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Size</b> (float w, float h)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Size.html#a83fc60222fdc4509baacd931f1f2e19f">Size</a> (float w, float h)</td></tr>
+<tr class="memdesc:a83fc60222fdc4509baacd931f1f2e19f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a instance of a plane with the dimensions (w/h). <br /></td></tr>
 <tr class="separator:a83fc60222fdc4509baacd931f1f2e19f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497eec1b1a8253c5ab1242cde9e4edd5"><td class="memItemLeft" align="right" valign="top"><a id="a497eec1b1a8253c5ab1242cde9e4edd5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator Rect</b> () const</td></tr>
+<tr class="memitem:a497eec1b1a8253c5ab1242cde9e4edd5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Size.html#a497eec1b1a8253c5ab1242cde9e4edd5">operator Rect</a> () const</td></tr>
+<tr class="memdesc:a497eec1b1a8253c5ab1242cde9e4edd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the plane into an instance of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a>.  <a href="#a497eec1b1a8253c5ab1242cde9e4edd5">More...</a><br /></td></tr>
 <tr class="separator:a497eec1b1a8253c5ab1242cde9e4edd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"><td class="memItemLeft" align="right" valign="top"><a id="a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const</td></tr>
+<tr class="memitem:a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Size.html#a20d8b4e9f54a2d32f46f4a0bc9fb8bf5">toString</a> () const</td></tr>
+<tr class="memdesc:a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of the plane.  <a href="#a20d8b4e9f54a2d32f46f4a0bc9fb8bf5">More...</a><br /></td></tr>
 <tr class="separator:a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a855276eef78ff8379cdc357c0f2b35ce"><td class="memItemLeft" align="right" valign="top"><a id="a855276eef78ff8379cdc357c0f2b35ce"></a>
-SDL_Point&#160;</td><td class="memItemRight" valign="bottom"><b>toSDLPoint</b> () const</td></tr>
-<tr class="separator:a855276eef78ff8379cdc357c0f2b35ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -98,16 +105,64 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>h</b></td></tr>
 <tr class="separator:acbdb27a32a6c880a071a427892e582d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00034">34</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
-<li>/home/skaupper/dev/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
-<li>/home/skaupper/dev/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
+<div class="textblock"><p>Represents a plane in a two dimensional system. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structbkengine_1_1Point.html" title="Represents a point in a two dimensional system. ">Point</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00063">63</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a497eec1b1a8253c5ab1242cde9e4edd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a497eec1b1a8253c5ab1242cde9e4edd5">&#9670;&nbsp;</a></span>operator Rect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Size::operator <a class="el" href="structbkengine_1_1Rect.html">Rect</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts the plane into an instance of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a>. </p>
+<p>The resulting <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> will be composed like "{ 0, 0, w, h }". </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00026">26</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a20d8b4e9f54a2d32f46f4a0bc9fb8bf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20d8b4e9f54a2d32f46f4a0bc9fb8bf5">&#9670;&nbsp;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Size::toString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string representation of the plane. </p>
+<p>The representation looks like "&lt;Size {w: 1.0; w: 2.0}&gt;" therefore it is not suitable for any kind of calculation.</p>
+<dl class="section return"><dt>Returns</dt><dd>A string representation of the plane. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00031">31</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>/home/skaupper/repos/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
+<li>/home/skaupper/repos/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 6 2017 15:22:46 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 6 2017 21:12:27 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

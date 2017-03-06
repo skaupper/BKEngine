@@ -71,24 +71,80 @@ $(function() {
 <div class="title">bkengine::RelativeCoordinates Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Helper class for dealing with relative coordinates.  
+ <a href="classbkengine_1_1RelativeCoordinates.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Misc_8h_source.html">Misc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a91abcdf513c8228b0b3fa684cd7ce3e2"><td class="memItemLeft" align="right" valign="top"><a id="a91abcdf513c8228b0b3fa684cd7ce3e2"></a>
-static <a class="el" href="structbkengine_1_1Rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><b>apply</b> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;rect, const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;srcRect)</td></tr>
+<tr class="memitem:a91abcdf513c8228b0b3fa684cd7ce3e2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="structbkengine_1_1Rect.html">Rect</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbkengine_1_1RelativeCoordinates.html#a91abcdf513c8228b0b3fa684cd7ce3e2">apply</a> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;rect, const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;srcRect)</td></tr>
+<tr class="memdesc:a91abcdf513c8228b0b3fa684cd7ce3e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies relative coordinates to a absolute (or also relative) rectangle.  <a href="#a91abcdf513c8228b0b3fa684cd7ce3e2">More...</a><br /></td></tr>
 <tr class="separator:a91abcdf513c8228b0b3fa684cd7ce3e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00133">133</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/skaupper/dev/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
-<li>/home/skaupper/dev/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
+<div class="textblock"><p>Helper class for dealing with relative coordinates. </p>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00355">355</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a91abcdf513c8228b0b3fa684cd7ce3e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91abcdf513c8228b0b3fa684cd7ce3e2">&#9670;&nbsp;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbkengine_1_1Rect.html">Rect</a> RelativeCoordinates::apply </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;&#160;</td>
+          <td class="paramname"><em>rect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;&#160;</td>
+          <td class="paramname"><em>srcRect</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Applies relative coordinates to a absolute (or also relative) rectangle. </p>
+<p>Imagine a window with the dimensions 1024:768. Applying a (relative) rectangle { 0, 0, 50, 25 } would result in an (absolute) rectangle { 0, 0, 512, 192 }.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rect</td><td>Rectangle with relative coordinates to apply. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">srcRect</td><td>The reference rectangle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The result of the transformation as <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00165">165</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>/home/skaupper/repos/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
+<li>/home/skaupper/repos/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 6 2017 15:22:46 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 6 2017 21:12:27 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

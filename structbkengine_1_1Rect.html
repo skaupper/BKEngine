@@ -72,32 +72,45 @@ $(function() {
 <div class="title">bkengine::Rect Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a rectangle in a two dimensional system.  
+ <a href="structbkengine_1_1Rect.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Misc_8h_source.html">Misc.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:aada368cb49eb7a9ebf4d4ef5b17f2ba5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#aada368cb49eb7a9ebf4d4ef5b17f2ba5">Rect</a> ()</td></tr>
+<tr class="memdesc:aada368cb49eb7a9ebf4d4ef5b17f2ba5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a rectangle from (0/0) to (100/100).  <a href="#aada368cb49eb7a9ebf4d4ef5b17f2ba5">More...</a><br /></td></tr>
+<tr class="separator:aada368cb49eb7a9ebf4d4ef5b17f2ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7cc0661f74761aabb5e75ccb1afcb40a"><td class="memItemLeft" align="right" valign="top"><a id="a7cc0661f74761aabb5e75ccb1afcb40a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Rect</b> (float w, float h)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a7cc0661f74761aabb5e75ccb1afcb40a">Rect</a> (float w, float h)</td></tr>
+<tr class="memdesc:a7cc0661f74761aabb5e75ccb1afcb40a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a rectangle from (0/0) to (w/h). <br /></td></tr>
 <tr class="separator:a7cc0661f74761aabb5e75ccb1afcb40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03207fc16543eb85f773572a5062aab4"><td class="memItemLeft" align="right" valign="top"><a id="a03207fc16543eb85f773572a5062aab4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Rect</b> (float x, float y, float w, float h)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a03207fc16543eb85f773572a5062aab4">Rect</a> (float x, float y, float w, float h)</td></tr>
+<tr class="memdesc:a03207fc16543eb85f773572a5062aab4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a rectangle from (x/y) to (x+w/y+h). <br /></td></tr>
 <tr class="separator:a03207fc16543eb85f773572a5062aab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fcc3249dc3f2525a01b20c75de2eb64"><td class="memItemLeft" align="right" valign="top"><a id="a2fcc3249dc3f2525a01b20c75de2eb64"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator Location</b> () const</td></tr>
-<tr class="separator:a2fcc3249dc3f2525a01b20c75de2eb64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a3f6bd32576b78cf6ddb938b3a0fcfe"><td class="memItemLeft" align="right" valign="top"><a id="a3a3f6bd32576b78cf6ddb938b3a0fcfe"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator Size</b> () const</td></tr>
+<tr class="memitem:a83b146d8f511ce604d070f58d1565be3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a83b146d8f511ce604d070f58d1565be3">operator Point</a> () const</td></tr>
+<tr class="memdesc:a83b146d8f511ce604d070f58d1565be3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the rectangle into a <a class="el" href="structbkengine_1_1Point.html" title="Represents a point in a two dimensional system. ">Point</a>.  <a href="#a83b146d8f511ce604d070f58d1565be3">More...</a><br /></td></tr>
+<tr class="separator:a83b146d8f511ce604d070f58d1565be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a3f6bd32576b78cf6ddb938b3a0fcfe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a3a3f6bd32576b78cf6ddb938b3a0fcfe">operator Size</a> () const</td></tr>
+<tr class="memdesc:a3a3f6bd32576b78cf6ddb938b3a0fcfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the rectangle into a plane <a class="el" href="structbkengine_1_1Size.html" title="Represents a plane in a two dimensional system. ">Size</a>.  <a href="#a3a3f6bd32576b78cf6ddb938b3a0fcfe">More...</a><br /></td></tr>
 <tr class="separator:a3a3f6bd32576b78cf6ddb938b3a0fcfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3be08ed9c43d955c778af45aa514673a"><td class="memItemLeft" align="right" valign="top"><a id="a3be08ed9c43d955c778af45aa514673a"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> () const</td></tr>
+<tr class="memitem:a3be08ed9c43d955c778af45aa514673a"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a3be08ed9c43d955c778af45aa514673a">toString</a> () const</td></tr>
+<tr class="memdesc:a3be08ed9c43d955c778af45aa514673a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string representation of the rectangle.  <a href="#a3be08ed9c43d955c778af45aa514673a">More...</a><br /></td></tr>
 <tr class="separator:a3be08ed9c43d955c778af45aa514673a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedbff1c8866e12bedc940d606f985bec"><td class="memItemLeft" align="right" valign="top"><a id="aedbff1c8866e12bedc940d606f985bec"></a>
-SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><b>toSDLRect</b> () const</td></tr>
+<tr class="memitem:aedbff1c8866e12bedc940d606f985bec"><td class="memItemLeft" align="right" valign="top">SDL_Rect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#aedbff1c8866e12bedc940d606f985bec">toSDLRect</a> () const</td></tr>
+<tr class="memdesc:aedbff1c8866e12bedc940d606f985bec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the rectangle represented as <code>SDL_Rect</code>.  <a href="#aedbff1c8866e12bedc940d606f985bec">More...</a><br /></td></tr>
 <tr class="separator:aedbff1c8866e12bedc940d606f985bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb4f26132777f2b17936ed0731fdc4dd"><td class="memItemLeft" align="right" valign="top"><a id="acb4f26132777f2b17936ed0731fdc4dd"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;c) const</td></tr>
-<tr class="separator:acb4f26132777f2b17936ed0731fdc4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81f3754e289024672210140e9fa3df43"><td class="memItemLeft" align="right" valign="top"><a id="a81f3754e289024672210140e9fa3df43"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;c) const</td></tr>
+<tr class="memitem:aeda877ed564c7520407ef1e1b4f7e271"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#aeda877ed564c7520407ef1e1b4f7e271">operator==</a> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;rect) const</td></tr>
+<tr class="memdesc:aeda877ed564c7520407ef1e1b4f7e271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two instances of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> for equality.  <a href="#aeda877ed564c7520407ef1e1b4f7e271">More...</a><br /></td></tr>
+<tr class="separator:aeda877ed564c7520407ef1e1b4f7e271"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6de5d351f6a670878bc0968bb6de642e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a6de5d351f6a670878bc0968bb6de642e">operator!=</a> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;rect) const</td></tr>
+<tr class="memdesc:a6de5d351f6a670878bc0968bb6de642e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two instances of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> for inequality.  <a href="#a6de5d351f6a670878bc0968bb6de642e">More...</a><br /></td></tr>
+<tr class="separator:a6de5d351f6a670878bc0968bb6de642e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81f3754e289024672210140e9fa3df43"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structbkengine_1_1Rect.html#a81f3754e289024672210140e9fa3df43">operator&lt;</a> (const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;c) const</td></tr>
+<tr class="memdesc:a81f3754e289024672210140e9fa3df43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dummy operator which allows us to use a <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> in a <code>std::map</code>.  <a href="#a81f3754e289024672210140e9fa3df43">More...</a><br /></td></tr>
 <tr class="separator:a81f3754e289024672210140e9fa3df43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -116,16 +129,239 @@ float&#160;</td><td class="memItemRight" valign="bottom"><b>h</b></td></tr>
 <tr class="separator:a8d2c3ae96862607e7fd81e90ae0024b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00047">47</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following files:<ul>
-<li>/home/skaupper/dev/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
-<li>/home/skaupper/dev/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
+<div class="textblock"><p>Represents a rectangle in a two dimensional system. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="structbkengine_1_1Point.html" title="Represents a point in a two dimensional system. ">Point</a> <br />
+ <a class="el" href="structbkengine_1_1Size.html" title="Represents a plane in a two dimensional system. ">Size</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00098">98</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aada368cb49eb7a9ebf4d4ef5b17f2ba5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aada368cb49eb7a9ebf4d4ef5b17f2ba5">&#9670;&nbsp;</a></span>Rect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bkengine::Rect::Rect </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a rectangle from (0/0) to (100/100). </p>
+<p>Due to the fact that we mostly use relative coordinates the default values for width and height of the rectangle are 100 (%). </p>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8h_source.html#l00109">109</a> of file <a class="el" href="Misc_8h_source.html">Misc.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a83b146d8f511ce604d070f58d1565be3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83b146d8f511ce604d070f58d1565be3">&#9670;&nbsp;</a></span>operator Point()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rect::operator <a class="el" href="structbkengine_1_1Point.html">Point</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts the rectangle into a <a class="el" href="structbkengine_1_1Point.html" title="Represents a point in a two dimensional system. ">Point</a>. </p>
+<p>The x and y coordinates are extracted and returned as (x/y). </p>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00037">37</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3a3f6bd32576b78cf6ddb938b3a0fcfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a3f6bd32576b78cf6ddb938b3a0fcfe">&#9670;&nbsp;</a></span>operator Size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Rect::operator <a class="el" href="structbkengine_1_1Size.html">Size</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Converts the rectangle into a plane <a class="el" href="structbkengine_1_1Size.html" title="Represents a plane in a two dimensional system. ">Size</a>. </p>
+<p>The w and h components are extracted and returned as (w/h). </p>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00042">42</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6de5d351f6a670878bc0968bb6de642e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6de5d351f6a670878bc0968bb6de642e">&#9670;&nbsp;</a></span>operator!=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Rect::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;&#160;</td>
+          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare two instances of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> for inequality. </p>
+<p>Two rectangles are inequal if at least one of their components are unequal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rect</td><td><a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> to compare to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both rectangles are unequal <code>false</code> otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00063">63</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a81f3754e289024672210140e9fa3df43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81f3754e289024672210140e9fa3df43">&#9670;&nbsp;</a></span>operator<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Rect::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dummy operator which allows us to use a <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> in a <code>std::map</code>. </p>
+<p>Equals to <code>rect1 != rect2</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00068">68</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aeda877ed564c7520407ef1e1b4f7e271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda877ed564c7520407ef1e1b4f7e271">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Rect::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structbkengine_1_1Rect.html">Rect</a> &amp;&#160;</td>
+          <td class="paramname"><em>rect</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare two instances of <a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> for equality. </p>
+<p>Two rectangles are equal if all of their components are equal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rect</td><td><a class="el" href="structbkengine_1_1Rect.html" title="Represents a rectangle in a two dimensional system. ">Rect</a> to compare to.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if both rectangles are equal <code>false</code> otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00058">58</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aedbff1c8866e12bedc940d606f985bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedbff1c8866e12bedc940d606f985bec">&#9670;&nbsp;</a></span>toSDLRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SDL_Rect Rect::toSDLRect </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the rectangle represented as <code>SDL_Rect</code>. </p>
+<dl class="section return"><dt>Returns</dt><dd>A <code>SDL_Rect</code> representation of the rectangle. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00053">53</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3be08ed9c43d955c778af45aa514673a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3be08ed9c43d955c778af45aa514673a">&#9670;&nbsp;</a></span>toString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Rect::toString </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string representation of the rectangle. </p>
+<p>The representation looks like "&lt;Rect {x: 1.1; y: 2.0; w: 1.0; w: 2.0}&gt;" therefore it is not suitable for any kind of calculation.</p>
+<dl class="section return"><dt>Returns</dt><dd>A string representation of the rectangle. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Misc_8cpp_source.html#l00047">47</a> of file <a class="el" href="Misc_8cpp_source.html">Misc.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>/home/skaupper/repos/BKEngine/include/bkengine/<a class="el" href="Misc_8h_source.html">Misc.h</a></li>
+<li>/home/skaupper/repos/BKEngine/src/<a class="el" href="Misc_8cpp_source.html">Misc.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Mar 6 2017 15:22:46 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Mar 6 2017 21:12:27 for BKEngine by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

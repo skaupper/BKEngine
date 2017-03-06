@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tostring',['toString',['../classbkengine_1_1Serializable.html#a72754434ccc30248fc64faaca277c69b',1,'bkengine::Serializable']]]
+  ['point',['Point',['../structbkengine_1_1Point.html#a469cb4638b6abeb40a33c75ba9920571',1,'bkengine::Point::Point()'],['../structbkengine_1_1Point.html#ad653195af1e58a14dea8facd5c409ed0',1,'bkengine::Point::Point(float x, float y)']]]
 ];
