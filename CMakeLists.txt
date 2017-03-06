@@ -80,15 +80,15 @@ IF (${ENABLE_TESTS})
 ENDIF()
 
 # add a target to generate API documentation with Doxygen
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-configure_file(Doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-add_custom_target(doc
-${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-COMMENT "Generating API documentation with Doxygen" VERBATIM
+FIND_PACKAGE (Doxygen)
+IF (DOXYGEN_FOUND)
+CONFIGURE_FILE (Doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+ADD_CUSTOM_TARGET (doc
+    ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Generating API documentation with Doxygen" VERBATIM
 )
-endif(DOXYGEN_FOUND)
+ENDIF (DOXYGEN_FOUND)
 
 
 INSTALL (TARGETS bkengine

@@ -137,16 +137,6 @@ bool Core::initDeps()
 
 Core *Core::getInstance()
 {
-    if (!instance) {
-        instance = new Core(800, 600, "TestWindow");
-    }
-
-    if (!instance->environmentInited && !instance->initEnvironment()) {
-        Logger::LogCritical("Core::getInstance(): Environment initialization failed. " +
-                            std::string(MANGLE_SDL(SDL_GetError)()));
-        return nullptr;
-    }
-
     return instance;
 }
 
@@ -157,7 +147,15 @@ Core *Core::createInstance(int width, int height,
         delete instance;
     }
 
-    return (instance = new Core(width, height, windowTitle));
+    instance = new Core(width, height, windowTitle);
+
+    if (!instance->environmentInited && !instance->initEnvironment()) {
+        Logger::LogCritical("Core::getInstance(): Environment initialization failed. " +
+                            std::string(MANGLE_SDL(SDL_GetError)()));
+        return nullptr;
+    }
+
+    return instance;
 }
 
 
@@ -216,11 +214,14 @@ bool Core::setIcon(const std::string &iconPath)
 void Core::resizeWindow(int width, int height)
 {
     MANGLE_SDL(SDL_SetWindowSize)(window, width, height);
+    windowWidth = width;
+    windowHeight = height;
 }
 
 void Core::setWindowTitle(const std::string &title)
 {
     MANGLE_SDL(SDL_SetWindowTitle)(window, title.c_str());
+    windowTitle = title;
 }
 
 Rect Core::getTrueWindowSize() const

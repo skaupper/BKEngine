@@ -6,8 +6,8 @@ using namespace bkengine;
 
 std::string Location::toString() const
 {
-    return "< Location {x: " + std::to_string(x) + ", y: " + std::to_string(y)
-           + "} >";
+    return "<Location {x: " + std::to_string(x) + ", y: " + std::to_string(y)
+           + "}>";
 }
 
 SDL_Point Location::toSDLPoint() const
@@ -15,10 +15,21 @@ SDL_Point Location::toSDLPoint() const
     return SDL_Point { (int) round(x), (int) round(y) };
 }
 
+std::string Size::toString() const
+{
+    return "<Size {x: " + std::to_string(w) + ", y: " + std::to_string(h)
+           + "}>";
+}
+
+SDL_Point Size::toSDLPoint() const
+{
+    return SDL_Point { (int) round(w), (int) round(h) };
+}
+
 std::string Rect::toString() const
 {
-    return "< Rect {x: " + std::to_string(x) + ", y: " + std::to_string(y)
-           + ", w: " + std::to_string(w) + ", h: " + std::to_string(h) + "} >";
+    return "<Rect {x: " + std::to_string(x) + ", y: " + std::to_string(y)
+           + ", w: " + std::to_string(w) + ", h: " + std::to_string(h) + "}>";
 }
 
 SDL_Rect Rect::toSDLRect() const
@@ -38,8 +49,8 @@ bool Rect::operator<(const Rect &r) const
 
 std::string Color::toString() const
 {
-    return "< Color {r: " + std::to_string(r) + ", g: " + std::to_string(g)
-           + ", b: " + std::to_string(b) + ", a: " + std::to_string(a) + "} >";
+    return "<Color {r: " + std::to_string(r) + ", g: " + std::to_string(g)
+           + ", b: " + std::to_string(b) + ", a: " + std::to_string(a) + "}>";
 }
 
 bool Color::operator==(const Color &c) const

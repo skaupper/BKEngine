@@ -25,6 +25,18 @@ namespace bkengine
         SDL_Point toSDLPoint() const;
     };
 
+
+    struct Size {
+        float w;
+        float h;
+
+        Size() : w(0), h(0) {}
+        Size(float w, float h) : w(w), h(h) {}
+
+        std::string toString() const;
+        SDL_Point toSDLPoint() const;
+    };
+
     struct Rect {
         float x;
         float y;
