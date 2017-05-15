@@ -165,6 +165,11 @@ std::string Element::getName() const
     return name;
 }
 
+unsigned int Element::getAnimationCount() const
+{
+    return animations.size();
+}
+
 void Element::clear()
 {
     animations.clear();

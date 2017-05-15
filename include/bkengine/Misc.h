@@ -174,7 +174,7 @@ namespace bkengine
     };
 
     /**
-        Representing a 32bit RGBA color.
+        Represents a 32bit RGBA color.
     */
     struct Color {
         uint8_t r;

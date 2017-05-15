@@ -12,6 +12,9 @@
 
 namespace bkengine
 {
+    /**
+        Keeps track of a GL window and all required cleanup functions.
+    */
     class Core
     {
             /* static stuff */

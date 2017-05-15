@@ -13,10 +13,16 @@
 
 namespace bkengine
 {
+    /**
+        Holds a vector of textures. 
+        
+        Each texture is displayed for a number of frames passed in by the constructor.
+
+        The internal frame counter is increased each time Animation::getCurrentTexture is called.
+    */
     class Animation : public Serializable
     {
             friend class Element;
-            friend class Serializer;
             /* hierarchal */
         public:
             /**

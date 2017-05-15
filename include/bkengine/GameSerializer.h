@@ -15,12 +15,12 @@ namespace bkengine
     class Element;
     class Animation;
     class Texture;
-
+    
     class GameSerializer
     {
         public:
-            template <typename T> static std::shared_ptr<T> deserialize(
-                const Json::Value &obj);
+            template <typename T>
+            static std::shared_ptr<T> deserialize(const Json::Value &obj);
     };
 }
 
