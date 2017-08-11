@@ -3,9 +3,10 @@
 
 #include <map>
 
+#include "interfaces/EventInterface.h"
+#include "utils/Logger.h"
 #include "SDLWrapper.h"
-#include "EventInterface.h"
-#include "Logger.h"
+
 
 namespace bkengine
 {

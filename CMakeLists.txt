@@ -27,25 +27,28 @@ SET (LIBS ${SDL2_LIBRARY}
           ${SDL2_MIXER_LIBRARIES}
           ${JSONCPP_LIBRARIES})
 
-SET (SOURCES src/Core.cpp
-             src/Game.cpp
-             src/Timer.cpp
-             src/Scene.cpp
-             src/Element.cpp
-             src/Animation.cpp
-             src/Texture.cpp
-             src/Scene.cpp
-             src/Logger.cpp
+SET (SOURCES src/core/Game.cpp
+             src/core/Scene.cpp
+             src/core/Element.cpp
+             src/core/Entity.cpp
+             src/core/Animation.cpp
+             src/core/Texture.cpp
+
+             src/utils/Timer.cpp
+             src/utils/Logger.cpp
+             src/utils/Fonts.cpp
+             src/utils/Event.cpp
+             src/utils/Keys.cpp
+             src/utils/Storage.cpp
+             src/utils/InterfaceContainer.cpp
+             
+             src/interfaces/impl/INISettingsInterface.cpp
+             
+             src/serialization/Serializable.cpp
+
              src/Misc.cpp
-             src/Fonts.cpp
-             src/Entity.cpp
-             src/Event.cpp
-             src/Keys.cpp
              src/SDLEventInterface.cpp
-             src/INISettingsInterface.cpp
-             src/Storage.cpp
-             src/Serializable.cpp
-             src/GameSerializer.cpp)
+             src/SDLWrapper.cpp)
 
 IF (ENABLE_TESTS)
     SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)

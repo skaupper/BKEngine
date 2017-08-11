@@ -7,9 +7,11 @@
 #include <SDL_mixer.h>
 
 #ifndef TEST
-#define MANGLE_SDL(name) name
+    #define MANGLE_SDL(name) name
 #else
-#define MANGLE_SDL(name) bkengine_test::SDLProvider::getInstance()->name
+    #define MANGLE_SDL(name) bkengine_test::SDLProvider::getInstance()->name
+#endif
+
 
 namespace bkengine_test
 {
@@ -98,5 +100,4 @@ namespace bkengine_test
     };
 }
 
-#endif
 #endif
