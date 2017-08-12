@@ -3,15 +3,15 @@
 
 #include <string>
 
-#include "utils/Image.h"
+#include "utils/ImageTexture.h"
 
 
 namespace bkengine
 {
     class ImageInterface
     {
-        public:
-            virtual std::shared_ptr<Image> loadImageFromFile(const std::string &filePath) = 0;
+    public:
+        virtual std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &filePath) = 0;
     };
 }
 

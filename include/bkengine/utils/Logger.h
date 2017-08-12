@@ -2,45 +2,85 @@
 #define BKENGINE_LOGGER_H
 
 #include <iostream>
-#include <fstream>
-#include <mutex>
-#include <time.h>
-#include <sstream>
 #include <iomanip>
+#include <mutex>
+
+#define NRM  "\x1B[0m"
+#define RED  "\x1B[31m"
+#define GRN  "\x1B[32m"
+#define YEL  "\x1B[33m"
+#define BLU  "\x1B[34m"
+#define MAG  "\x1B[35m"
+#define CYN  "\x1B[36m"
+#define WHT  "\x1B[37m"
+
 
 namespace bkengine
 {
-    enum class LogLevel : unsigned int {
-        DEBUG = 0,
-        INFO = 1,
-        WARNING = 2,
-        ERROR = 3,
-        CRITICAL = 4
+    enum class LogLevel {
+        NOTHING = 0,
+        DEBUG = 1,
+        INFO = 2,
+        WARNING = 4,
+        ERROR = 8,
+        FATAL = 16
     };
-
-    class Logger
+    
+    class Logger : public std::ostream
     {
         private:
-            static LogLevel logLevel;
-            static std::array<std::string, 5> logLevelStrings;
-            static std::string file;
-            static bool stdout;
-
+            class LoggerStreamBuf: public std::stringbuf
+            {
+                    std::ostream &output;
+                    std::string prefix;
+                    Logger *logger;
+                    
+                public:
+                    LoggerStreamBuf() : output(std::cout), prefix(""), logger(nullptr) {}
+                    
+                    void SetParentLogger(Logger *logger)
+                    {
+                        this->logger = logger;
+                    }
+                    
+                    void SetPrefix(std::string newPrefix)
+                    {
+                        prefix = newPrefix;
+                    }
+                    
+                    int sync() override;
+            };
+            
+            struct StaticConstructor {
+                StaticConstructor();
+            };
+            static StaticConstructor _;
+            
+            static bool useColors;
+            static std::mutex loggerMutex;
+            static int logLevel;
+            
+            LogLevel level;
+            LoggerStreamBuf buffer;
+            
+            
+            void SetInternalLevel(LogLevel level);
+            
+            Logger();
+            Logger(LogLevel level);
+            
         public:
-            static void UseStdout(bool useStdout = true);
-            static void UseFile(const std::string &path = "");
-
-            static void SetLevel(unsigned int logLevel);
-            static void SetLevel(const LogLevel &logLevel);
-
-            static void LogDebug(const std::string &text);
-            static void LogInfo(const std::string &text);
-            static void LogWarning(const std::string &text);
-            static void LogError(const std::string &text);
-            static void LogCritical(const std::string &text);
-            static void Log(const LogLevel &level, const std::string &text);
-            static void Log(unsigned int level, const std::string &text);
+            static void SetLevel(LogLevel level);
+            static void UnsetLevel(LogLevel level);
+            static bool IsSet(LogLevel level);
+            static void UseColors(bool colors);
+            
+            static Logger fatal;
+            static Logger error;
+            static Logger warning;
+            static Logger info;
+            static Logger debug;
     };
 }
 
-#endif
+#endif // BKENGINE_LOGGER_H

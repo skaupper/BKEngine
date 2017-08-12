@@ -2,11 +2,9 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0)
 PROJECT (bkengine)
 
 OPTION (ENABLE_TESTS "Set to TRUE if you want to run the testcases afterwards" FALSE)
-SET (GMOCK_SOURCE "/usr/src/gmock/gmock-all.cc" CACHE STRING "Path to the gmock-all.cc")
-SET (GMOCK_LIBS "" CACHE STRING "Path to the GMock libs")
 
 SET (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-SET (CMAKE_CXX_STANDARD 14)
+SET (CMAKE_CXX_STANDARD 17)
 
 FIND_PACKAGE (SDL2 REQUIRED)
 FIND_PACKAGE (SDL2_image REQUIRED)
@@ -30,29 +28,30 @@ SET (LIBS ${SDL2_LIBRARY}
 SET (SOURCES src/core/Game.cpp
              src/core/Scene.cpp
              src/core/Element.cpp
-             src/core/Entity.cpp
              src/core/Animation.cpp
-             src/core/Texture.cpp
 
+             src/core/utils/GameUtils.cpp
+             src/core/utils/SceneUtils.cpp
+
+             src/builder/GameBuilder.cpp
+             src/builder/SceneBuilder.cpp
+             src/builder/ElementBuilder.cpp
+             src/builder/AnimationBuilder.cpp
+             src/builder/TextureBuilder.cpp
+             src/builder/ImageTextureBuilder.cpp
+             src/builder/TextTextureBuilder.cpp
+
+             src/interfaces/impl/INISettingsInterface.cpp
+
+             src/utils/Color.cpp
+             src/utils/Geometry.cpp
+             src/utils/CoordinateUtils.cpp
              src/utils/Timer.cpp
              src/utils/Logger.cpp
-             src/utils/Fonts.cpp
              src/utils/Event.cpp
              src/utils/Keys.cpp
-             src/utils/Storage.cpp
              src/utils/InterfaceContainer.cpp
-             
-             src/interfaces/impl/INISettingsInterface.cpp
-             
-             src/serialization/Serializable.cpp
-
-             src/Misc.cpp
-             src/SDLEventInterface.cpp
-             src/SDLWrapper.cpp)
-
-IF (ENABLE_TESTS)
-    SET (SOURCES ${SOURCES} src/SDLWrapper.cpp)
-ENDIF()
+)
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})
@@ -60,27 +59,18 @@ TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine ${LIB_INCLUDES})
 TARGET_LINK_LIBRARIES (bkengine ${LIBS})
 TARGET_COMPILE_OPTIONS (bkengine PRIVATE -pedantic -Wall -Wextra -Werror -Wno-unused-parameter -Wno-missing-braces)
 
+# compile tests
 IF (${ENABLE_TESTS})
     TARGET_COMPILE_DEFINITIONS (bkengine PRIVATE TEST)
     SET (TEST_SOURCES tests/main.cpp
-                      tests/CoreTest.cpp
-                      tests/TextureTest.cpp)
-    IF (NOT GMOCK_LIBS)
-        SET (TEST_SOURCES ${TEST_SOURCES} "${GMOCK_SOURCE}")
-    ENDIF ()
+                      tests/INISettingsInterfaceTest.cpp
+                      tests/GameBuilderTest.cpp)
 
-    ENABLE_TESTING()
-    FIND_PACKAGE (GTest REQUIRED)
-
-    # compile test
     ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})
-    TARGET_INCLUDE_DIRECTORIES (bkengine_tests PRIVATE /usr/src/gmock /usr/src)
-    TARGET_LINK_LIBRARIES (bkengine_tests bkengine pthread ${GTEST_BOTH_LIBRARIES})
-    IF (GMOCK_LIBS)
-        TARGET_LINK_LIBRARIES (bkengine_tests ${GMOCK_LIBS})
-    ENDIF ()
-    ADD_TEST (NAME Tests COMMAND bkengine_tests)
+    TARGET_LINK_LIBRARIES (bkengine_tests bkengine)
+    ADD_CUSTOM_TARGET (check "./bkengine_tests" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 ENDIF()
+
 
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE (Doxygen)

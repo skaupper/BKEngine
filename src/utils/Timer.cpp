@@ -3,6 +3,13 @@
 using namespace bkengine;
 
 
+uint64_t getMilliseconds()
+{
+    auto duration = std::chrono::high_resolution_clock::now().time_since_epoch();
+    return std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+}
+
+
 Timer::Timer()
 {
     startTicks = 0;
@@ -16,7 +23,7 @@ void Timer::start()
     if (!started) {
         started = true;
         paused = false;
-        startTicks = MANGLE_SDL(SDL_GetTicks)();
+        startTicks = getMilliseconds();
         pausedTicks = 0;
     }
 }
@@ -33,7 +40,7 @@ void Timer::pause()
 {
     if (started && !paused) {
         paused = true;
-        pausedTicks = MANGLE_SDL(SDL_GetTicks)() - startTicks;
+        pausedTicks = getMilliseconds();
         startTicks = 0;
     }
 }
@@ -42,20 +49,20 @@ void Timer::unpause()
 {
     if (started && paused) {
         paused = false;
-        startTicks = MANGLE_SDL(SDL_GetTicks)() - pausedTicks;
+        startTicks = getMilliseconds();
         pausedTicks = 0;
     }
 }
 
-int Timer::getTicks() const
+uint64_t Timer::getTicks() const
 {
-    int time = 0;
+    uint64_t time = 0;
 
     if (started) {
         if (paused) {
             time = pausedTicks;
         } else {
-            time = MANGLE_SDL(SDL_GetTicks)() - startTicks;
+            time = getMilliseconds();
         }
     }
 

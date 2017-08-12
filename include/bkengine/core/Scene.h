@@ -1,83 +1,58 @@
 #ifndef BKENGINE_SCENE_H
 #define BKENGINE_SCENE_H
 
-#include <vector>
-#include <string>
-#include <memory>
 #include <algorithm>
+#include <cassert>
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "core/Element.h"
-#include "serialization/Serializable.h"
+#include "interfaces/GraphicsInterface.h"
+#include "utils/Event.h"
+#include "utils/Logger.h"
 
 
 namespace bkengine
 {
     class Game;
-    class Scene : public Serializable
+    class Element;
+
+    class Scene
     {
-            friend class Element;
-            friend class Game;
-            /* hierarchal */
-        public:
-            bool hasElement(const std::string &name) const;
-            bool hasElement(unsigned int index) const;
+        friend class Game;
+        friend class GameUtils;
+        friend class SceneBuilder;
+        friend class SceneUtils;
 
-            void removeElement(const std::string &name);
-            void removeElement(unsigned int index);
+    public:
+        virtual ~Scene() = default;
 
-            Element &getElement(unsigned int index);
-            Element &getElement(const std::string &name);
+        virtual bool onLoop();
+        virtual bool onRender();
+        virtual bool onEvent(const Event &);
 
-            template <typename T> T &addElement(const T &);
-            template <typename T> T &addElement(const std::shared_ptr<T> &);
-            template <typename T, typename... Params> T &addElement(Params...);
-            template <typename T> T &getElement(const std::string &name);
-            template <typename T> T &getElement(unsigned int index);
+    protected:
+        explicit Scene() = default;
 
-        protected:
-            void addToCollisionLayer(Element *, int layer);
-            void removeFromCollisionLayer(Element *);
-            std::vector<Element *> getCollisionLayer(int layer);
-
-            Game *parentGame;
-            std::vector<std::shared_ptr<Element>> elements;
-            std::map<int, std::vector<Element *>> collisionLayers;
+        void addToCollisionLayer(std::shared_ptr<Element>, uint32_t layer);
+        void removeFromCollisionLayer(std::shared_ptr<Element>);
+        std::vector<std::shared_ptr<Element>> getCollisionLayer(uint32_t layer);
 
 
-            /* getter and setter */
-        public:
-            std::string getName() const;
-
-        protected:
-            std::string name;
+    private:
+        void _onLoop();
+        void _onRender();
+        void _onEvent(const Event &);
 
 
-            /* other stuff */
-        public:
-            explicit Scene(Game *parentGame = nullptr, const std::string &name = "");
-            Scene(Scene &&scene);
-            Scene &operator=(Scene &&scene);
-            virtual ~Scene();
+        std::shared_ptr<Game> parentGame;
+        std::string name;
 
-            virtual void setupEnvironment();
-            virtual void setupElements();
-
-            virtual void onLoop();
-            virtual void onRender(std::shared_ptr<GraphicsInterface> graphicsInterface);
-            virtual bool onEvent(const Event &);
-
-            void clear();
-
-            virtual void deserialize(const Json::Value &) override;
-            virtual Json::Value serialize() const override;
-
-        protected:
-
+        std::vector<std::shared_ptr<Element>> elements;
+        std::map<uint32_t, std::vector<std::shared_ptr<Element>>> collisionLayers;
     };
-
-#include "templates/Scene_templates.h"
 }
-
-#include "Game.h"
 
 #endif

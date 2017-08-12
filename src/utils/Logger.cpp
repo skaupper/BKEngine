@@ -3,6 +3,18 @@
 using namespace bkengine;
 
 
+Logger Logger::fatal;
+Logger Logger::error;
+Logger Logger::warning;
+Logger Logger::info;
+Logger Logger::debug;
+
+Logger::StaticConstructor Logger::_;
+std::mutex Logger::loggerMutex;
+int Logger::logLevel = 4;
+bool Logger::useColors;
+
+
 static std::string GetTimeString()
 {
     time_t t = time(0);
@@ -23,83 +35,126 @@ static std::string GetTimeString()
     return ss.str();
 }
 
-LogLevel Logger::logLevel = LogLevel::DEBUG;
-std::array<std::string, 5> Logger::logLevelStrings = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"};
-std::string Logger::file = "";
-bool Logger::stdout = true;
 
-void Logger::UseStdout(bool b)
+int Logger::LoggerStreamBuf::sync()
 {
-    stdout = b;
-}
-
-void Logger::UseFile(const std::string &path)
-{
-    file = path;
-}
-
-void Logger::SetLevel(unsigned int logLevel)
-{
-    Logger::logLevel = (LogLevel) logLevel;
-}
-
-void Logger::SetLevel(const LogLevel &logLevel)
-{
-    Logger::logLevel = logLevel;
-}
-
-void Logger::LogDebug(const std::string &text)
-{
-    Log((int) LogLevel::DEBUG, text);
-}
-
-void Logger::LogInfo(const std::string &text)
-{
-    Log((int) LogLevel::INFO, text);
-}
-
-void Logger::LogWarning(const std::string &text)
-{
-    Log((int) LogLevel::WARNING, text);
-}
-
-void Logger::LogError(const std::string &text)
-{
-    Log((int) LogLevel::ERROR, text);
-}
-
-void Logger::LogCritical(const std::string &text)
-{
-    Log((int) LogLevel::CRITICAL, text);
-}
-
-void Logger::Log(const LogLevel &level, const std::string &text)
-{
-    Log((int) level, text);
-}
-
-void Logger::Log(unsigned int level, const std::string &text)
-{
-    if (level < (unsigned int) logLevel) {
-        return;
+    loggerMutex.lock();
+    
+    if (Logger::IsSet(logger->level)) {
+        if (useColors) {
+            switch (logger->level) {
+                case LogLevel::FATAL:
+                    output << RED;
+                    break;
+                    
+                case LogLevel::ERROR:
+                    output << MAG;
+                    break;
+                    
+                case LogLevel::WARNING:
+                    output << YEL;
+                    break;
+                    
+                case LogLevel::INFO:
+                    output << GRN;
+                    break;
+                    
+                case LogLevel::DEBUG:
+                    output << BLU;
+                    break;
+                    
+                case LogLevel::NOTHING:
+                default:
+                    break;
+            }
+        }
+        
+        output << GetTimeString() << "[" << prefix << "] " << str();
+        
+        if (useColors) {
+            output << NRM;
+        }
+        
+        output << std::flush;
+        str("");
     }
+    
+    loggerMutex.unlock();
+    return 0;
+}
 
-    static std::mutex mutex;
-    mutex.lock();
-    std::stringstream textstream;
-    textstream << GetTimeString() << " [" << logLevelStrings[level]  << "] " <<
-               text << std::endl;
 
-    if (!file.empty()) {
-        std::ofstream stream;
-        stream.open(file, std::ofstream::out | std::ofstream::app);
-        stream << textstream.str();
-        stream.close();
+Logger::StaticConstructor::StaticConstructor()
+{
+    Logger::fatal.SetInternalLevel(LogLevel::FATAL);
+    Logger::error.SetInternalLevel(LogLevel::ERROR);
+    Logger::warning.SetInternalLevel(LogLevel::WARNING);
+    Logger::info.SetInternalLevel(LogLevel::INFO);
+    Logger::debug.SetInternalLevel(LogLevel::DEBUG);
+    Logger::logLevel = 31;
+    Logger::useColors = true;
+}
+
+
+Logger::Logger() : Logger(LogLevel::NOTHING)
+{
+}
+
+Logger::Logger(LogLevel level) : std::ostream(&buffer)
+{
+    SetInternalLevel(level);
+    buffer.SetParentLogger(this);
+}
+
+
+void Logger::SetInternalLevel(LogLevel level)
+{
+    this->level = level;
+    std::string prefix;
+    
+    switch (level) {
+        case LogLevel::FATAL:
+            prefix = "FATAL";
+            break;
+            
+        case LogLevel::ERROR:
+            prefix = "ERROR";
+            break;
+            
+        case LogLevel::WARNING:
+            prefix = "WARNING";
+            break;
+            
+        case LogLevel::INFO:
+            prefix = "INFO";
+            break;
+            
+        case LogLevel::NOTHING:
+        default:
+            prefix = "NOTHING";
+            break;
     }
+    
+    buffer.SetPrefix(prefix);
+}
 
-    if (stdout) {
-        std::cout << textstream.str();
-    }
 
-    mutex.unlock();
+void Logger::SetLevel(LogLevel level)
+{
+    logLevel |= (int) level;
+}
+
+void Logger::UnsetLevel(LogLevel level)
+{
+    logLevel &= ~((int) level);
+}
+
+bool Logger::IsSet(LogLevel level)
+{
+    return (logLevel & ((int) level)) != (int) LogLevel::NOTHING;
+}
+
+void Logger::UseColors(bool colors)
+{
+    useColors = colors;
 }

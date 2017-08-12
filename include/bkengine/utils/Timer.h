@@ -1,15 +1,16 @@
 #ifndef BKENGINE_TIMER_H
 #define BKENGINE_TIMER_H
 
-#include "SDLWrapper.h"
+#include <chrono>
+
 
 namespace bkengine
 {
     class Timer
     {
         private:
-            int startTicks;
-            int pausedTicks;
+            uint64_t startTicks;
+            uint64_t pausedTicks;
             bool paused;
             bool started;
 
@@ -19,7 +20,7 @@ namespace bkengine
             void stop();
             void pause();
             void unpause();
-            int getTicks() const;
+            uint64_t getTicks() const;
             bool isStarted() const;
             bool isPaused() const;
     };
