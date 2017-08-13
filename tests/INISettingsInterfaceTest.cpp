@@ -9,7 +9,7 @@
 using namespace bkengine;
 
 
-TEST_CASE("INISettingsInterface init")
+TEST_CASE("INISettingsInterface")
 {
     std::shared_ptr<SettingsInterface> settings = std::make_shared<INISettingsInterface>();
     settings->init();
@@ -127,6 +127,7 @@ TEST_CASE("INISettingsInterface init")
         {
             // TODO: reproduce a failing file opening?
         }
+        std::remove(fileName.c_str());
     }
 
     SECTION("get")

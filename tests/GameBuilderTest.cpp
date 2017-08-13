@@ -7,7 +7,7 @@
 using namespace bkengine;
 
 
-TEST_CASE("GameBuilder create Game")
+TEST_CASE("GameBuilder")
 {
     SECTION("without graphics interface")
     {

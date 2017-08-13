@@ -1,16 +1,17 @@
 CMAKE_MINIMUM_REQUIRED (VERSION 2.8.0)
 PROJECT (bkengine)
 
-OPTION (ENABLE_TESTS "Set to TRUE if you want to run the testcases afterwards" FALSE)
-
 SET (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake)
-SET (CMAKE_CXX_STANDARD 17)
+SET (CMAKE_CXX_STANDARD 14)
 
 FIND_PACKAGE (SDL2 REQUIRED)
 FIND_PACKAGE (SDL2_image REQUIRED)
 FIND_PACKAGE (SDL2_ttf REQUIRED)
 FIND_PACKAGE (SDL2_mixer REQUIRED)
 FIND_PACKAGE (Jsoncpp REQUIRED)
+
+INCLUDE (ParseAndAddCatchTests)   
+
 
 SET (LIB_INCLUDES ${SDL2_INCLUDE_DIR}
                   ${SDL2_IMAGE_INCLUDE_DIR}
@@ -53,6 +54,12 @@ SET (SOURCES src/core/Game.cpp
              src/utils/InterfaceContainer.cpp
 )
 
+SET (TEST_SOURCES tests/main.cpp
+                  tests/INISettingsInterfaceTest.cpp
+                  tests/GameBuilderTest.cpp
+                  tests/GameUtilsTest.cpp
+                  tests/SceneBuilderTest.cpp)
+
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})
 TARGET_INCLUDE_DIRECTORIES (bkengine PUBLIC include/bkengine ${LIB_INCLUDES})
@@ -60,19 +67,13 @@ TARGET_LINK_LIBRARIES (bkengine ${LIBS})
 TARGET_COMPILE_OPTIONS (bkengine PRIVATE -pedantic -Wall -Wextra -Werror -Wno-unused-parameter -Wno-missing-braces)
 
 # compile tests
-IF (${ENABLE_TESTS})
-    TARGET_COMPILE_DEFINITIONS (bkengine PRIVATE TEST)
-    SET (TEST_SOURCES tests/main.cpp
-                      tests/INISettingsInterfaceTest.cpp
-                      tests/GameBuilderTest.cpp
-                      tests/GameUtilsTest.cpp
-                      tests/SceneBuilderTest.cpp)
+ENABLE_TESTING ()
 
-    ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})
-    TARGET_LINK_LIBRARIES (bkengine_tests bkengine)
-    ADD_CUSTOM_TARGET (check "./bkengine_tests" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
-ENDIF()
+ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})
+TARGET_LINK_LIBRARIES (bkengine_tests bkengine)
+ADD_CUSTOM_TARGET (check "./bkengine_tests" "--warn" "NoAssertions" "--durations" "yes" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
+ParseAndAddCatchTests (bkengine_tests)
 
 # add a target to generate API documentation with Doxygen
 FIND_PACKAGE (Doxygen)

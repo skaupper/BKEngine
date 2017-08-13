@@ -8,7 +8,7 @@
 using namespace bkengine;
 
 
-TEST_CASE("SceneBuilder create Scene")
+TEST_CASE("SceneBuilder")
 {
     auto game = GameBuilder::createBuilder().setGraphicsInterface<MockGraphicsInterface>().build<Game>();
     auto builder = SceneBuilder::createBuilder();
