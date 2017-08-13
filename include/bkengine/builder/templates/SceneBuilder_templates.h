@@ -13,7 +13,7 @@ namespace bkengine
         if (parentGame == nullptr) {
             throw BuilderException("Scenes without parent game are not allowed!");
         }
-        scene->setName(name);
+        scene->name = name;
         GameUtils::addScene(parentGame, scene);
         return scene;
     }

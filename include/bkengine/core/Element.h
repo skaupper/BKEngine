@@ -40,7 +40,7 @@ namespace bkengine
         void _onLoop();
         void _onEvent(const Event &);
 
-        std::shared_ptr<Scene> parentScene = nullptr;
+        std::weak_ptr<Scene> parentScene;
 
         uint32_t collisionLayer = 0;
 

@@ -47,7 +47,7 @@ namespace bkengine
         void _onEvent(const Event &);
 
 
-        std::shared_ptr<Game> parentGame;
+        std::weak_ptr<Game> parentGame;
         std::string name;
 
         std::vector<std::shared_ptr<Element>> elements;

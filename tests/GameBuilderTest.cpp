@@ -2,21 +2,22 @@
 
 #include "builder/GameBuilder.h"
 
+#include "MockGraphicsInterface.h"
+
 using namespace bkengine;
 
 
-TEST_CASE("GameBuiler empty Game")
+TEST_CASE("GameBuilder create Game")
 {
-    SECTION("without graphics interface") {
+    SECTION("without graphics interface")
+    {
         REQUIRE_THROWS_AS(GameBuilder::createBuilder().build<Game>(), NullPointerException);
     }
-    /*
-    SECTION ("with graphics interface") {
+
+    SECTION("with graphics interface")
+    {
         auto builder = GameBuilder::createBuilder();
-        builder.setGraphicsInterface<SDLGraphicsInterface>();
-        std::shared_ptr<Game> game;
-        REQUIRE_NOTHROW(game = builder.build());
-        REQUIRE(game != nullptr);
+        builder.setGraphicsInterface<MockGraphicsInterface>();
+        REQUIRE_NOTHROW(builder.build<Game>());
     }
-    */
 }

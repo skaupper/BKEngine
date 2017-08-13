@@ -8,9 +8,9 @@ namespace bkengine
 {
     class BuilderException : public std::runtime_error
     {
-        public:
-            using std::runtime_error::runtime_error;
+    public:
+        using std::runtime_error::runtime_error;
     };
 }
 
-#endif // BKENGINE_BUILDER_EXCEPTION_H
+#endif  // BKENGINE_BUILDER_EXCEPTION_H

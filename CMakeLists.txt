@@ -64,7 +64,9 @@ IF (${ENABLE_TESTS})
     TARGET_COMPILE_DEFINITIONS (bkengine PRIVATE TEST)
     SET (TEST_SOURCES tests/main.cpp
                       tests/INISettingsInterfaceTest.cpp
-                      tests/GameBuilderTest.cpp)
+                      tests/GameBuilderTest.cpp
+                      tests/GameUtilsTest.cpp
+                      tests/SceneBuilderTest.cpp)
 
     ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})
     TARGET_LINK_LIBRARIES (bkengine_tests bkengine)
