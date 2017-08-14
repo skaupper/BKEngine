@@ -6,6 +6,7 @@
 
 #include "core/Element.h"
 #include "core/Scene.h"
+#include "core/utils/SceneUtils.h"
 #include "exceptions/BuilderException.h"
 #include "utils/Geometry.h"
 
@@ -23,6 +24,7 @@ namespace bkengine
         ElementBuilder &setParentScene(std::shared_ptr<Scene>);
         ElementBuilder &setRenderBox(Rect);
         ElementBuilder &setCollisionBox(Rect);
+        ElementBuilder &setCollisionLayer(uint32_t);
 
         template <typename T>
         std::shared_ptr<T> build() const;
@@ -34,6 +36,7 @@ namespace bkengine
         std::shared_ptr<Scene> parentScene = nullptr;
         Rect renderBox = {0, 0, 100, 100};
         Rect collisionBox = {0, 0, 100, 100};
+        uint32_t collisionLayer = 0;
     };
 }
 

@@ -5,6 +5,9 @@ using namespace bkengine;
 
 void GameUtils::addScene(std::shared_ptr<Game> game, std::shared_ptr<Scene> scene)
 {
+    assert(game != nullptr);
+    assert(scene != nullptr);
+
     if (hasScene(game, scene->name)) {
         throw NameAlreadyExistsException("Scene '" + scene->name + "' already exists in game!");
     }
@@ -18,6 +21,8 @@ void GameUtils::addScene(std::shared_ptr<Game> game, std::shared_ptr<Scene> scen
 
 bool GameUtils::hasScene(std::shared_ptr<Game> game, const std::string &name)
 {
+    assert(game != nullptr);
+
     auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
@@ -27,6 +32,8 @@ bool GameUtils::hasScene(std::shared_ptr<Game> game, const std::string &name)
 
 std::shared_ptr<Scene> GameUtils::removeScene(std::shared_ptr<Game> game, const std::string &name)
 {
+    assert(game != nullptr);
+
     auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
@@ -44,6 +51,8 @@ std::shared_ptr<Scene> GameUtils::removeScene(std::shared_ptr<Game> game, const 
 
 std::vector<std::shared_ptr<Scene>> GameUtils::removeAllScenes(std::shared_ptr<Game> game)
 {
+    assert(game != nullptr);
+
     auto scenesCopy = game->scenes;
     game->scenes.clear();
     return scenesCopy;
@@ -51,6 +60,8 @@ std::vector<std::shared_ptr<Scene>> GameUtils::removeAllScenes(std::shared_ptr<G
 
 std::vector<std::string> GameUtils::getSceneNames(std::shared_ptr<Game> game)
 {
+    assert(game != nullptr);
+
     auto getName = [](std::shared_ptr<Scene> scene) { return scene->name; };
 
     std::vector<std::string> nameVector;
@@ -62,6 +73,8 @@ std::vector<std::string> GameUtils::getSceneNames(std::shared_ptr<Game> game)
 
 std::shared_ptr<Scene> GameUtils::getScene(std::shared_ptr<Game> game, const std::string &name)
 {
+    assert(game != nullptr);
+
     auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
@@ -76,12 +89,16 @@ std::shared_ptr<Scene> GameUtils::getScene(std::shared_ptr<Game> game, const std
 
 uint32_t GameUtils::getSceneCount(std::shared_ptr<Game> game)
 {
+    assert(game != nullptr);
+
     return game->scenes.size();
 }
 
 
 void GameUtils::activateScene(std::shared_ptr<Game> game, const std::string &name)
 {
+    assert(game != nullptr);
+
     auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
@@ -96,5 +113,7 @@ void GameUtils::activateScene(std::shared_ptr<Game> game, const std::string &nam
 
 std::shared_ptr<Scene> GameUtils::getCurrentScene(std::shared_ptr<Game> game)
 {
+    assert(game != nullptr);
+
     return game->currentScene;
 }

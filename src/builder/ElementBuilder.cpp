@@ -31,3 +31,9 @@ ElementBuilder &ElementBuilder::setCollisionBox(Rect collisionBox)
     ElementBuilder::collisionBox = collisionBox;
     return *this;
 }
+
+ElementBuilder &ElementBuilder::setCollisionLayer(uint32_t collisionLayer)
+{
+    ElementBuilder::collisionLayer = collisionLayer;
+    return *this;
+}

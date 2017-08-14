@@ -7,10 +7,16 @@ namespace bkengine
         {
         };
         auto element = std::make_shared<wrapper>();
+        if (name.empty()) {
+            throw BuilderException("You have to specify a name for the scene!");
+        }
+        if (parentScene == nullptr) {
+            throw BuilderException("Elements without parent scene are not allowed!");
+        }
         element->name = std::move(name);
-        element->parentScene = parentScene;
         element->renderBox = renderBox;
         element->collisionBox = collisionBox;
+        SceneUtils::addElement(parentScene, element, collisionLayer);
         return element;
     }
 }
