@@ -9,6 +9,8 @@ namespace bkengine
     class Font
     {
     public:
+        explicit Font() = default;
+
         void setName(const std::string &name);
         void setSize(double size);
 
@@ -17,7 +19,7 @@ namespace bkengine
 
     private:
         std::string name;
-        double size;
+        double size = 0.0;
     };
 }
 

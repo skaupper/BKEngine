@@ -19,7 +19,7 @@ namespace bkengine
     }
 
     template <typename T>
-    std::shared_ptr<T> SceneBuilder::createScene(const std::string &name, std::shared_ptr<Game> game)
+    std::shared_ptr<T> SceneBuilder::createScene(const std::string &name, const std::shared_ptr<Game> &game)
     {
         return SceneBuilder::createBuilder().setParentGame(game).setName(name).build<T>();
     }

@@ -14,19 +14,19 @@ ElementBuilder &ElementBuilder::setName(const std::string &name)
     return *this;
 }
 
-ElementBuilder &ElementBuilder::setParentScene(std::shared_ptr<Scene> parentScene)
+ElementBuilder &ElementBuilder::setParentScene(const std::shared_ptr<Scene> &parentScene)
 {
     ElementBuilder::parentScene = parentScene;
     return *this;
 }
 
-ElementBuilder &ElementBuilder::setRenderBox(Rect renderBox)
+ElementBuilder &ElementBuilder::setRenderBox(const Rect &renderBox)
 {
     ElementBuilder::renderBox = renderBox;
     return *this;
 }
 
-ElementBuilder &ElementBuilder::setCollisionBox(Rect collisionBox)
+ElementBuilder &ElementBuilder::setCollisionBox(const Rect &collisionBox)
 {
     ElementBuilder::collisionBox = collisionBox;
     return *this;

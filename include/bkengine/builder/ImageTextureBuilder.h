@@ -18,10 +18,10 @@ namespace bkengine
         friend class TextureBuilder;
 
     public:
-        ImageTextureBuilder &setGame(std::shared_ptr<Game>);
+        ImageTextureBuilder &setGame(const std::shared_ptr<Game> &);
         ImageTextureBuilder &setFilePath(const std::string &);
-        ImageTextureBuilder &setClip(Rect);
-        ImageTextureBuilder &setTextureSize(Rect);
+        ImageTextureBuilder &setClip(const Rect &);
+        ImageTextureBuilder &setTextureSize(const Rect &);
 
         template <typename T>
         std::shared_ptr<T> build() const;
