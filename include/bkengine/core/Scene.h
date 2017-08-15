@@ -36,16 +36,10 @@ namespace bkengine
     protected:
         explicit Scene() = default;
 
-        void addToCollisionLayer(std::shared_ptr<Element>, uint32_t layer);
-        void removeFromCollisionLayer(std::shared_ptr<Element>);
-        std::vector<std::shared_ptr<Element>> getCollisionLayer(uint32_t layer);
-
-
     private:
         void _onLoop();
         void _onRender();
         void _onEvent(const Event &);
-
 
         std::weak_ptr<Game> parentGame;
         std::string name;

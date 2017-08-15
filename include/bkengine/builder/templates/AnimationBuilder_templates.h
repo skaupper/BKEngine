@@ -6,7 +6,7 @@ namespace bkengine
         struct wrapper : public T
         {
         };
-        auto animation = std::make_shared<wrapper>();
+        auto animation = std::static_pointer_cast<Animation>(std::make_shared<wrapper>());
         animation->name = name;
         animation->framesPerTexture = framesPerTexture;
         return animation;

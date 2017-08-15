@@ -3,7 +3,7 @@
 using namespace bkengine;
 
 
-TextTextureBuilder &TextTextureBuilder::setGame(std::shared_ptr<Game> game)
+TextTextureBuilder &TextTextureBuilder::setGame(const std::shared_ptr<Game> &game)
 {
     TextTextureBuilder::game = game;
     return *this;
@@ -15,13 +15,13 @@ TextTextureBuilder &TextTextureBuilder::setText(const std::string &text)
     return *this;
 }
 
-TextTextureBuilder &TextTextureBuilder::setFont(Font font)
+TextTextureBuilder &TextTextureBuilder::setFont(const Font &font)
 {
     TextTextureBuilder::font = font;
     return *this;
 }
 
-TextTextureBuilder &TextTextureBuilder::setTextureSize(Rect textureSize)
+TextTextureBuilder &TextTextureBuilder::setTextureSize(const Rect &textureSize)
 {
     TextTextureBuilder::textureSize = textureSize;
     return *this;

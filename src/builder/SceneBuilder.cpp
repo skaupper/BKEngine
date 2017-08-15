@@ -14,7 +14,7 @@ SceneBuilder &SceneBuilder::setName(const std::string &name)
     return *this;
 }
 
-SceneBuilder &SceneBuilder::setParentGame(std::shared_ptr<Game> parentGame)
+SceneBuilder &SceneBuilder::setParentGame(const std::shared_ptr<Game> &parentGame)
 {
     SceneBuilder::parentGame = parentGame;
     return *this;

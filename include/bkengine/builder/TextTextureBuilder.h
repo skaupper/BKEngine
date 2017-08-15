@@ -19,10 +19,10 @@ namespace bkengine
         friend class TextureBuilder;
 
     public:
-        TextTextureBuilder &setGame(std::shared_ptr<Game>);
+        TextTextureBuilder &setGame(const std::shared_ptr<Game> &);
         TextTextureBuilder &setText(const std::string &);
-        TextTextureBuilder &setFont(Font);
-        TextTextureBuilder &setTextureSize(Rect);
+        TextTextureBuilder &setFont(const Font &);
+        TextTextureBuilder &setTextureSize(const Rect &);
         TextTextureBuilder &setTextQuality(TextQuality);
 
         template <typename T>

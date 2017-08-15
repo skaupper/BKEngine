@@ -3,7 +3,7 @@
 using namespace bkengine;
 
 
-ImageTextureBuilder &ImageTextureBuilder::setGame(std::shared_ptr<Game> game)
+ImageTextureBuilder &ImageTextureBuilder::setGame(const std::shared_ptr<Game> &game)
 {
     ImageTextureBuilder::game = game;
     return *this;
@@ -15,13 +15,13 @@ ImageTextureBuilder &ImageTextureBuilder::setFilePath(const std::string &filePat
     return *this;
 }
 
-ImageTextureBuilder &ImageTextureBuilder::setClip(Rect clip)
+ImageTextureBuilder &ImageTextureBuilder::setClip(const Rect &clip)
 {
     clipRect = clip;
     return *this;
 }
 
-ImageTextureBuilder &ImageTextureBuilder::setTextureSize(Rect size)
+ImageTextureBuilder &ImageTextureBuilder::setTextureSize(const Rect &size)
 {
     textureSize = size;
     return *this;

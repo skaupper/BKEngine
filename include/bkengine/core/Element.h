@@ -19,6 +19,7 @@ namespace bkengine
     {
         friend class Scene;
         friend class SceneUtils;
+        friend class ElementBuilder;
 
     public:
         virtual ~Element() = default;

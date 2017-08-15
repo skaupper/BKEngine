@@ -58,7 +58,9 @@ SET (TEST_SOURCES tests/main.cpp
                   tests/INISettingsInterfaceTest.cpp
                   tests/GameBuilderTest.cpp
                   tests/GameUtilsTest.cpp
-                  tests/SceneBuilderTest.cpp)
+                  tests/SceneBuilderTest.cpp
+                  tests/SceneUtilsTest.cpp
+                  tests/ElementBuilderTest.cpp)
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})

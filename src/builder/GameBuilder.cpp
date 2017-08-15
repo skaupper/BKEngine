@@ -8,7 +8,7 @@ GameBuilder GameBuilder::createBuilder()
     return GameBuilder();
 }
 
-GameBuilder &GameBuilder::setWindowSize(Size size)
+GameBuilder &GameBuilder::setWindowSize(const Size &size)
 {
     windowSize = size;
     return *this;

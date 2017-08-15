@@ -19,14 +19,14 @@ namespace bkengine
     public:
         static SceneBuilder createBuilder();
         SceneBuilder &setName(const std::string &);
-        SceneBuilder &setParentGame(std::shared_ptr<Game>);
+        SceneBuilder &setParentGame(const std::shared_ptr<Game> &);
 
         template <typename T>
         std::shared_ptr<T> build() const;
 
 
         template <typename T>
-        static std::shared_ptr<T> createScene(const std::string &, std::shared_ptr<Game>);
+        static std::shared_ptr<T> createScene(const std::string &, const std::shared_ptr<Game> &);
 
     private:
         SceneBuilder() = default;

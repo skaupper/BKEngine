@@ -18,17 +18,17 @@ namespace bkengine
     class GameUtils
     {
     public:
-        static void addScene(std::shared_ptr<Game>, std::shared_ptr<Scene>);
-        static bool hasScene(std::shared_ptr<Game>, const std::string &);
-        static std::shared_ptr<Scene> removeScene(std::shared_ptr<Game>, const std::string &);
-        static std::vector<std::shared_ptr<Scene>> removeAllScenes(std::shared_ptr<Game>);
+        static void addScene(const std::shared_ptr<Game> &, const std::shared_ptr<Scene> &);
+        static bool hasScene(const std::shared_ptr<Game> &, const std::string &);
+        static std::shared_ptr<Scene> removeScene(const std::shared_ptr<Game> &, const std::string &);
+        static std::vector<std::shared_ptr<Scene>> removeAllScenes(const std::shared_ptr<Game> &);
 
-        static std::vector<std::string> getSceneNames(std::shared_ptr<Game>);
-        static std::shared_ptr<Scene> getScene(std::shared_ptr<Game>, const std::string &);
-        static uint32_t getSceneCount(std::shared_ptr<Game>);
+        static std::vector<std::string> getSceneNames(const std::shared_ptr<Game> &);
+        static std::shared_ptr<Scene> getScene(const std::shared_ptr<Game> &, const std::string &);
+        static uint32_t getSceneCount(const std::shared_ptr<Game> &);
 
-        static void activateScene(std::shared_ptr<Game>, const std::string &);
-        static std::shared_ptr<Scene> getCurrentScene(std::shared_ptr<Game>);
+        static void activateScene(const std::shared_ptr<Game> &, const std::string &);
+        static std::shared_ptr<Scene> getCurrentScene(const std::shared_ptr<Game> &);
 
     private:
         GameUtils() = delete;
