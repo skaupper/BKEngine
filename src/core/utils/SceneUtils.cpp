@@ -3,7 +3,9 @@
 using namespace bkengine;
 
 
-void SceneUtils::addElement(std::shared_ptr<Scene> scene, std::shared_ptr<Element> element, uint32_t collisionLayer)
+void SceneUtils::addElement(const std::shared_ptr<Scene> &scene,
+                            const std::shared_ptr<Element> &element,
+                            uint32_t collisionLayer)
 {
     assert(scene != nullptr);
     assert(element != nullptr);
@@ -11,13 +13,14 @@ void SceneUtils::addElement(std::shared_ptr<Scene> scene, std::shared_ptr<Elemen
     if (hasElement(scene, element->name)) {
         throw NameAlreadyExistsException("Element '" + element->name + "' already exists in scene!");
     }
+
     element->parentScene = scene;
     element->collisionLayer = collisionLayer;
     scene->elements.push_back(element);
     scene->collisionLayers[collisionLayer].push_back(element);
 }
 
-bool SceneUtils::hasElement(std::shared_ptr<Scene> scene, const std::string &name)
+bool SceneUtils::hasElement(const std::shared_ptr<Scene> &scene, const std::string &name)
 {
     assert(scene != nullptr);
 
@@ -28,7 +31,7 @@ bool SceneUtils::hasElement(std::shared_ptr<Scene> scene, const std::string &nam
     return result != elements.cend();
 }
 
-std::shared_ptr<Element> SceneUtils::removeElement(std::shared_ptr<Scene> scene, const std::string &name)
+std::shared_ptr<Element> SceneUtils::removeElement(const std::shared_ptr<Scene> &scene, const std::string &name)
 {
     assert(scene != nullptr);
 
@@ -54,7 +57,7 @@ std::shared_ptr<Element> SceneUtils::removeElement(std::shared_ptr<Scene> scene,
     return element;
 }
 
-std::vector<std::shared_ptr<Element>> SceneUtils::removeAllElements(std::shared_ptr<Scene> scene)
+std::vector<std::shared_ptr<Element>> SceneUtils::removeAllElements(const std::shared_ptr<Scene> &scene)
 {
     assert(scene != nullptr);
 
@@ -63,7 +66,7 @@ std::vector<std::shared_ptr<Element>> SceneUtils::removeAllElements(std::shared_
     return elementsCopy;
 }
 
-std::shared_ptr<Element> SceneUtils::getElement(std::shared_ptr<Scene> scene, const std::string &name)
+std::shared_ptr<Element> SceneUtils::getElement(const std::shared_ptr<Scene> &scene, const std::string &name)
 {
     assert(scene != nullptr);
 
@@ -79,7 +82,7 @@ std::shared_ptr<Element> SceneUtils::getElement(std::shared_ptr<Scene> scene, co
     return *result;
 }
 
-std::vector<std::string> SceneUtils::getElementNames(std::shared_ptr<Scene> scene)
+std::vector<std::string> SceneUtils::getElementNames(const std::shared_ptr<Scene> &scene)
 {
     assert(scene != nullptr);
 
@@ -91,14 +94,14 @@ std::vector<std::string> SceneUtils::getElementNames(std::shared_ptr<Scene> scen
     return names;
 }
 
-uint32_t SceneUtils::getElementCount(std::shared_ptr<Scene> scene)
+uint32_t SceneUtils::getElementCount(const std::shared_ptr<Scene> &scene)
 {
     assert(scene != nullptr);
 
     return scene->elements.size();
 }
 
-std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayer(std::shared_ptr<Scene> scene,
+std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayer(const std::shared_ptr<Scene> &scene,
                                                                     uint32_t collisionLayer)
 {
     assert(scene != nullptr);
@@ -106,8 +109,8 @@ std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayer(std::shared_
     return scene->collisionLayers[collisionLayer];
 }
 
-std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayerOfElement(std::shared_ptr<Scene> scene,
-                                                                             std::shared_ptr<Element> element)
+std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayerOfElement(const std::shared_ptr<Scene> &scene,
+                                                                             const std::shared_ptr<Element> &element)
 {
     assert(scene != nullptr);
     assert(element != nullptr);
@@ -123,7 +126,7 @@ std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayerOfElement(std
     return elementsOtherThanElement;
 }
 
-void SceneUtils::moveElementToCollisionLayer(std::shared_ptr<Scene> scene,
+void SceneUtils::moveElementToCollisionLayer(const std::shared_ptr<Scene> &scene,
                                              const std::string &name,
                                              uint32_t newCollisionLayer)
 {

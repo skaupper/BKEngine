@@ -6,7 +6,7 @@ namespace bkengine
         struct wrapper : public T
         {
         };
-        auto scene = std::make_shared<wrapper>();
+        auto scene = std::static_pointer_cast<Scene>(std::make_shared<wrapper>());
         if (name.empty()) {
             throw BuilderException("You have to specify a name for the scene!");
         }

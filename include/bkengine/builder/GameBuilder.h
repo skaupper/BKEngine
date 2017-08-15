@@ -37,7 +37,7 @@ namespace bkengine
         std::shared_ptr<T> build() const;
 
     private:
-        GameBuilder() = default;
+        explicit GameBuilder() = default;
 
         InterfaceContainer interfaceContainer;
         Size windowSize = {1024, 768};

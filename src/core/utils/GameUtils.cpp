@@ -3,7 +3,7 @@
 using namespace bkengine;
 
 
-void GameUtils::addScene(std::shared_ptr<Game> game, std::shared_ptr<Scene> scene)
+void GameUtils::addScene(const std::shared_ptr<Game> &game, const std::shared_ptr<Scene> &scene)
 {
     assert(game != nullptr);
     assert(scene != nullptr);
@@ -19,7 +19,7 @@ void GameUtils::addScene(std::shared_ptr<Game> game, std::shared_ptr<Scene> scen
     }
 }
 
-bool GameUtils::hasScene(std::shared_ptr<Game> game, const std::string &name)
+bool GameUtils::hasScene(const std::shared_ptr<Game> &game, const std::string &name)
 {
     assert(game != nullptr);
 
@@ -30,7 +30,7 @@ bool GameUtils::hasScene(std::shared_ptr<Game> game, const std::string &name)
     return result != scenes.cend();
 }
 
-std::shared_ptr<Scene> GameUtils::removeScene(std::shared_ptr<Game> game, const std::string &name)
+std::shared_ptr<Scene> GameUtils::removeScene(const std::shared_ptr<Game> &game, const std::string &name)
 {
     assert(game != nullptr);
 
@@ -49,7 +49,7 @@ std::shared_ptr<Scene> GameUtils::removeScene(std::shared_ptr<Game> game, const 
     return scene;
 }
 
-std::vector<std::shared_ptr<Scene>> GameUtils::removeAllScenes(std::shared_ptr<Game> game)
+std::vector<std::shared_ptr<Scene>> GameUtils::removeAllScenes(const std::shared_ptr<Game> &game)
 {
     assert(game != nullptr);
 
@@ -58,7 +58,7 @@ std::vector<std::shared_ptr<Scene>> GameUtils::removeAllScenes(std::shared_ptr<G
     return scenesCopy;
 }
 
-std::vector<std::string> GameUtils::getSceneNames(std::shared_ptr<Game> game)
+std::vector<std::string> GameUtils::getSceneNames(const std::shared_ptr<Game> &game)
 {
     assert(game != nullptr);
 
@@ -71,7 +71,7 @@ std::vector<std::string> GameUtils::getSceneNames(std::shared_ptr<Game> game)
     return nameVector;
 }
 
-std::shared_ptr<Scene> GameUtils::getScene(std::shared_ptr<Game> game, const std::string &name)
+std::shared_ptr<Scene> GameUtils::getScene(const std::shared_ptr<Game> &game, const std::string &name)
 {
     assert(game != nullptr);
 
@@ -87,7 +87,7 @@ std::shared_ptr<Scene> GameUtils::getScene(std::shared_ptr<Game> game, const std
     return *result;
 }
 
-uint32_t GameUtils::getSceneCount(std::shared_ptr<Game> game)
+uint32_t GameUtils::getSceneCount(const std::shared_ptr<Game> &game)
 {
     assert(game != nullptr);
 
@@ -95,7 +95,7 @@ uint32_t GameUtils::getSceneCount(std::shared_ptr<Game> game)
 }
 
 
-void GameUtils::activateScene(std::shared_ptr<Game> game, const std::string &name)
+void GameUtils::activateScene(const std::shared_ptr<Game> &game, const std::string &name)
 {
     assert(game != nullptr);
 
@@ -111,7 +111,7 @@ void GameUtils::activateScene(std::shared_ptr<Game> game, const std::string &nam
     game->currentScene = *result;
 }
 
-std::shared_ptr<Scene> GameUtils::getCurrentScene(std::shared_ptr<Game> game)
+std::shared_ptr<Scene> GameUtils::getCurrentScene(const std::shared_ptr<Game> &game)
 {
     assert(game != nullptr);
 
