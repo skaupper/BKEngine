@@ -23,7 +23,7 @@ bool GameUtils::hasScene(const std::shared_ptr<Game> &game, const std::string &n
 {
     assert(game != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
+    auto findByName = [&name](const std::shared_ptr<Scene> &scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
     auto result = std::find_if(scenes.cbegin(), scenes.cend(), findByName);
@@ -34,7 +34,7 @@ std::shared_ptr<Scene> GameUtils::removeScene(const std::shared_ptr<Game> &game,
 {
     assert(game != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
+    auto findByName = [&name](const std::shared_ptr<Scene> &scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
     auto result = std::find_if(scenes.cbegin(), scenes.cend(), findByName);
@@ -62,7 +62,7 @@ std::vector<std::string> GameUtils::getSceneNames(const std::shared_ptr<Game> &g
 {
     assert(game != nullptr);
 
-    auto getName = [](std::shared_ptr<Scene> scene) { return scene->name; };
+    auto getName = [](const std::shared_ptr<Scene> &scene) { return scene->name; };
 
     std::vector<std::string> nameVector;
     auto &scenes = game->scenes;
@@ -75,7 +75,7 @@ std::shared_ptr<Scene> GameUtils::getScene(const std::shared_ptr<Game> &game, co
 {
     assert(game != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
+    auto findByName = [&name](const std::shared_ptr<Scene> &scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
     auto result = std::find_if(scenes.cbegin(), scenes.cend(), findByName);
@@ -99,7 +99,7 @@ void GameUtils::activateScene(const std::shared_ptr<Game> &game, const std::stri
 {
     assert(game != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Scene> scene) { return name == scene->name; };
+    auto findByName = [&name](const std::shared_ptr<Scene> &scene) { return name == scene->name; };
 
     auto &scenes = game->scenes;
     auto result = std::find_if(scenes.cbegin(), scenes.cend(), findByName);

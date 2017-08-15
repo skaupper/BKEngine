@@ -24,7 +24,7 @@ bool SceneUtils::hasElement(const std::shared_ptr<Scene> &scene, const std::stri
 {
     assert(scene != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Element> element) { return name == element->name; };
+    auto findByName = [&name](const std::shared_ptr<Element> &element) { return name == element->name; };
 
     auto &elements = scene->elements;
     auto result = std::find_if(elements.cbegin(), elements.cend(), findByName);
@@ -35,7 +35,7 @@ std::shared_ptr<Element> SceneUtils::removeElement(const std::shared_ptr<Scene> 
 {
     assert(scene != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Element> element) { return name == element->name; };
+    auto findByName = [&name](const std::shared_ptr<Element> &element) { return name == element->name; };
 
     auto &elements = scene->elements;
     auto result = std::find_if(elements.cbegin(), elements.cend(), findByName);
@@ -70,7 +70,7 @@ std::shared_ptr<Element> SceneUtils::getElement(const std::shared_ptr<Scene> &sc
 {
     assert(scene != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Element> element) { return name == element->name; };
+    auto findByName = [&name](const std::shared_ptr<Element> &element) { return name == element->name; };
 
     auto &elements = scene->elements;
     auto result = std::find_if(elements.cbegin(), elements.cend(), findByName);
@@ -86,7 +86,7 @@ std::vector<std::string> SceneUtils::getElementNames(const std::shared_ptr<Scene
 {
     assert(scene != nullptr);
 
-    auto getName = [](std::shared_ptr<Element> element) { return element->name; };
+    auto getName = [](const std::shared_ptr<Element> &element) { return element->name; };
 
     std::vector<std::string> names;
     auto &elements = scene->elements;
@@ -115,7 +115,9 @@ std::vector<std::shared_ptr<Element>> SceneUtils::getCollisionLayerOfElement(con
     assert(scene != nullptr);
     assert(element != nullptr);
 
-    auto otherThanElement = [&element](std::shared_ptr<Element> elementInLayer) { return element != elementInLayer; };
+    auto otherThanElement = [&element](const std::shared_ptr<Element> &elementInLayer) {
+        return element != elementInLayer;
+    };
     auto &collisionLayer = scene->collisionLayers[element->collisionLayer];
 
     std::vector<std::shared_ptr<Element>> elementsOtherThanElement;
@@ -132,7 +134,7 @@ void SceneUtils::moveElementToCollisionLayer(const std::shared_ptr<Scene> &scene
 {
     assert(scene != nullptr);
 
-    auto findByName = [&name](std::shared_ptr<Element> element) { return name == element->name; };
+    auto findByName = [&name](const std::shared_ptr<Element> &element) { return name == element->name; };
 
     auto &elements = scene->elements;
     auto result = std::find_if(elements.cbegin(), elements.cend(), findByName);

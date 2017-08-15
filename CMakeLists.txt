@@ -33,6 +33,7 @@ SET (SOURCES src/core/Game.cpp
 
              src/core/utils/GameUtils.cpp
              src/core/utils/SceneUtils.cpp
+             src/core/utils/ElementUtils.cpp
 
              src/builder/GameBuilder.cpp
              src/builder/SceneBuilder.cpp
@@ -60,7 +61,9 @@ SET (TEST_SOURCES tests/main.cpp
                   tests/GameUtilsTest.cpp
                   tests/SceneBuilderTest.cpp
                   tests/SceneUtilsTest.cpp
-                  tests/ElementBuilderTest.cpp)
+                  tests/ElementBuilderTest.cpp
+                  tests/ElementUtilsTest.cpp
+                  tests/AnimationBuilderTest.cpp)
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})

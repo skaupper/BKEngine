@@ -16,6 +16,8 @@ namespace bkengine
     class Animation
     {
         friend class Element;
+        friend class ElementUtils;
+        friend class AnimationBuilder;
 
     public:
         virtual ~Animation() = default;
@@ -27,7 +29,7 @@ namespace bkengine
 
 
         std::string name;
-        
+
         unsigned int framesPerTexture;
         unsigned int frameCounter = 0;
 

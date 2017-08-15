@@ -6,6 +6,8 @@
 
 #include "core/Animation.h"
 #include "core/Element.h"
+#include "core/utils/ElementUtils.h"
+#include "exceptions/BuilderException.h"
 
 
 namespace bkengine
@@ -18,6 +20,7 @@ namespace bkengine
     public:
         static AnimationBuilder createBuilder();
         AnimationBuilder &setName(const std::string &);
+        AnimationBuilder &setParentElement(const std::shared_ptr<Element> &);
         AnimationBuilder &setFramesPerTexture(uint32_t);
 
         template <typename T>
@@ -27,6 +30,7 @@ namespace bkengine
         AnimationBuilder() = default;
 
         std::string name;
+        std::shared_ptr<Element> parentElement = nullptr;
         uint32_t framesPerTexture = 60;
     };
 }
