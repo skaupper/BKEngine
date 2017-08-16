@@ -17,20 +17,25 @@ namespace bkengine
     class SceneUtils
     {
     public:
-        static void addElement(const std::shared_ptr<Scene> &, const std::shared_ptr<Element> &, uint32_t);
-        static bool hasElement(const std::shared_ptr<Scene> &, const std::string &);
-        static std::shared_ptr<Element> removeElement(const std::shared_ptr<Scene> &, const std::string &);
-        static std::vector<std::shared_ptr<Element>> removeAllElements(const std::shared_ptr<Scene> &);
+        static void addElement(const std::shared_ptr<Scene> &scene,
+                               const std::shared_ptr<Element> &element,
+                               uint32_t collisionLayerIndex);
+        static bool hasElement(const std::shared_ptr<Scene> &scene, const std::string &name);
+        static std::shared_ptr<Element> removeElement(const std::shared_ptr<Scene> &scene, const std::string &name);
+        static std::vector<std::shared_ptr<Element>> removeAllElements(const std::shared_ptr<Scene> &scene);
 
-        static std::shared_ptr<Element> getElement(const std::shared_ptr<Scene> &, const std::string &);
-        static std::vector<std::string> getElementNames(const std::shared_ptr<Scene> &);
-        static uint32_t getElementCount(const std::shared_ptr<Scene> &);
+        static std::shared_ptr<Element> getElement(const std::shared_ptr<Scene> &scene, const std::string &name);
+        static std::vector<std::string> getElementNames(const std::shared_ptr<Scene> &scene);
+        static uint32_t getElementCount(const std::shared_ptr<Scene> &scene);
 
-        static std::vector<std::shared_ptr<Element>> getCollisionLayer(const std::shared_ptr<Scene> &, uint32_t);
-        static std::vector<std::shared_ptr<Element>> getCollisionLayerOfElement(const std::shared_ptr<Scene> &,
-                                                                                const std::shared_ptr<Element> &);
+        static std::vector<std::shared_ptr<Element>> getCollisionLayer(const std::shared_ptr<Scene> &scene,
+                                                                       uint32_t collisionLayerIndex);
+        static std::vector<std::shared_ptr<Element>>
+        getCollisionLayerOfElement(const std::shared_ptr<Scene> &scene, const std::shared_ptr<Element> &element);
 
-        static void moveElementToCollisionLayer(const std::shared_ptr<Scene> &, const std::string &, uint32_t);
+        static void moveElementToCollisionLayer(const std::shared_ptr<Scene> &scene,
+                                                const std::string &name,
+                                                uint32_t collisionLayerIndex);
 
     private:
         SceneUtils() = delete;

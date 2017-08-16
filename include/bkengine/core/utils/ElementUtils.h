@@ -18,16 +18,18 @@ namespace bkengine
     class ElementUtils
     {
     public:
-        static void addAnimation(const std::shared_ptr<Element> &, const std::shared_ptr<Animation> &);
-        static bool hasAnimation(const std::shared_ptr<Element> &, const std::string &);
-        static std::shared_ptr<Animation> removeAnimation(const std::shared_ptr<Element> &, const std::string &);
-        static std::vector<std::shared_ptr<Animation>> removeAllAnimations(const std::shared_ptr<Element> &);
+        static void addAnimation(const std::shared_ptr<Element> &element, const std::shared_ptr<Animation> &animation);
+        static bool hasAnimation(const std::shared_ptr<Element> &element, const std::string &name);
+        static std::shared_ptr<Animation> removeAnimation(const std::shared_ptr<Element> &element,
+                                                          const std::string &name);
+        static std::vector<std::shared_ptr<Animation>> removeAllAnimations(const std::shared_ptr<Element> &element);
 
-        static std::shared_ptr<Animation> getAnimation(const std::shared_ptr<Element> &, const std::string &);
-        static std::vector<std::string> getAnimationNames(const std::shared_ptr<Element> &);
-        static uint32_t getAnimationCount(const std::shared_ptr<Element> &);
+        static std::shared_ptr<Animation> getAnimation(const std::shared_ptr<Element> &element,
+                                                       const std::string &name);
+        static std::vector<std::string> getAnimationNames(const std::shared_ptr<Element> &element);
+        static uint32_t getAnimationCount(const std::shared_ptr<Element> &element);
 
-        static void activateAnimation(const std::shared_ptr<Element> &, const std::string &);
+        static void activateAnimation(const std::shared_ptr<Element> &element, const std::string &name);
 
     private:
         ElementUtils() = delete;
