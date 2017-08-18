@@ -10,7 +10,8 @@
 
 using namespace bkengine;
 
-TEST_CASE("SceneUtilsTest.cpp")
+
+TEST_CASE("SceneUtils")
 {
     auto gameBuilder = GameBuilder::createBuilder();
     auto game = gameBuilder.setGraphicsInterface<MockGraphicsInterface>().build<Game>();

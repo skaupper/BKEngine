@@ -14,6 +14,12 @@ AnimationBuilder &AnimationBuilder::setName(const std::string &name)
     return *this;
 }
 
+AnimationBuilder &AnimationBuilder::setParentElement(const std::shared_ptr<Element> &parentElement)
+{
+    AnimationBuilder::parentElement = parentElement;
+    return *this;
+}
+
 AnimationBuilder &AnimationBuilder::setFramesPerTexture(uint32_t frames)
 {
     AnimationBuilder::framesPerTexture = frames;
