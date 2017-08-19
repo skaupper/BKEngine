@@ -41,11 +41,13 @@ namespace bkengine
         struct wrapper : public T
         {
         };
+
         auto game = std::static_pointer_cast<Game>(std::make_shared<wrapper>());
         game->interfaceContainer = interfaceContainer;
         game->setWindowSize(windowSize);
         game->setWindowTitle(windowTitle);
         game->setIconFile(iconFile);
+        
         return game;
     }
 }

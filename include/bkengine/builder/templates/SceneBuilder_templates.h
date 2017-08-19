@@ -10,15 +10,13 @@ namespace bkengine
         if (name.empty()) {
             throw BuilderException("You have to specify a name for the scene!");
         }
-        if (parentGame == nullptr) {
-            throw BuilderException("Scenes without parent game are not allowed!");
-        }
 
         auto scene = std::static_pointer_cast<Scene>(std::make_shared<wrapper>());
         scene->name = name;
 
-        // TODO: maybe implement the option to build without parentGame?
-        GameUtils::addScene(parentGame, scene);
+        if (parentGame != nullptr) {
+            GameUtils::addScene(parentGame, scene);
+        }
         return scene;
     }
 
