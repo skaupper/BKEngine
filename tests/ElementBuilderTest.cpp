@@ -22,7 +22,10 @@ TEST_CASE("ElementBuilder")
     {
         auto builder = ElementBuilder::createBuilder();
         builder.setName("Element builder");
-        REQUIRE_THROWS_AS(builder.build<Element>(), BuilderException);
+        std::shared_ptr<Element> element = nullptr;
+        REQUIRE_NOTHROW(element = builder.build<Element>());
+
+        REQUIRE(element->getName() == "Element builder");
     }
 
     SECTION("with name and parent scene")

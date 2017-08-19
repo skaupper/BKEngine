@@ -33,7 +33,7 @@ void Game::run()
         _onLoop();
         _onRender();
 
-        int frameTicks = timer.getTicks();
+        uint64_t frameTicks = timer.getTicks();
 
         if (frameTicks < SCREEN_TICKS_PER_FRAME) {
             graphicsInterface->delay(SCREEN_TICKS_PER_FRAME - frameTicks);

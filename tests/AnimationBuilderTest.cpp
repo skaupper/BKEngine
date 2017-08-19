@@ -19,7 +19,17 @@ TEST_CASE("AnimationBuilder")
         REQUIRE_THROWS_AS(AnimationBuilder::createBuilder().build<Animation>(), BuilderException);
     }
 
-    SECTION("with parentElement")
+    SECTION("with name")
+    {
+        auto animationBuilder = AnimationBuilder::createBuilder();
+        animationBuilder.setName("test animation");
+
+        std::shared_ptr<Animation> animation = nullptr;
+        REQUIRE_NOTHROW(animation = animationBuilder.build<Animation>());
+        REQUIRE(animation->getName() == "test animation");
+    }
+
+    SECTION("with parentElement and name")
     {
         auto gameBuilder = GameBuilder::createBuilder();
         auto game = gameBuilder.setGraphicsInterface<MockGraphicsInterface>().build<Game>();
