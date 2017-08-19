@@ -29,12 +29,8 @@ namespace bkengine
         virtual bool onEvent(const Event &);
 
         std::string getName() const;
-        void setName(const std::string &);
-
         RelRect getRenderBox() const;
-        void setRenderBox(const RelRect &);
         RelRect getCollisionBox() const;
-        void setCollisionBox(const RelRect &);
 
     protected:
         explicit Element() = default;

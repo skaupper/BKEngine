@@ -24,10 +24,7 @@ namespace bkengine
         virtual bool onRender();
 
         std::string getName() const;
-        void setName(const std::string &);
-
         uint32_t getFramesPerTexture() const;
-        void setFramesPerTexture(uint32_t);
 
     protected:
         explicit Animation() = default;

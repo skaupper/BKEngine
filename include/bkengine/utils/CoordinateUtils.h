@@ -10,7 +10,7 @@ namespace bkengine
     {
     public:
         /**
-            Applies relative coordinates to a absolute (or also relative) rectangle.
+            Applies relative coordinates to an absolute (or also relative) rectangle.
             Imagine a window with the dimensions 1024:768.
             Applying a (relative) rectangle { 0, 0, 50, 25 } would result in an (absolute) rectangle
             { 0, 0, 512, 192 }.

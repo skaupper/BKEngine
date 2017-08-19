@@ -24,29 +24,14 @@ std::string Element::getName() const
     return name;
 }
 
-void Element::setName(const std::string &name)
-{
-    Element::name = name;
-}
-
 RelRect Element::getRenderBox() const
 {
     return renderBox;
 }
 
-void Element::setRenderBox(const RelRect &renderBox)
-{
-    Element::renderBox = renderBox;
-}
-
 RelRect Element::getCollisionBox() const
 {
     return collisionBox;
-}
-
-void Element::setCollisionBox(const RelRect &collisionBox)
-{
-    Element::collisionBox = collisionBox;
 }
 
 
