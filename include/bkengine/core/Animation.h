@@ -18,6 +18,7 @@ namespace bkengine
         friend class Element;
         friend class ElementUtils;
         friend class AnimationBuilder;
+        friend class AnimationUtils;
 
     public:
         virtual ~Animation() = default;

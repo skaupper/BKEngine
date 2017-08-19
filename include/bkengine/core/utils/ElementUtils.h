@@ -30,6 +30,7 @@ namespace bkengine
         static uint32_t getAnimationCount(const std::shared_ptr<Element> &element);
 
         static void activateAnimation(const std::shared_ptr<Element> &element, const std::string &name);
+        static std::shared_ptr<Animation> getCurrentAnimation(const std::shared_ptr<Element> &element);
 
     private:
         ElementUtils() = delete;

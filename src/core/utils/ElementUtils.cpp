@@ -101,3 +101,8 @@ void ElementUtils::activateAnimation(const std::shared_ptr<Element> &element, co
 
     element->currentAnimation = getAnimation(element, name);
 }
+
+std::shared_ptr<Animation> ElementUtils::getCurrentAnimation(const std::shared_ptr<Element> &element)
+{
+    return element->currentAnimation;
+}

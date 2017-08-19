@@ -158,4 +158,24 @@ TEST_CASE("ElementUtils")
             REQUIRE(ElementUtils::getAnimationCount(element) == 2);
         }
     }
+
+    SECTION("getCurrentAnimation")
+    {
+        SECTION("no animation activated")
+        {
+            animationBuilder.build<Animation>();
+            REQUIRE(ElementUtils::getCurrentAnimation(element) == nullptr);
+        }
+
+        SECTION("activated animation")
+        {
+            auto animation = animationBuilder.build<Animation>();
+            auto animation2 = animationBuilder.setName("test animation 2").build<Animation>();
+
+            ElementUtils::activateAnimation(element, animationName);
+
+            REQUIRE(ElementUtils::getCurrentAnimation(element) == animation);
+            REQUIRE(ElementUtils::getAnimationCount(element) == 2);
+        }
+    }
 }
