@@ -3,12 +3,22 @@
 using namespace bkengine;
 
 
+std::string Texture::getName() const
+{
+    return name;
+}
+
 void Texture::setName(const std::string &name)
 {
     Texture::name = name;
 }
 
-std::string Texture::getName() const
+Rect Texture::getSize() const
 {
-    return name;
+    return size;
+}
+
+void Texture::setSize(const Rect &size)
+{
+    Texture::size = size;
 }

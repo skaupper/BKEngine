@@ -33,6 +33,9 @@ namespace bkengine
         virtual bool onRender();
         virtual bool onEvent(const Event &);
 
+        std::string getName() const;
+        void setName(const std::string &);
+
     protected:
         explicit Scene() = default;
 

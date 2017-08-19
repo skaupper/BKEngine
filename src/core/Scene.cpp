@@ -18,6 +18,15 @@ bool Scene::onEvent(const Event &event)
     return false;
 }
 
+std::string Scene::getName() const
+{
+    return name;
+}
+
+void Scene::setName(const std::string &name)
+{
+    Scene::name = name;
+}
 
 void Scene::_onRender()
 {

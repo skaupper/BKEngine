@@ -34,6 +34,10 @@ TEST_CASE("ElementBuilder")
 
         auto elementBuilder = ElementBuilder::createBuilder();
         elementBuilder.setName("test element").setParentScene(scene);
-        REQUIRE_NOTHROW(elementBuilder.build<Element>());
+        std::shared_ptr<Element> element = nullptr;
+        REQUIRE_NOTHROW(element = elementBuilder.build<Element>());
+        REQUIRE(element->getName() == "test element");
+        REQUIRE(element->getCollisionBox() == Rect(0, 0, 100, 100));
+        REQUIRE(element->getRenderBox() == Rect(0, 0, 100, 100));
     }
 }

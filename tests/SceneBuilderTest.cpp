@@ -17,7 +17,9 @@ TEST_CASE("SceneBuilder")
     {
         builder.setName("builderTest");
         builder.setParentGame(game);
-        REQUIRE_NOTHROW(builder.build<Scene>());
+        std::shared_ptr<Scene> scene = nullptr;
+        REQUIRE_NOTHROW(scene = builder.build<Scene>());
+        REQUIRE(scene->getName() == "builderTest");
     }
     SECTION("with name only")
     {

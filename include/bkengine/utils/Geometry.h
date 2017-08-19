@@ -1,7 +1,9 @@
 #ifndef BKENGINE_GEOMETRY_H
 #define BKENGINE_GEOMETRY_H
 
+#include <cmath>
 #include <string>
+#include <limits>
 
 
 namespace bkengine
@@ -19,6 +21,10 @@ namespace bkengine
         explicit operator Rect() const;
 
         std::string toString() const;
+
+        bool operator==(const Point &point) const;
+        bool operator!=(const Point &point) const;
+        bool operator<(const Point &point) const;
     };
 
     struct Size
@@ -32,6 +38,10 @@ namespace bkengine
         explicit operator Rect() const;
 
         std::string toString() const;
+
+        bool operator==(const Size &size) const;
+        bool operator!=(const Size &size) const;
+        bool operator<(const Size &size) const;
     };
 
     struct Rect
@@ -52,12 +62,7 @@ namespace bkengine
 
         bool operator==(const Rect &rect) const;
         bool operator!=(const Rect &rect) const;
-
-        /**
-            Dummy operator which allows us to use a Rect in a `std::map`.
-            Equals to `rect1 != rect2`.
-        */
-        bool operator<(const Rect &c) const;
+        bool operator<(const Rect &rect) const;
     };
 }
 
