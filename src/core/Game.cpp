@@ -4,7 +4,7 @@ using namespace bkengine;
 
 
 // FPS = 60
-static const double SCREEN_TICKS_PER_FRAME = 1000. / 60;
+static const double SCREEN_TICKS_PER_FRAME = 1000. / 60.;
 
 
 void Game::run()
@@ -12,6 +12,18 @@ void Game::run()
     auto eventInterface = interfaceContainer.getEventInterface();
     auto settingsInterface = interfaceContainer.getSettingsInterface();
     auto graphicsInterface = interfaceContainer.getGraphicsInterface();
+
+    if (graphicsInterface == nullptr) {
+        throw GameLoopException("Game cannot be started because no graphics interface is set!");
+    }
+
+    if (eventInterface == nullptr) {
+        throw GameLoopException("Game cannot be started because no event interface is set!");
+    }
+
+    if (settingsInterface == nullptr) {
+        throw GameLoopException("Game cannot be started because no settings interface is set!");
+    }
 
     Timer timer;
     running = true;
@@ -71,17 +83,29 @@ bool Game::onEvent(const Event &event)
 
 void Game::setIconFile(const std::string &file)
 {
-    interfaceContainer.getGraphicsInterface()->setIcon(file);
+    auto graphicsInterface = interfaceContainer.getGraphicsInterface();
+    if (graphicsInterface == nullptr) {
+        throw NullPointerException("Failed to set icon file. Graphics interface is not set!");
+    }
+    graphicsInterface->setIcon(file);
 }
 
 void Game::setWindowSize(Size size)
 {
-    interfaceContainer.getGraphicsInterface()->setWindowSize(size);
+    auto graphicsInterface = interfaceContainer.getGraphicsInterface();
+    if (graphicsInterface == nullptr) {
+        throw NullPointerException("Failed to set window size. Graphics interface is not set!");
+    }
+    graphicsInterface->setWindowSize(size);
 }
 
 void Game::setWindowTitle(const std::string &title)
 {
-    interfaceContainer.getGraphicsInterface()->setWindowTitle(title);
+    auto graphicsInterface = interfaceContainer.getGraphicsInterface();
+    if (graphicsInterface == nullptr) {
+        throw NullPointerException("Failed to set window title. Graphics interface is not set!");
+    }
+    graphicsInterface->setWindowTitle(title);
 }
 
 

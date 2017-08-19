@@ -1,8 +1,8 @@
 #include "catch.hpp"
 
-#include "builder/GameBuilder.h"
+#include "core/builder/GameBuilder.h"
 
-#include "MockGraphicsInterface.h"
+#include "mocks/MockGraphicsInterface.h"
 
 using namespace bkengine;
 

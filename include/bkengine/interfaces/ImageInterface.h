@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "utils/ImageTexture.h"
+#include "core/ImageTexture.h"
 
 
 namespace bkengine
@@ -11,7 +11,8 @@ namespace bkengine
     class ImageInterface
     {
     public:
-        virtual std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &filePath) = 0;
+        virtual std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &filePath,
+                                                                       const AbsRect &) = 0;
     };
 }
 

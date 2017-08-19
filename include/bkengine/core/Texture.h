@@ -12,6 +12,7 @@ namespace bkengine
     {
         friend class TextTextureBuilder;
         friend class ImageTextureBuilder;
+        friend class AnimationUtils;
 
     public:
         virtual ~Texture() = default;
@@ -19,16 +20,16 @@ namespace bkengine
         virtual void onRender() = 0;
 
         std::string getName() const;
-        void setName(const std::string &);
-
-        Rect getSize() const;
-        void setSize(const Rect &);
 
     protected:
         explicit Texture() = default;
 
         std::string name;
         Rect size;
+        Point position;
+        double angle;
+        bool flipHorizontally;
+        bool flipVertically;
     };
 }
 

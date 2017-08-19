@@ -11,8 +11,6 @@
 
 namespace bkengine
 {
-    class Texture;
-
     class Animation
     {
         friend class Element;

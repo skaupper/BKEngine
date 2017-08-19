@@ -1,8 +1,8 @@
 #ifndef BKENGINE_TEXTURE_BUILDER_H
 #define BKENGINE_TEXTURE_BUILDER_H
 
-#include "builder/ImageTextureBuilder.h"
-#include "builder/TextTextureBuilder.h"
+#include "core/builder/ImageTextureBuilder.h"
+#include "core/builder/TextTextureBuilder.h"
 
 
 namespace bkengine

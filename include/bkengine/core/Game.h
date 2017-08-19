@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "core/Scene.h"
+#include "exceptions/GameLoopException.h"
 #include "utils/InterfaceContainer.h"
 #include "utils/Logger.h"
 #include "utils/Timer.h"
@@ -13,12 +14,12 @@
 
 namespace bkengine
 {
-    class Scene;
-
     class Game
     {
         friend class GameBuilder;
         friend class GameUtils;
+        friend class ImageTextureBuilder;
+        friend class TextTextureBuilder;
 
     public:
         virtual ~Game() = default;

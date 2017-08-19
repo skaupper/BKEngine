@@ -2,7 +2,6 @@
 #define BKENGINE_TEXT_TEXTURE
 
 #include "core/Texture.h"
-#include "utils/Font.h"
 
 
 namespace bkengine
@@ -23,7 +22,7 @@ namespace bkengine
     protected:
         explicit TextTexture() = default;
 
-        Font font;
+        std::string fontName;
         TextQuality quality;
     };
 }

@@ -1,16 +1,17 @@
 #include "catch.hpp"
 
-#include "builder/AnimationBuilder.h"
-#include "builder/ElementBuilder.h"
-#include "builder/GameBuilder.h"
-#include "builder/SceneBuilder.h"
+#include "core/builder/AnimationBuilder.h"
+#include "core/builder/ElementBuilder.h"
+#include "core/builder/GameBuilder.h"
+#include "core/builder/SceneBuilder.h"
+#include "core/builder/TextureBuilder.h"
 #include "core/utils/AnimationUtils.h"
 #include "core/utils/ElementUtils.h"
 #include "core/utils/GameUtils.h"
 #include "core/utils/SceneUtils.h"
 
-#include "MockGraphicsInterface.h"
-#include "MockImageInterface.h"
+#include "mocks/MockGraphicsInterface.h"
+#include "mocks/MockImageInterface.h"
 
 using namespace bkengine;
 
@@ -32,10 +33,10 @@ TEST_CASE("AnimationUtils")
 
     auto imageInterface = std::make_shared<MockImageInterface>();
     std::string textureName = "test texture";
-    std::shared_ptr<Texture> texture = imageInterface->renderImageFileToTexture("mock");
-    texture->setName(textureName);
-    std::shared_ptr<Texture> texture2 = imageInterface->renderImageFileToTexture("mock");
-    texture2->setName("test texture 2");
+    auto texBuilder = TextureBuilder::createImageBuilder();
+    texBuilder.setName(textureName).setGame(game).setFilePath("asdf");
+    auto texture = texBuilder.build();
+    auto texture2 = texBuilder.setName("test texture 2").build();
 
     SECTION("addTexture")
     {

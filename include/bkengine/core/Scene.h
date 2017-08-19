@@ -17,7 +17,6 @@
 namespace bkengine
 {
     class Game;
-    class Element;
 
     class Scene
     {

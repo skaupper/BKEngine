@@ -8,9 +8,9 @@ namespace bkengine
 {
     class NullPointerException : public std::runtime_error
     {
-        public:
-            using std::runtime_error::runtime_error;
+    public:
+        using std::runtime_error::runtime_error;
     };
 }
 
-#endif // BKENGINE_NULL_POINTER_EXCEPTION_H
+#endif  // BKENGINE_NULL_POINTER_EXCEPTION_H

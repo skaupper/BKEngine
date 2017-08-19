@@ -20,7 +20,7 @@ namespace bkengine
     class MockImageInterface : public ImageInterface
     {
     public:
-        std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &) override
+        std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &, const AbsRect &) override
         {
             return std::make_shared<MockImageTexture>();
         }

@@ -7,24 +7,18 @@ SET (CMAKE_CXX_STANDARD 14)
 FIND_PACKAGE (SDL2 REQUIRED)
 FIND_PACKAGE (SDL2_image REQUIRED)
 FIND_PACKAGE (SDL2_ttf REQUIRED)
-FIND_PACKAGE (SDL2_mixer REQUIRED)
-FIND_PACKAGE (Jsoncpp REQUIRED)
 
 INCLUDE (ParseAndAddCatchTests)   
 
 
 SET (LIB_INCLUDES ${SDL2_INCLUDE_DIR}
                   ${SDL2_IMAGE_INCLUDE_DIR}
-                  ${SDL2_TTF_INCLUDE_DIR}
-                  ${SDL2_MIXER_INCLUDE_DIRS}
-                  ${JSONCPP_INCLUDE_DIRS})
+                  ${SDL2_TTF_INCLUDE_DIR})
 
 
 SET (LIBS ${SDL2_LIBRARY}
           ${SDL2_IMAGE_LIBRARIES}
-          ${SDL2_TTF_LIBRARIES}
-          ${SDL2_MIXER_LIBRARIES}
-          ${JSONCPP_LIBRARIES})
+          ${SDL2_TTF_LIBRARIES})
 
 SET (SOURCES src/core/Game.cpp
              src/core/Scene.cpp
@@ -37,13 +31,13 @@ SET (SOURCES src/core/Game.cpp
              src/core/utils/ElementUtils.cpp
              src/core/utils/AnimationUtils.cpp
 
-             src/builder/GameBuilder.cpp
-             src/builder/SceneBuilder.cpp
-             src/builder/ElementBuilder.cpp
-             src/builder/AnimationBuilder.cpp
-             src/builder/TextureBuilder.cpp
-             src/builder/ImageTextureBuilder.cpp
-             src/builder/TextTextureBuilder.cpp
+             src/core/builder/GameBuilder.cpp
+             src/core/builder/SceneBuilder.cpp
+             src/core/builder/ElementBuilder.cpp
+             src/core/builder/AnimationBuilder.cpp
+             src/core/builder/TextureBuilder.cpp
+             src/core/builder/ImageTextureBuilder.cpp
+             src/core/builder/TextTextureBuilder.cpp
 
              src/interfaces/impl/INISettingsInterface.cpp
 
@@ -56,8 +50,7 @@ SET (SOURCES src/core/Game.cpp
              src/utils/Event.cpp
              src/utils/Key.cpp
              src/utils/Keys.cpp
-             src/utils/InterfaceContainer.cpp
-)
+             src/utils/InterfaceContainer.cpp)
 
 SET (TEST_SOURCES tests/main.cpp
                   tests/INISettingsInterfaceTest.cpp
@@ -68,7 +61,9 @@ SET (TEST_SOURCES tests/main.cpp
                   tests/ElementBuilderTest.cpp
                   tests/ElementUtilsTest.cpp
                   tests/AnimationBuilderTest.cpp
-                  tests/AnimationUtilsTest.cpp)
+                  tests/AnimationUtilsTest.cpp
+                  tests/ImageTextureBuilderTest.cpp
+                  tests/TextTextureBuilderTest.cpp)
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES})

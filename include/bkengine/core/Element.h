@@ -13,7 +13,6 @@
 namespace bkengine
 {
     class Scene;
-    class Animation;
 
     class Element
     {
@@ -32,10 +31,10 @@ namespace bkengine
         std::string getName() const;
         void setName(const std::string &);
 
-        Rect getRenderBox() const;
-        void setRenderBox(const Rect &);
-        Rect getCollisionBox() const;
-        void setCollisionBox(const Rect &);
+        RelRect getRenderBox() const;
+        void setRenderBox(const RelRect &);
+        RelRect getCollisionBox() const;
+        void setCollisionBox(const RelRect &);
 
     protected:
         explicit Element() = default;

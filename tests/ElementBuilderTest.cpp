@@ -1,12 +1,12 @@
 #include "catch.hpp"
 
-#include "builder/ElementBuilder.h"
-#include "builder/GameBuilder.h"
-#include "builder/SceneBuilder.h"
+#include "core/builder/ElementBuilder.h"
+#include "core/builder/GameBuilder.h"
+#include "core/builder/SceneBuilder.h"
 #include "core/utils/GameUtils.h"
 #include "core/utils/SceneUtils.h"
 
-#include "MockGraphicsInterface.h"
+#include "mocks/MockGraphicsInterface.h"
 
 using namespace bkengine;
 
@@ -40,7 +40,7 @@ TEST_CASE("ElementBuilder")
         std::shared_ptr<Element> element = nullptr;
         REQUIRE_NOTHROW(element = elementBuilder.build<Element>());
         REQUIRE(element->getName() == "test element");
-        REQUIRE(element->getCollisionBox() == Rect(0, 0, 100, 100));
-        REQUIRE(element->getRenderBox() == Rect(0, 0, 100, 100));
+        REQUIRE(element->getCollisionBox() == RelRect(0, 0, 100, 100));
+        REQUIRE(element->getRenderBox() == RelRect(0, 0, 100, 100));
     }
 }

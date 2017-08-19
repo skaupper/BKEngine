@@ -1,4 +1,4 @@
-#include "builder/SceneBuilder.h"
+#include "core/builder/SceneBuilder.h"
 
 using namespace bkengine;
 

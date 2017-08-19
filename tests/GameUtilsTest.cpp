@@ -1,11 +1,11 @@
 #include "catch.hpp"
 
-#include "builder/GameBuilder.h"
-#include "builder/SceneBuilder.h"
+#include "core/builder/GameBuilder.h"
+#include "core/builder/SceneBuilder.h"
 #include "core/utils/GameUtils.h"
 #include "core/utils/SceneUtils.h"
 
-#include "MockGraphicsInterface.h"
+#include "mocks/MockGraphicsInterface.h"
 
 using namespace bkengine;
 
