@@ -26,6 +26,8 @@ namespace bkengine
         void run();
         void stop();
 
+        bool isRunning() const;
+
     protected:
         explicit Game() = default;
 

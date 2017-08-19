@@ -30,6 +30,9 @@ TEST_CASE("AnimationBuilder")
 
         auto animationBuilder = AnimationBuilder::createBuilder();
         animationBuilder.setName("test animation").setParentElement(element);
-        REQUIRE_NOTHROW(animationBuilder.build<Animation>());
+        std::shared_ptr<Animation> animation = nullptr;
+        REQUIRE_NOTHROW(animation = animationBuilder.build<Animation>());
+        REQUIRE(animation->getFramesPerTexture() == 60);
+        REQUIRE(animation->getName() == "test animation");
     }
 }

@@ -142,49 +142,9 @@ Key Keys::BRIGHTNESSUP("BRIGHTNESSUP");
 Key Keys::SLEEP("SLEEP");
 Key Keys::POWER("POWER");
 
-bool Key::operator==(const Key &key) const
-{
-    return keyString == key.keyString;
-}
-
-bool Key::operator!=(const Key &key) const
-{
-    return !(key == *this);
-}
-
-Key::operator const std::string() const
-{
-    return keyString;
-}
-
-std::string Key::toString() const
-{
-    return keyString;
-}
-
 
 Button Buttons::UNKNOWN("UNKNOWN");
 Button Buttons::LEFT("LEFT");
 Button Buttons::RIGHT("RIGHT");
 Button Buttons::MIDDLE("MIDDLE");
 Button Buttons::SPECIAL("SPECIAL");
-
-bool Button::operator==(const Button &button) const
-{
-    return buttonString == button.buttonString;
-}
-
-bool Button::operator!=(const Button &button) const
-{
-    return !(button == *this);
-}
-
-Button::operator const std::string() const
-{
-    return buttonString;
-}
-
-std::string Button::toString() const
-{
-    return buttonString;
-}

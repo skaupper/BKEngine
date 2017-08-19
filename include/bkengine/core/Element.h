@@ -29,6 +29,14 @@ namespace bkengine
         virtual bool onLoop();
         virtual bool onEvent(const Event &);
 
+        std::string getName() const;
+        void setName(const std::string &);
+
+        Rect getRenderBox() const;
+        void setRenderBox(const Rect &);
+        Rect getCollisionBox() const;
+        void setCollisionBox(const Rect &);
+
     protected:
         explicit Element() = default;
 

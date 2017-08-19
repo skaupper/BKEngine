@@ -18,8 +18,11 @@ namespace bkengine
 
         virtual void onRender() = 0;
 
-        void setName(const std::string &);
         std::string getName() const;
+        void setName(const std::string &);
+
+        Rect getSize() const;
+        void setSize(const Rect &);
 
     protected:
         explicit Texture() = default;

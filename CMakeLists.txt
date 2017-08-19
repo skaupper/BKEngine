@@ -48,11 +48,13 @@ SET (SOURCES src/core/Game.cpp
              src/interfaces/impl/INISettingsInterface.cpp
 
              src/utils/Color.cpp
+             src/utils/Colors.cpp
              src/utils/Geometry.cpp
              src/utils/CoordinateUtils.cpp
              src/utils/Timer.cpp
              src/utils/Logger.cpp
              src/utils/Event.cpp
+             src/utils/Key.cpp
              src/utils/Keys.cpp
              src/utils/InterfaceContainer.cpp
 )

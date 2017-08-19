@@ -48,6 +48,11 @@ void Game::stop()
     running = false;
 }
 
+bool Game::isRunning() const
+{
+    return running;
+}
+
 bool Game::onRender()
 {
     return false;

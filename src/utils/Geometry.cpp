@@ -3,6 +3,24 @@
 using namespace bkengine;
 
 
+static int8_t doubleCompare(double d1, double d2)
+{
+    static double EPSILON = std::numeric_limits<double>::epsilon();
+
+    double diff = std::fabs(d1 - d2);
+
+    if (diff < EPSILON) {
+        return 0;
+    }
+
+    if (d1 < d2) {
+        return -1;
+    }
+
+    return 1;
+}
+
+
 Point::Point() : x(0), y(0)
 {
 }
@@ -21,8 +39,38 @@ std::string Point::toString() const
     return "<Point {x: " + std::to_string(x) + ", y: " + std::to_string(y) + "}>";
 }
 
+bool Point::operator==(const Point &point) const
+{
+    bool equalX = (doubleCompare(x, point.x) == 0);
+    bool equalY = (doubleCompare(y, point.y) == 0);
+    return equalX && equalY;
+}
 
-Size::Size() : w(0), h(0)
+bool Point::operator!=(const Point &point) const
+{
+    return !(operator==(point));
+}
+
+bool Point::operator<(const Point &point) const
+{
+    int8_t cmp;
+    if ((cmp = doubleCompare(x, point.x)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    if ((cmp = doubleCompare(y, point.y)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    return false;
+}
+
+
+Size::Size() : w(100), h(100)
 {
 }
 
@@ -40,8 +88,38 @@ std::string Size::toString() const
     return "<Size {x: " + std::to_string(w) + ", y: " + std::to_string(h) + "}>";
 }
 
+bool Size::operator==(const Size &size) const
+{
+    bool equalW = (doubleCompare(w, size.w) == 0);
+    bool equalH = (doubleCompare(h, size.h) == 0);
+    return equalW && equalH;
+}
 
-Rect::Rect() : Rect(0, 0)
+bool Size::operator!=(const Size &size) const
+{
+    return !(operator==(size));
+}
+
+bool Size::operator<(const Size &size) const
+{
+    int8_t cmp;
+    if ((cmp = doubleCompare(w, size.w)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    if ((cmp = doubleCompare(h, size.h)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    return false;
+}
+
+
+Rect::Rect() : Rect(100, 100)
 {
 }
 
@@ -71,15 +149,44 @@ std::string Rect::toString() const
 
 bool Rect::operator==(const Rect &r) const
 {
-    return x == r.x && y == r.y && w == r.w && h == r.h;
+    bool equalX = (doubleCompare(x, r.x) == 0);
+    bool equalY = (doubleCompare(y, r.y) == 0);
+    bool equalW = (doubleCompare(w, r.w) == 0);
+    bool equalH = (doubleCompare(h, r.h) == 0);
+    return equalX && equalY && equalW && equalH;
 }
 
 bool Rect::operator!=(const Rect &r) const
 {
-    return !(r == *this);
+    return !(operator==(r));
 }
 
 bool Rect::operator<(const Rect &r) const
 {
-    return r != *this;
+    int8_t cmp;
+    if ((cmp = doubleCompare(x, r.x)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    if ((cmp = doubleCompare(y, r.y)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    if ((cmp = doubleCompare(w, r.w)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    if ((cmp = doubleCompare(h, r.h)) == 1) {
+        return true;
+    } else if (cmp == -1) {
+        return false;
+    }
+
+    return false;
 }
