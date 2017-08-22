@@ -17,7 +17,6 @@
 namespace bkengine
 {
     class Game;
-    class Element;
 
     class Scene
     {
@@ -34,7 +33,6 @@ namespace bkengine
         virtual bool onEvent(const Event &);
 
         std::string getName() const;
-        void setName(const std::string &);
 
     protected:
         explicit Scene() = default;

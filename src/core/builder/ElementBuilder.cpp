@@ -1,4 +1,4 @@
-#include "builder/ElementBuilder.h"
+#include "core/builder/ElementBuilder.h"
 
 using namespace bkengine;
 
@@ -20,13 +20,13 @@ ElementBuilder &ElementBuilder::setParentScene(const std::shared_ptr<Scene> &par
     return *this;
 }
 
-ElementBuilder &ElementBuilder::setRenderBox(const Rect &renderBox)
+ElementBuilder &ElementBuilder::setRenderBox(const RelRect &renderBox)
 {
     ElementBuilder::renderBox = renderBox;
     return *this;
 }
 
-ElementBuilder &ElementBuilder::setCollisionBox(const Rect &collisionBox)
+ElementBuilder &ElementBuilder::setCollisionBox(const RelRect &collisionBox)
 {
     ElementBuilder::collisionBox = collisionBox;
     return *this;

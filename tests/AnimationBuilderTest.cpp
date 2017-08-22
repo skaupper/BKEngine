@@ -1,13 +1,13 @@
 #include "catch.hpp"
 
-#include "builder/AnimationBuilder.h"
-#include "builder/ElementBuilder.h"
-#include "builder/GameBuilder.h"
-#include "builder/SceneBuilder.h"
+#include "core/builder/AnimationBuilder.h"
+#include "core/builder/ElementBuilder.h"
+#include "core/builder/GameBuilder.h"
+#include "core/builder/SceneBuilder.h"
 #include "core/utils/GameUtils.h"
 #include "core/utils/SceneUtils.h"
 
-#include "MockGraphicsInterface.h"
+#include "mocks/MockGraphicsInterface.h"
 
 using namespace bkengine;
 

@@ -22,8 +22,8 @@ namespace bkengine
         static ElementBuilder createBuilder();
         ElementBuilder &setName(const std::string &);
         ElementBuilder &setParentScene(const std::shared_ptr<Scene> &);
-        ElementBuilder &setRenderBox(const Rect &);
-        ElementBuilder &setCollisionBox(const Rect &);
+        ElementBuilder &setRenderBox(const RelRect &);
+        ElementBuilder &setCollisionBox(const RelRect &);
         ElementBuilder &setCollisionLayer(uint32_t);
 
         template <typename T>

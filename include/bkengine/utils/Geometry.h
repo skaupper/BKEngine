@@ -2,8 +2,8 @@
 #define BKENGINE_GEOMETRY_H
 
 #include <cmath>
-#include <string>
 #include <limits>
+#include <string>
 
 
 namespace bkengine
@@ -15,7 +15,8 @@ namespace bkengine
         double x;
         double y;
 
-        explicit Point();
+        // cppcheck-suppress noExplicitConstructor
+        Point();
         Point(double x, double y);
 
         explicit operator Rect() const;
@@ -32,7 +33,8 @@ namespace bkengine
         double w;
         double h;
 
-        explicit Size();
+        // cppcheck-suppress noExplicitConstructor
+        Size();
         Size(double w, double h);
 
         explicit operator Rect() const;
@@ -51,7 +53,8 @@ namespace bkengine
         double w;
         double h;
 
-        explicit Rect();
+        // cppcheck-suppress noExplicitConstructor
+        Rect();
         Rect(double w, double h);
         Rect(double x, double y, double w, double h);
 
@@ -64,6 +67,9 @@ namespace bkengine
         bool operator!=(const Rect &rect) const;
         bool operator<(const Rect &rect) const;
     };
+
+    typedef Rect RelRect;
+    typedef Rect AbsRect;
 }
 
 #endif  // BKENGINE_GEOMETRY_H

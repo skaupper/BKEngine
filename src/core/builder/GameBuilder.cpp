@@ -1,4 +1,4 @@
-#include "builder/GameBuilder.h"
+#include "core/builder/GameBuilder.h"
 
 using namespace bkengine;
 

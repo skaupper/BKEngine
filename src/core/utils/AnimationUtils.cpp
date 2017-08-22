@@ -8,8 +8,8 @@ void AnimationUtils::addTexture(const std::shared_ptr<Animation> &animation, con
     assert(animation != nullptr);
     assert(texture != nullptr);
 
-    if (hasTexture(animation, texture->getName())) {
-        throw NameAlreadyExistsException("Texture '" + texture->getName() + "' already exists in animation!");
+    if (hasTexture(animation, texture->name)) {
+        throw NameAlreadyExistsException("Texture '" + texture->name + "' already exists in animation!");
     }
 
     animation->textures.push_back(texture);
@@ -19,7 +19,7 @@ bool AnimationUtils::hasTexture(const std::shared_ptr<Animation> &animation, con
 {
     assert(animation != nullptr);
 
-    auto findByName = [&name](const std::shared_ptr<Texture> &texture) { return name == texture->getName(); };
+    auto findByName = [&name](const std::shared_ptr<Texture> &texture) { return name == texture->name; };
 
     auto &textures = animation->textures;
     auto result = std::find_if(textures.cbegin(), textures.cend(), findByName);
@@ -31,7 +31,7 @@ std::shared_ptr<Texture> AnimationUtils::removeTexture(const std::shared_ptr<Ani
 {
     assert(animation != nullptr);
 
-    auto findByName = [&name](const std::shared_ptr<Texture> &textures) { return name == textures->getName(); };
+    auto findByName = [&name](const std::shared_ptr<Texture> &textures) { return name == textures->name; };
 
     auto &textures = animation->textures;
     auto result = std::find_if(textures.cbegin(), textures.cend(), findByName);
@@ -60,7 +60,7 @@ std::shared_ptr<Texture> AnimationUtils::getTexture(const std::shared_ptr<Animat
 {
     assert(animation != nullptr);
 
-    auto findByName = [&name](const std::shared_ptr<Texture> &texture) { return name == texture->getName(); };
+    auto findByName = [&name](const std::shared_ptr<Texture> &texture) { return name == texture->name; };
 
     auto &textures = animation->textures;
     auto result = std::find_if(textures.cbegin(), textures.cend(), findByName);
@@ -76,7 +76,7 @@ std::vector<std::string> AnimationUtils::getTextureNames(const std::shared_ptr<A
 {
     assert(animation != nullptr);
 
-    auto getName = [](const std::shared_ptr<Texture> &texture) { return texture->getName(); };
+    auto getName = [](const std::shared_ptr<Texture> &texture) { return texture->name; };
 
     std::vector<std::string> nameVector;
     auto &textures = animation->textures;

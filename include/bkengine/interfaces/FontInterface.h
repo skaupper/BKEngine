@@ -3,8 +3,7 @@
 
 #include <string>
 
-#include "utils/Font.h"
-#include "utils/TextTexture.h"
+#include "core/TextTexture.h"
 
 
 namespace bkengine
@@ -12,10 +11,10 @@ namespace bkengine
     class FontInterface
     {
     public:
-        virtual Font registerFont(const std::string &filePath, const std::string &fontName, double size);
-        virtual Font getFont(const std::string &fontName, double size);
+        virtual void registerFont(const std::string &filePath, const std::string &fontName, double size) = 0;
 
-        virtual std::shared_ptr<TextTexture> renderFontToTexture(const std::string &text, Font, TextQuality);
+        virtual std::shared_ptr<TextTexture>
+        renderFontToTexture(const std::string &text, const std::string &fontName, double size, TextQuality) = 0;
     };
 }
 

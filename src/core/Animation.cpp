@@ -13,19 +13,9 @@ std::string Animation::getName() const
     return name;
 }
 
-void Animation::setName(const std::string &name)
-{
-    Animation::name = name;
-}
-
 uint32_t Animation::getFramesPerTexture() const
 {
     return framesPerTexture;
-}
-
-void Animation::setFramesPerTexture(uint32_t framesPerTexture)
-{
-    Animation::framesPerTexture = framesPerTexture;
 }
 
 
