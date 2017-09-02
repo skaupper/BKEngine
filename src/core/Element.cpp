@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 bool Element::onRender()
 {
     return false;
@@ -18,7 +17,6 @@ bool Element::onEvent(const Event &e)
     return false;
 }
 
-
 std::string Element::getName() const
 {
     return name;
@@ -33,7 +31,6 @@ RelRect Element::getCollisionBox() const
 {
     return collisionBox;
 }
-
 
 void Element::_onRender()
 {

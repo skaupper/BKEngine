@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 void SceneUtils::addElement(const std::shared_ptr<Scene> &scene,
                             const std::shared_ptr<Element> &element,
                             uint32_t collisionLayer)

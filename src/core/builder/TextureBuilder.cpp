@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 TextTextureBuilder TextureBuilder::createTextBuilder()
 {
     return TextTextureBuilder();

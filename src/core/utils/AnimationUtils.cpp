@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 void AnimationUtils::addTexture(const std::shared_ptr<Animation> &animation, const std::shared_ptr<Texture> &texture)
 {
     assert(animation != nullptr);

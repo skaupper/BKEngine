@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 Color Colors::BLACK(0, 0, 0);
 Color Colors::WHITE(0xff, 0xff, 0xff);
 Color Colors::RED(0xff, 0, 0);

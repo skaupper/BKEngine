@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 ImageTextureBuilder &ImageTextureBuilder::setGame(const std::shared_ptr<Game> &game)
 {
     ImageTextureBuilder::game = game;
@@ -52,7 +51,6 @@ ImageTextureBuilder &ImageTextureBuilder::setFlip(bool horizontal, bool vertical
     return *this;
 }
 
-
 std::shared_ptr<Texture> ImageTextureBuilder::build() const
 {
     if (game == nullptr) {
@@ -79,6 +77,6 @@ std::shared_ptr<Texture> ImageTextureBuilder::build() const
     texture->angle = angleRadians;
     texture->flipHorizontally = flipHorizontally;
     texture->flipVertically = flipVertically;
-    
+
     return texture;
 }

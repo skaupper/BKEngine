@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 std::shared_ptr<EventInterface> InterfaceContainer::getEventInterface() const
 {
     return eventInterface;

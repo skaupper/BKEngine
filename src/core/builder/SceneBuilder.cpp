@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 SceneBuilder SceneBuilder::createBuilder()
 {
     return SceneBuilder();

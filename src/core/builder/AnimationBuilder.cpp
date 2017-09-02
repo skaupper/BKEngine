@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 AnimationBuilder AnimationBuilder::createBuilder()
 {
     return AnimationBuilder();

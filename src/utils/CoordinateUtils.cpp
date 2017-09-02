@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 Rect RelativeCoordinates::apply(const RelRect &rect, const Rect &srcRect)
 {
     Rect tmp(srcRect.x + srcRect.w * rect.x / 100,

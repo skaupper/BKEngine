@@ -2,10 +2,8 @@
 
 using namespace bkengine;
 
-
 // FPS = 60
 static const double SCREEN_TICKS_PER_FRAME = 1000. / 60.;
-
 
 void Game::run()
 {
@@ -80,7 +78,6 @@ bool Game::onEvent(const Event &event)
     return false;
 }
 
-
 void Game::setIconFile(const std::string &file)
 {
     auto graphicsInterface = interfaceContainer.getGraphicsInterface();
@@ -107,7 +104,6 @@ void Game::setWindowTitle(const std::string &title)
     }
     graphicsInterface->setWindowTitle(title);
 }
-
 
 void Game::_onRender()
 {

@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 bool Scene::onRender()
 {
     return false;

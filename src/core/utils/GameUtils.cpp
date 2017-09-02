@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 void GameUtils::addScene(const std::shared_ptr<Game> &game, const std::shared_ptr<Scene> &scene)
 {
     assert(game != nullptr);
@@ -93,7 +92,6 @@ uint32_t GameUtils::getSceneCount(const std::shared_ptr<Game> &game)
 
     return game->scenes.size();
 }
-
 
 void GameUtils::activateScene(const std::shared_ptr<Game> &game, const std::string &name)
 {
