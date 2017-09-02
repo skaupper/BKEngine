@@ -40,7 +40,6 @@ SET (SOURCES src/core/Game.cpp
              src/core/builder/TextTextureBuilder.cpp
 
              src/interfaces/impl/INISettingsInterface.cpp
-             src/interfaces/impl/SDLImageInterface.cpp
 
              src/utils/Color.cpp
              src/utils/Colors.cpp
@@ -87,7 +86,6 @@ SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
             include/bkengine/exceptions/NullPointerException.h
 
             include/bkengine/interfaces/impl/INISettingsInterface.h
-            include/bkengine/interfaces/impl/SDLImageInterface.h
 
             include/bkengine/interfaces/EventInterface.h
             include/bkengine/interfaces/FontInterface.h
