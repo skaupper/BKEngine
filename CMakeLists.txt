@@ -123,7 +123,7 @@ SET (TEST_SOURCES tests/main.cpp
 
 PREPEND(ABSOLUTE_SOURCES ${PROJECT_SOURCE_DIR} ${SOURCES})
 PREPEND(ABSOLUTE_HEADERS ${PROJECT_SOURCE_DIR} ${HEADERS})
-PREPEND(ABSOLUTE_TEST_SOUCES ${PROJECT_SOURCE_DIR} ${TEST_SOURCES})
+PREPEND(ABSOLUTE_TEST_SOURCES ${PROJECT_SOURCE_DIR} ${TEST_SOURCES})
 
 # compile library
 ADD_LIBRARY (bkengine STATIC ${SOURCES} ${HEADERS})
@@ -151,17 +151,6 @@ FIND_PACKAGE (cppcheck)
 IF (CPPCHECK_FOUND)
     INCLUDE (cppcheck)
 ENDIF (CPPCHECK_FOUND)
-
-# add a target to generate API documentation with Doxygen
-FIND_PACKAGE (Doxygen)
-IF (DOXYGEN_FOUND)
-    CONFIGURE_FILE (Doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
-    ADD_CUSTOM_TARGET (doc   ${DOXYGEN_EXECUTABLE}
-                             ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-                             WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-                             COMMENT "Generating API documentation with Doxygen" VERBATIM
-                      )
-ENDIF (DOXYGEN_FOUND)
 
 INSTALL (TARGETS bkengine
          ARCHIVE DESTINATION lib)
