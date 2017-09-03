@@ -3,12 +3,13 @@
 
 #include <memory>
 
+#include "core/NameableObject.h"
 #include "utils/Geometry.h"
 
 
 namespace bkengine
 {
-    class Texture
+    class Texture : public NameableObject
     {
         friend class TextTextureBuilder;
         friend class ImageTextureBuilder;
@@ -19,12 +20,9 @@ namespace bkengine
 
         virtual void onRender() = 0;
 
-        std::string getName() const;
-
     protected:
         explicit Texture() = default;
 
-        std::string name;
         Rect size;
         Point position;
         double angle;

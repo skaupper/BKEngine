@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "core/ActivatorObject.h"
 #include "core/Scene.h"
 #include "exceptions/GameLoopException.h"
 #include "utils/InterfaceContainer.h"
@@ -14,7 +15,7 @@
 
 namespace bkengine
 {
-    class Game
+    class Game : public ActivatorObject<Scene, Game>
     {
         friend class GameBuilder;
         friend class GameUtils;
@@ -49,10 +50,6 @@ namespace bkengine
 
         bool running = false;
         Timer timer;
-
-        std::shared_ptr<Scene> currentScene = nullptr;
-        std::vector<std::shared_ptr<Scene>> scenes;
-
 
         //            template <typename T> T &getData(const std::string &name);
         //            template <typename T> T &addData(const std::string &name);

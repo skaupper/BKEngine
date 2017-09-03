@@ -14,7 +14,7 @@ namespace bkengine
 {
     class Scene;
 
-    class Element
+    class Element : public ActivatorObject<Animation, Element>  //, public HierarchicalObject<Element, Element>
     {
         friend class Scene;
         friend class SceneUtils;
@@ -28,14 +28,11 @@ namespace bkengine
         virtual bool onLoop();
         virtual bool onEvent(const Event &);
 
-        std::string getName() const;
         RelRect getRenderBox() const;
         RelRect getCollisionBox() const;
 
     protected:
         explicit Element() = default;
-
-        std::string name;
 
         Rect renderBox;
         Rect collisionBox;
@@ -45,12 +42,7 @@ namespace bkengine
         void _onLoop();
         void _onEvent(const Event &);
 
-        std::weak_ptr<Scene> parentScene;
-
         uint32_t collisionLayer = 0;
-
-        std::shared_ptr<Animation> currentAnimation;
-        std::vector<std::shared_ptr<Animation>> animations;
     };
 }
 

@@ -11,7 +11,7 @@
 
 namespace bkengine
 {
-    class Animation
+    class Animation : public ActivatorObject<LazyTextureContainer, Animation>
     {
         friend class Element;
         friend class ElementUtils;
@@ -23,22 +23,16 @@ namespace bkengine
 
         virtual bool onRender();
 
-        std::string getName() const;
         uint32_t getFramesPerTexture() const;
 
     protected:
         explicit Animation() = default;
-
-        std::string name;
 
         uint32_t framesPerTexture;
         uint32_t frameCounter = 0;
 
     private:
         void _onRender();
-
-        uint32_t currentTextureIndex = 0;
-        std::vector<std::shared_ptr<Texture>> textures;
     };
 }
 
