@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 ElementBuilder ElementBuilder::createBuilder()
 {
     return ElementBuilder();

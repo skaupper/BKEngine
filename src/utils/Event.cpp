@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 static void copy(Event &e1, const Event &e2)
 {
     e1.type = e2.type;

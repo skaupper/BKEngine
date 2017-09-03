@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 Key Keys::UNKNOWN("UNKNOWN");
 
 /* Control keys */
@@ -141,7 +140,6 @@ Key Keys::BRIGHTNESSDOWN("BRIGHTNESSDOWN");
 Key Keys::BRIGHTNESSUP("BRIGHTNESSUP");
 Key Keys::SLEEP("SLEEP");
 Key Keys::POWER("POWER");
-
 
 Button Buttons::UNKNOWN("UNKNOWN");
 Button Buttons::LEFT("LEFT");

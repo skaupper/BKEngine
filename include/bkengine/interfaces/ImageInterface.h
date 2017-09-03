@@ -11,6 +11,7 @@ namespace bkengine
     class ImageInterface
     {
     public:
+
         virtual std::shared_ptr<ImageTexture> renderImageFileToTexture(const std::string &filePath,
                                                                        const AbsRect &) = 0;
     };

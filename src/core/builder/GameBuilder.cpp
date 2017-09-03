@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 GameBuilder GameBuilder::createBuilder()
 {
     return GameBuilder();

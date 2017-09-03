@@ -39,7 +39,10 @@ SET (SOURCES src/core/Game.cpp
              src/core/builder/ImageTextureBuilder.cpp
              src/core/builder/TextTextureBuilder.cpp
 
+             src/core/impl/SDLImageTexture.cpp
+
              src/interfaces/impl/INISettingsInterface.cpp
+             src/interfaces/impl/SDLImageInterface.cpp
 
              src/utils/Color.cpp
              src/utils/Colors.cpp
@@ -86,6 +89,7 @@ SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
             include/bkengine/exceptions/NullPointerException.h
 
             include/bkengine/interfaces/impl/INISettingsInterface.h
+            include/bkengine/interfaces/impl/SDLImageInterface.h
 
             include/bkengine/interfaces/EventInterface.h
             include/bkengine/interfaces/FontInterface.h
@@ -106,7 +110,69 @@ SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
             include/bkengine/utils/Keys.h
             include/bkengine/utils/Logger.h
             include/bkengine/utils/Timer.h
-        )
+            include/bkengine/core/impl/SDLImageTexture.h
+            include/bkengine/exceptions/NotImplementedException.h
+            src/utils/InterfaceContainer.cpp
+            src/core/impl/SDLImageTexture.cpp
+)
+
+SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
+            include/bkengine/core/builder/templates/ElementBuilder_templates.h
+            include/bkengine/core/builder/templates/GameBuilder_templates.h
+            include/bkengine/core/builder/templates/SceneBuilder_templates.h
+
+            include/bkengine/core/builder/AnimationBuilder.h
+            include/bkengine/core/builder/ElementBuilder.h
+            include/bkengine/core/builder/GameBuilder.h
+            include/bkengine/core/builder/ImageTextureBuilder.h
+            include/bkengine/core/builder/SceneBuilder.h
+            include/bkengine/core/builder/TextTextureBuilder.h
+            include/bkengine/core/builder/TextureBuilder.h
+
+            include/bkengine/core/utils/AnimationUtils.h
+            include/bkengine/core/utils/ElementUtils.h
+            include/bkengine/core/utils/GameUtils.h
+            include/bkengine/core/utils/SceneUtils.h
+
+            include/bkengine/core/Animation.h
+            include/bkengine/core/Element.h
+            include/bkengine/core/Game.h
+            include/bkengine/core/ImageTexture.h
+            include/bkengine/core/Scene.h
+            include/bkengine/core/TextTexture.h
+            include/bkengine/core/Texture.h
+
+            include/bkengine/exceptions/BuilderException.h
+            include/bkengine/exceptions/GameLoopException.h
+            include/bkengine/exceptions/NameAlreadyExistsException.h
+            include/bkengine/exceptions/NameNotFoundException.h
+            include/bkengine/exceptions/NullPointerException.h
+
+            include/bkengine/interfaces/impl/INISettingsInterface.h
+            include/bkengine/interfaces/impl/SDLImageInterface.h
+
+            include/bkengine/interfaces/EventInterface.h
+            include/bkengine/interfaces/FontInterface.h
+            include/bkengine/interfaces/GraphicsInterface.h
+            include/bkengine/interfaces/ImageInterface.h
+            include/bkengine/interfaces/SettingsInterface.h
+
+            include/bkengine/utils/templates/InterfaceContainer_templates.h
+
+            include/bkengine/utils/backtrace.h
+            include/bkengine/utils/Color.h
+            include/bkengine/utils/Colors.h
+            include/bkengine/utils/CoordinateUtils.h
+            include/bkengine/utils/Event.h
+            include/bkengine/utils/Geometry.h
+            include/bkengine/utils/InterfaceContainer.h
+            include/bkengine/utils/Key.h
+            include/bkengine/utils/Keys.h
+            include/bkengine/utils/Logger.h
+            include/bkengine/utils/Timer.h
+            include/bkengine/core/impl/SDLImageTexture.h
+            include/bkengine/exceptions/NotImplementedException.h
+)
 
 SET (TEST_SOURCES tests/main.cpp
                   tests/INISettingsInterfaceTest.cpp

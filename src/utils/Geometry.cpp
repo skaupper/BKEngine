@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 static int8_t doubleCompare(double d1, double d2)
 {
     static double EPSILON = std::numeric_limits<double>::epsilon();
@@ -19,7 +18,6 @@ static int8_t doubleCompare(double d1, double d2)
 
     return 1;
 }
-
 
 Point::Point() : x(0), y(0)
 {
@@ -69,7 +67,6 @@ bool Point::operator<(const Point &point) const
     return false;
 }
 
-
 Size::Size() : w(100), h(100)
 {
 }
@@ -118,7 +115,6 @@ bool Size::operator<(const Size &size) const
     return false;
 }
 
-
 Rect::Rect() : Rect(100, 100)
 {
 }
@@ -143,8 +139,8 @@ Rect::operator Size() const
 
 std::string Rect::toString() const
 {
-    return "<Rect {x: " + std::to_string(x) + ", y: " + std::to_string(y) + ", w: " + std::to_string(w)
-           + ", h: " + std::to_string(h) + "}>";
+    return "<Rect {x: " + std::to_string(x) + ", y: " + std::to_string(y) + ", w: " + std::to_string(w) + ", h: "
+           + std::to_string(h) + "}>";
 }
 
 bool Rect::operator==(const Rect &r) const

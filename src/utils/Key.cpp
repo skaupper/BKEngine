@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 Key::Key() : Key("UNKNOWN")
 {
 }
@@ -35,7 +34,6 @@ std::string Key::toString() const
 {
     return keyString;
 }
-
 
 Button::Button() : Button("UNKNOWN")
 {

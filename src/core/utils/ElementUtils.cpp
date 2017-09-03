@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 void ElementUtils::addAnimation(const std::shared_ptr<Element> &element, const std::shared_ptr<Animation> &animation)
 {
     assert(element != nullptr);

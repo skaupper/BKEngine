@@ -2,7 +2,6 @@
 
 using namespace bkengine;
 
-
 bool Animation::onRender()
 {
     return false;
@@ -17,7 +16,6 @@ uint32_t Animation::getFramesPerTexture() const
 {
     return framesPerTexture;
 }
-
 
 void Animation::_onRender()
 {
