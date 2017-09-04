@@ -18,7 +18,6 @@ namespace bkengine
     class Game : public ActivatorObject<Scene, Game>
     {
         friend class GameBuilder;
-        friend class GameUtils;
         friend class ImageTextureBuilder;
         friend class TextTextureBuilder;
 

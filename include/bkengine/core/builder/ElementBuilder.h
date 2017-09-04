@@ -6,7 +6,6 @@
 
 #include "core/Element.h"
 #include "core/Scene.h"
-#include "core/utils/SceneUtils.h"
 #include "exceptions/BuilderException.h"
 #include "utils/Geometry.h"
 
@@ -40,6 +39,6 @@ namespace bkengine
     };
 }
 
-#include "templates/ElementBuilder_templates.h"
+#include "templates/ElementBuilder.tpp"
 
 #endif  // BKENGINE_ELEMENT_BUILDER_H

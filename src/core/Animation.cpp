@@ -8,11 +8,6 @@ bool Animation::onRender()
     return false;
 }
 
-std::string Animation::getName() const
-{
-    return name;
-}
-
 uint32_t Animation::getFramesPerTexture() const
 {
     return framesPerTexture;
@@ -21,7 +16,10 @@ uint32_t Animation::getFramesPerTexture() const
 
 void Animation::_onRender()
 {
+    uint32_t currentTextureIndex = getActivatedIndex();
+    auto textures = getAllChildren();
     bool suppress = onRender();
+
     if (suppress) {
         return;
     }

@@ -17,9 +17,7 @@ namespace bkengine
     class Element : public ActivatorObject<Animation, Element>  //, public HierarchicalObject<Element, Element>
     {
         friend class Scene;
-        friend class SceneUtils;
         friend class ElementBuilder;
-        friend class ElementUtils;
 
     public:
         virtual ~Element() = default;

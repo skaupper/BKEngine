@@ -23,9 +23,7 @@ namespace bkengine
     class Scene : public ActivatableObject, public HierarchicalObject<Element, Scene>
     {
         friend class Game;
-        friend class GameUtils;
         friend class SceneBuilder;
-        friend class SceneUtils;
 
     public:
         virtual ~Scene() = default;

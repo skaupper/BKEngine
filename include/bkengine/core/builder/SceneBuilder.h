@@ -6,7 +6,6 @@
 
 #include "core/Game.h"
 #include "core/Scene.h"
-#include "core/utils/GameUtils.h"
 #include "exceptions/BuilderException.h"
 
 namespace bkengine
@@ -36,6 +35,6 @@ namespace bkengine
     };
 }
 
-#include "templates/SceneBuilder_templates.h"
+#include "templates/SceneBuilder.tpp"
 
 #endif  // BKENGINE_SCENE_BUILDER_H

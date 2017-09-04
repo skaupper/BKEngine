@@ -46,6 +46,6 @@ namespace bkengine
     };
 }
 
-#include "templates/GameBuilder_templates.h"
+#include "templates/GameBuilder.tpp"
 
 #endif  // BKENGINE_GAME_BUILDER_H

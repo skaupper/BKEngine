@@ -17,7 +17,8 @@ namespace bkengine
         element->collisionBox = collisionBox;
 
         if (parentScene != nullptr) {
-            SceneUtils::addElement(parentScene, element, collisionLayer);
+            parentScene->addChild(element);
+            // TODO: add element to collision layer
         }
         return element;
     }

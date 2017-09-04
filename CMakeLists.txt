@@ -24,12 +24,7 @@ SET (SOURCES src/core/Game.cpp
              src/core/Scene.cpp
              src/core/Element.cpp
              src/core/Animation.cpp
-             src/core/Texture.cpp
-
-             src/core/utils/GameUtils.cpp
-             src/core/utils/SceneUtils.cpp
-             src/core/utils/ElementUtils.cpp
-             src/core/utils/AnimationUtils.cpp
+             src/core/NameableObject.cpp
 
              src/core/builder/GameBuilder.cpp
              src/core/builder/SceneBuilder.cpp
@@ -53,10 +48,10 @@ SET (SOURCES src/core/Game.cpp
              src/utils/InterfaceContainer.cpp
         )
 
-SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
-            include/bkengine/core/builder/templates/ElementBuilder_templates.h
-            include/bkengine/core/builder/templates/GameBuilder_templates.h
-            include/bkengine/core/builder/templates/SceneBuilder_templates.h
+SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder.tpp
+            include/bkengine/core/builder/templates/ElementBuilder.tpp
+            include/bkengine/core/builder/templates/GameBuilder.tpp
+            include/bkengine/core/builder/templates/SceneBuilder.tpp
 
             include/bkengine/core/builder/AnimationBuilder.h
             include/bkengine/core/builder/ElementBuilder.h
@@ -66,21 +61,25 @@ SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder_templates.h
             include/bkengine/core/builder/TextTextureBuilder.h
             include/bkengine/core/builder/TextureBuilder.h
 
-            include/bkengine/core/utils/AnimationUtils.h
-            include/bkengine/core/utils/ElementUtils.h
-            include/bkengine/core/utils/GameUtils.h
-            include/bkengine/core/utils/SceneUtils.h
+            include/bkengine/core/templates/ActivatorObject.tpp
+            include/bkengine/core/templates/HierarchicalObject.tpp
 
+            include/bkengine/core/ActivatableObject.h
+            include/bkengine/core/ActivatorObject.h
             include/bkengine/core/Animation.h
             include/bkengine/core/Element.h
             include/bkengine/core/Game.h
+            include/bkengine/core/HierarchicalObject.h
             include/bkengine/core/ImageTexture.h
+            include/bkengine/core/LazyTextureContainer.h
+            include/bkengine/core/NameableObject.h
             include/bkengine/core/Scene.h
             include/bkengine/core/TextTexture.h
             include/bkengine/core/Texture.h
 
             include/bkengine/exceptions/BuilderException.h
             include/bkengine/exceptions/GameLoopException.h
+            include/bkengine/exceptions/IndexOutOfRangeException.h
             include/bkengine/exceptions/NameAlreadyExistsException.h
             include/bkengine/exceptions/NameNotFoundException.h
             include/bkengine/exceptions/NullPointerException.h

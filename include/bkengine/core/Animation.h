@@ -6,17 +6,18 @@
 #include <string>
 #include <vector>
 
+#include "core/ActivatableObject.h"
+#include "core/ActivatorObject.h"
+#include "core/LazyTextureContainer.h"
 #include "core/Texture.h"
 
 
 namespace bkengine
 {
-    class Animation : public ActivatorObject<LazyTextureContainer, Animation>
+    class Animation : public ActivatorObject<LazyTextureContainer, Animation>, public ActivatableObject
     {
         friend class Element;
-        friend class ElementUtils;
         friend class AnimationBuilder;
-        friend class AnimationUtils;
 
     public:
         virtual ~Animation() = default;

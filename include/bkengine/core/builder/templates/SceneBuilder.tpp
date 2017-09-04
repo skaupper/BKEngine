@@ -15,7 +15,7 @@ namespace bkengine
         scene->name = name;
 
         if (parentGame != nullptr) {
-            GameUtils::addScene(parentGame, scene);
+            parentGame->addChild(scene);
         }
         return scene;
     }

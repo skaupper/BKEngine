@@ -19,11 +19,6 @@ bool Element::onEvent(const Event &e)
 }
 
 
-std::string Element::getName() const
-{
-    return name;
-}
-
 RelRect Element::getRenderBox() const
 {
     return renderBox;
@@ -42,8 +37,8 @@ void Element::_onRender()
         return;
     }
 
-    if (currentAnimation != nullptr) {
-        currentAnimation->_onRender();
+    if (getActivatedObject()) {
+        getActivatedObject()->_onRender();
     }
 }
 

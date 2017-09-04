@@ -16,13 +16,12 @@ namespace bkengine
     {
         friend class TextTextureBuilder;
 
-    public:
-        virtual void onRender() = 0;
-
     protected:
         explicit TextTexture() = default;
 
+        std::string text;
         std::string fontName;
+        double fontSize;
         TextQuality quality;
     };
 }

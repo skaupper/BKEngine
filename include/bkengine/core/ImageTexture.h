@@ -9,14 +9,12 @@ namespace bkengine
     class ImageTexture : public Texture
     {
         friend class ImageTextureBuilder;
-
-    public:
-        virtual void onRender() = 0;
-
+        
     protected:
         explicit ImageTexture() = default;
 
-        Rect clip;
+        Rect clipRect;
+        std::string filePath;
     };
 }
 

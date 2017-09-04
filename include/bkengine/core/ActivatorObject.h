@@ -16,58 +16,25 @@ namespace bkengine
                       "Child type is no sub class of ActivatableObject!");
 
     public:
-        std::shared_ptr<ChildType> activate(const std::string &name)
-        {
-            return activateByIndex(this->getChildIndex(name));
-        }
+        std::shared_ptr<ChildType> activate(const std::string &name);
+        std::shared_ptr<ChildType> activateByIndex(uint32_t index);
 
-        std::shared_ptr<ChildType> activateByIndex(uint32_t index)
-        {
-            auto child = this->getChildByIndex(index);
-            if (!onActivateInternal(child.get()) && !onActivate(child)) {
-                static_cast<ChildType *>(child.get())->onActivate();
-                activatedObject = child;
-                activatedIndex = index;
-                return child;
-            }
-            return nullptr;
-        }
-
-        std::shared_ptr<ChildType> getActivatedObject() const
-        {
-            return activatedObject;
-        }
-
-        uint32_t getActivatedIndex() const
-        {
-            return activatedIndex;
-        }
+        std::shared_ptr<ChildType> getActivatedObject() const;
+        uint32_t getActivatedIndex() const;
 
     protected:
-        virtual bool onActivate(const std::shared_ptr<ChildType> &)
-        {
-            return false;
-        }
+        virtual bool onActivate(const std::shared_ptr<ChildType> &);
+        virtual bool onActivateInternal(ChildType *);
 
-        virtual bool onActivateInternal(ChildType *)
-        {
-            return false;
-        }
-
-        bool onAddInternal(ChildType *obj) override
-        {
-            return HierarchicalObject<ChildType, ParentType>::onAddInternal(obj);
-        }
-
-        bool onRemoveInternal(ChildType *obj) override
-        {
-            return HierarchicalObject<ChildType, ParentType>::onRemoveInternal(obj);
-        }
+        bool onAddInternal(ChildType *obj) override;
+        bool onRemoveInternal(ChildType *obj) override;
 
     private:
         std::shared_ptr<ChildType> activatedObject;
         uint32_t activatedIndex;
     };
 }
+
+#include "templates/ActivatorObject.tpp"
 
 #endif  // BKENGINE_ACTIVATOR_OBJECT_H

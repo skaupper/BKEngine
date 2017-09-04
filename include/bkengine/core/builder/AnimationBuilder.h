@@ -6,7 +6,6 @@
 
 #include "core/Animation.h"
 #include "core/Element.h"
-#include "core/utils/ElementUtils.h"
 #include "exceptions/BuilderException.h"
 
 
@@ -35,6 +34,6 @@ namespace bkengine
     };
 }
 
-#include "templates/AnimationBuilder_templates.h"
+#include "templates/AnimationBuilder.tpp"
 
 #endif  // BKENGINE_ANIMATION_BUILDER_H

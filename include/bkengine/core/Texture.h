@@ -9,16 +9,18 @@
 
 namespace bkengine
 {
+    template <typename T>
+    class TextureBuilder;
+    class TextTextureBuilder;
+    class ImageTextureBuilder;
+
     class Texture : public NameableObject
     {
-        friend class TextTextureBuilder;
-        friend class ImageTextureBuilder;
-        friend class AnimationUtils;
+        friend class TextureBuilder<TextTextureBuilder>;
+        friend class TextureBuilder<ImageTextureBuilder>;
 
     public:
         virtual ~Texture() = default;
-
-        virtual void onRender() = 0;
 
     protected:
         explicit Texture() = default;

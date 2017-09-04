@@ -18,11 +18,6 @@ bool Scene::onEvent(const Event &event)
     return false;
 }
 
-std::string Scene::getName() const
-{
-    return name;
-}
-
 void Scene::_onRender()
 {
     bool suppress = onRender();
@@ -30,7 +25,7 @@ void Scene::_onRender()
         return;
     }
 
-    for (auto &element : elements) {
+    for (auto &element : getAllChildren()) {
         element->onRender();
     }
 }
@@ -42,7 +37,7 @@ void Scene::_onLoop()
         return;
     }
 
-    for (auto &element : elements) {
+    for (auto &element : getAllChildren()) {
         element->onLoop();
     }
 }
@@ -54,7 +49,7 @@ void Scene::_onEvent(const Event &event)
         return;
     }
 
-    for (auto &element : elements) {
+    for (auto &element : getAllChildren()) {
         element->onEvent(event);
     }
 }

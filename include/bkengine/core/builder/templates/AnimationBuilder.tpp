@@ -16,7 +16,7 @@ namespace bkengine
         animation->framesPerTexture = framesPerTexture;
 
         if (parentElement != nullptr) {
-            ElementUtils::addAnimation(parentElement, animation);
+            parentElement->addChild(animation);
         }
         return animation;
     }

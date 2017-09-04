@@ -116,10 +116,10 @@ void Game::_onRender()
         return;
     }
 
-    if (currentScene) {
+    if (getActivatedObject()) {
         auto graphicsInterface = interfaceContainer.getGraphicsInterface();
         graphicsInterface->clear();
-        currentScene->_onRender();
+        getActivatedObject()->_onRender();
         graphicsInterface->draw();
     }
 }
@@ -131,8 +131,8 @@ void Game::_onLoop()
         return;
     }
 
-    if (currentScene) {
-        currentScene->_onLoop();
+    if (getActivatedObject()) {
+        getActivatedObject()->_onLoop();
     }
 }
 
@@ -143,7 +143,7 @@ void Game::_onEvent(const Event &event)
         return;
     }
 
-    if (currentScene) {
-        currentScene->_onEvent(event);
+    if (getActivatedObject()) {
+        getActivatedObject()->_onEvent(event);
     }
 }
