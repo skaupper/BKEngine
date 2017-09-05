@@ -3,7 +3,7 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     std::shared_ptr<ChildType> ActivatorObject<ChildType, ParentType>::activate(const std::string &name)
     {
-        return activateByIndex(this->getChildIndex(name));
+        return activateByIndex(this->getChildIndexByName(name));
     }
 
     template <typename ChildType, typename ParentType>

@@ -123,10 +123,12 @@ TEST_CASE("INISettingsInterface")
             REQUIRE(settings->get("section.key1") == "bkengine");
             REQUIRE(settings->get("section2.testKey.nestedkey") == "testvalue");
         }
+        /*
+        // TODO: reproduce a failing file opening?
         SECTION("save to already opened file")
         {
-            // TODO: reproduce a failing file opening?
         }
+        */
         std::remove(fileName.c_str());
     }
 

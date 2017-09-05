@@ -10,8 +10,10 @@
 
 namespace bkengine
 {
-    class LazyTextureContainer : public ActivatableObject
+    class LazyTextureContainer : public ActivatableObject, public NameableObject
     {
+        friend class Texture;
+
     public:
         explicit LazyTextureContainer(std::unique_ptr<Texture> texture);
 

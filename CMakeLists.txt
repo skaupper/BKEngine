@@ -107,18 +107,20 @@ SET(HEADERS include/bkengine/core/builder/templates/AnimationBuilder.tpp
             include/bkengine/utils/Timer.h
         )
 
-SET (TEST_SOURCES tests/main.cpp
-                  tests/INISettingsInterfaceTest.cpp
-                  tests/GameBuilderTest.cpp
-                  tests/GameUtilsTest.cpp
-                  tests/SceneBuilderTest.cpp
-                  tests/SceneUtilsTest.cpp
-                  tests/ElementBuilderTest.cpp
-                  tests/ElementUtilsTest.cpp
-                  tests/AnimationBuilderTest.cpp
-                  tests/AnimationUtilsTest.cpp
-                  tests/ImageTextureBuilderTest.cpp
-                  tests/TextTextureBuilderTest.cpp)
+SET (TEST_SOURCES test/main.cpp
+                  test/unit/INISettingsInterfaceTest.cpp
+                  test/unit/NameableObjectTest.cpp
+                  test/unit/HierarchicalObjectTest.cpp
+                  test/unit/ActivatorObjectTest.cpp
+
+#                  test/unit/GameBuilderTest.cpp
+#                  test/unit/GameUtilsTest.cpp
+#                  test/unit/SceneBuilderTest.cpp
+#                  test/unit/ElementBuilderTest.cpp
+#                  test/unit/AnimationBuilderTest.cpp
+#                  test/unit/ImageTextureBuilderTest.cpp
+#                  test/unit/TextTextureBuilderTest.cpp
+)
 
 PREPEND(ABSOLUTE_SOURCES ${PROJECT_SOURCE_DIR} ${SOURCES})
 PREPEND(ABSOLUTE_HEADERS ${PROJECT_SOURCE_DIR} ${HEADERS})
@@ -134,8 +136,9 @@ TARGET_COMPILE_OPTIONS (bkengine PRIVATE -pedantic -Wall -Wextra -Werror -Wno-un
 ENABLE_TESTING ()
 
 ADD_EXECUTABLE (bkengine_tests ${TEST_SOURCES})
+TARGET_INCLUDE_DIRECTORIES(bkengine_tests PRIVATE test/ test/include/)
 TARGET_LINK_LIBRARIES (bkengine_tests bkengine)
-ADD_CUSTOM_TARGET (check "./bkengine_tests" "--warn" "NoAssertions" "--durations" "yes" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
+ADD_CUSTOM_TARGET (check "./bkengine_tests" "--warn" "NoAssertions" WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
 ParseAndAddCatchTests (bkengine_tests)
 

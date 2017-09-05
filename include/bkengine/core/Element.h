@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "core/ActivatorObject.h"
 #include "core/Animation.h"
 #include "utils/Event.h"
 #include "utils/Geometry.h"

@@ -3,7 +3,12 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     void HierarchicalObject<ChildType, ParentType>::addChild(const std::shared_ptr<ChildType> &child)
     {
+        if(hasChild(child->getName())) {
+            throw NameAlreadyExistsException("A child object with the name '" + child->getName() + "' already exists.");    
+        }
+
         if (!onAddInternal(child.get()) && !onAdd(child)) {
+            nameSet.insert(child->getName());
             children.push_back(child);
         }
     }
@@ -11,14 +16,16 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     std::shared_ptr<ChildType> HierarchicalObject<ChildType, ParentType>::removeChildByName(const std::string &name)
     {
-        auto it = std::find(children.begin(), children.end(), getNamePredicate(name));
+        auto it = std::find_if(children.begin(), children.end(), getNamePredicate(name));
         if (it == children.end()) {
             throw NameNotFoundException("No child object '" + name + "' exists.");
         }
 
         if (!onRemoveInternal(it->get()) && !onRemove(*it)) {
+            auto removedChild = *it;
+            nameSet.erase(name);
             children.erase(it);
-            return *it;
+            return removedChild;
         }
 
         return nullptr;
@@ -27,13 +34,19 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     bool HierarchicalObject<ChildType, ParentType>::hasChild(const std::string &name) const
     {
-        return std::find(children.cbegin(), children.cend(), getNamePredicate(name)) != children.cend();
+        return nameSet.count(name) != 0;
+    }
+
+    template <typename ChildType, typename ParentType>
+    bool HierarchicalObject<ChildType, ParentType>::hasChildIndex(uint32_t index) const
+    {
+        return index < children.size();
     }
 
     template <typename ChildType, typename ParentType>
     std::shared_ptr<ChildType> HierarchicalObject<ChildType, ParentType>::getChildByIndex(uint32_t index) const
     {
-        if (index < 0 || index >= children.size()) {
+        if (index >= children.size()) {
             throw IndexOutOfRangeException("No element found at index " + std::to_string(index));
         }
 
@@ -41,9 +54,9 @@ namespace bkengine
     }
 
     template <typename ChildType, typename ParentType>
-    uint32_t HierarchicalObject<ChildType, ParentType>::getChildIndex(const std::string &name)
+    uint32_t HierarchicalObject<ChildType, ParentType>::getChildIndexByName(const std::string &name)
     {
-        auto it = std::find(children.cbegin(), children.cend(), getNamePredicate(name));
+        auto it = std::find_if(children.cbegin(), children.cend(), getNamePredicate(name));
         if (it == children.cend()) {
             throw NameNotFoundException("No child object '" + name + "' exists.");
         }
@@ -54,7 +67,7 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     std::shared_ptr<ChildType> HierarchicalObject<ChildType, ParentType>::getChildByName(const std::string &name) const
     {
-        auto it = std::find(children.cbegin(), children.cend(), getNamePredicate(name));
+        auto it = std::find_if(children.cbegin(), children.cend(), getNamePredicate(name));
         if (it == children.cend()) {
             throw NameNotFoundException("No child object '" + name + "' exists.");
         }
@@ -65,7 +78,7 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     std::string HierarchicalObject<ChildType, ParentType>::getChildNameByIndex(uint32_t index) const
     {
-        if (index < 0 || index >= children.size()) {
+        if (index >= children.size()) {
             throw IndexOutOfRangeException("No element found at index " + std::to_string(index));
         }
 
@@ -75,15 +88,17 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     std::shared_ptr<ChildType> HierarchicalObject<ChildType, ParentType>::removeChildByIndex(uint32_t index)
     {
-        if (index < 0 || index >= children.size()) {
+        if (index >= children.size()) {
             throw IndexOutOfRangeException("No element found at index " + std::to_string(index));
         }
 
-        auto it = std::advance(children.begin(), index);
+        auto it = children.begin();
+        std::advance(it, index);
 
         if (!onRemoveInternal(it->get()) && !onRemove(*it)) {
+            auto removedChild = *it;
             children.erase(it);
-            return *it;
+            return removedChild;
         }
 
         return nullptr;
@@ -110,16 +125,22 @@ namespace bkengine
     void HierarchicalObject<ChildType, ParentType>::addAllChildren(
         const std::vector<std::shared_ptr<ChildType>> &newChildren)
     {
-        std::for_each(newChildren.cbegin(), newChildren.cend(), addChild);
+        for(auto &child : newChildren) {
+            addChild(child);
+        }
     }
 
     template <typename ChildType, typename ParentType>
     std::vector<std::shared_ptr<ChildType>> HierarchicalObject<ChildType, ParentType>::removeAllChildren()
     {
+        if(children.size() == 0) {
+            return {};
+        }
+
         std::vector<std::shared_ptr<ChildType>> removedChildren;
 
-        for (auto i = children.size() - 1; i >= 0; --i) {
-            auto removedChild = removeChildByIndex(i);
+        for (auto i = children.size(); i != 0; --i) {
+            auto removedChild = removeChildByIndex(i - 1);
             if (removedChild) {
                 removedChildren.push_back(removedChild);
             }

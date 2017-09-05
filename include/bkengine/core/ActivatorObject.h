@@ -13,7 +13,7 @@ namespace bkengine
     class ActivatorObject : public HierarchicalObject<ChildType, ParentType>
     {
         static_assert(std::is_base_of<ActivatableObject, ChildType>::value,
-                      "Child type is no sub class of ActivatableObject!");
+                      "Child type is not a sub class of ActivatableObject!");
 
     public:
         std::shared_ptr<ChildType> activate(const std::string &name);

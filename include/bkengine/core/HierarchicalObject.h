@@ -5,10 +5,12 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <set>
 
 #include "core/NameableObject.h"
 #include "exceptions/IndexOutOfRangeException.h"
 #include "exceptions/NameNotFoundException.h"
+#include "exceptions/NameAlreadyExistsException.h"
 
 
 namespace bkengine
@@ -16,8 +18,11 @@ namespace bkengine
     template <typename ChildType, typename ParentType>
     class HierarchicalObject : public NameableObject
     {
+        static_assert(std::is_base_of<NameableObject, ChildType>::value, 
+                      "Child type is not a sub class of NameableObject!");
+
     private:
-        auto getNamePredicate(const std::string &name)
+        constexpr auto getNamePredicate(const std::string &name) const
         {
             return [name](const std::shared_ptr<ChildType> &child) { return child->getName() == name; };
         }
@@ -26,11 +31,12 @@ namespace bkengine
         void addChild(const std::shared_ptr<ChildType> &child);
 
         bool hasChild(const std::string &name) const;
+        bool hasChildIndex(uint32_t) const;
 
         std::shared_ptr<ChildType> removeChildByName(const std::string &name);
         std::shared_ptr<ChildType> removeChildByIndex(uint32_t index);
 
-        uint32_t getChildIndex(const std::string &name);
+        uint32_t getChildIndexByName(const std::string &name);
         std::string getChildNameByIndex(uint32_t index) const;
 
         std::shared_ptr<ChildType> getChildByName(const std::string &name) const;
@@ -55,6 +61,8 @@ namespace bkengine
 
     private:
         std::weak_ptr<ParentType> parent;
+        
+        std::set<std::string> nameSet;
         std::vector<std::shared_ptr<ChildType>> children;
     };
 }
